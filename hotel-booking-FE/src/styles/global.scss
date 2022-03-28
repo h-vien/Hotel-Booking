@@ -1,0 +1,109 @@
+@import "~antd/dist/antd.css";
+@import "./colors.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.hero-title {
+  color: $--color-secondary;
+}
+.ant-layout-header {
+  background: none;
+}
+
+.ant-btn.ant-btn-primary {
+  color: $--color-white;
+  background: $--color-secondary;
+  border-color: $--color-secondary;
+  border-radius: 20px;
+}
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  border-color: color($--color-secondary, 400) !important;
+  background-color: color($--color-secondary, 400) !important;
+}
+.ant-layout,
+.ant-layout-footer {
+  background: #fbfbfb !important;
+}
+
+.site-layout-background {
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 45%;
+  background-position: top;
+  background-image: url("https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+.ant-layout-header {
+  box-shadow: 4px 0px 8px 0px #1a254214;
+  background-color: $--color-white !important;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.ant-descriptions-header {
+  margin-bottom: 5px;
+}
+.ant-descriptions-title {
+  font-size: 30px;
+}
+
+.ant-descriptions-item-content {
+  font-size: 20px;
+}
+
+.ant-card-body,
+.ant-card-cover {
+  padding: 10px;
+}
+.ant-card-cover img {
+  border-radius: 8px;
+}
+
+.ant-card-meta {
+  padding: 5px 0;
+  display: flex;
+  .ant-card-meta-avatar {
+    margin-top: -2px;
+  }
+}
+
+.ant-ribbon,
+.ant-ribbon.ant-ribbon-placement-start {
+  border-radius: 20px;
+  left: 18px;
+  top: 18px;
+  background: $--color-white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.ant-ribbon-text {
+  color: $--color-primary;
+  font-weight: 500;
+}
+.ant-ribbon-corner {
+  display: none;
+}
+.event-time {
+  color: $--color-secondary;
+}
+
+.btnSearch {
+  border-radius: 4px !important;
+  height: 100%;
+  padding: 10px 20px;
+  margin-left: 4px;
+}
+
+.ant-select-selector {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 100% !important;
+  width: 160px !important;
+}
+
+.ant-picker {
+  width: 650px !important;
+}
