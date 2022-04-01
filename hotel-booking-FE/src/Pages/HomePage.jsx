@@ -2,7 +2,6 @@ import { Col, Row } from "antd";
 import React from "react";
 import CardItem from "../components/CardItem/CardItem";
 import Hero from "../components/Hero/Hero";
-import HotelSlider from "../components/Slider/Slider";
 import HomeLayout from "../core/layout/HomeLayout";
 
 const HomePage = () => {

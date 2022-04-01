@@ -7,12 +7,7 @@ const HomeLayout = ({ children }) => {
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <Navbar />
       </Header>
-      <Content className="site-layout" style={{ marginTop: 64 }}>
-        {children}
-      </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Hotel Booking Website by @VMH group
-      </Footer>
+      <Content className="site-layout pb-24 mt-16">{children}</Content>
     </Layout>
   );
 };

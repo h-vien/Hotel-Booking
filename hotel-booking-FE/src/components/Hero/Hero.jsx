@@ -2,6 +2,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Input, DatePicker, Button, Select } from "antd";
 import Search from "antd/lib/transfer/search";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const { Option, OptGroup } = Select;
 
 const Hero = () => {
@@ -58,9 +59,11 @@ const Hero = () => {
             <Option value="2">2 giường</Option>
           </OptGroup>
         </Select>
-        <Button type="primary" className="btnSearch" onClick={handleSearch}>
-          Search
-        </Button>
+        <Link to="/search/?q=hoian">
+          <Button type="primary" className="btnSearch" onClick={handleSearch}>
+            Search
+          </Button>
+        </Link>
       </div>
     </>
   );
