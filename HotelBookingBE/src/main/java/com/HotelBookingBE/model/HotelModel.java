@@ -1,7 +1,8 @@
 package com.HotelBookingBE.model;
 
-public class HotelManagerModel extends AbstractModel {
+public class HotelModel extends AbstractModel {
 	private long user_id;
+	private long province_id;
 	private String hotelName;
 	private String hotelDescription;
 	private String hotelAddress;
@@ -36,6 +37,10 @@ public class HotelManagerModel extends AbstractModel {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
+	public long getProvince_id() {
+		return province_id;
+	}
+	public void setProvince_id(long province_id) {
+		this.province_id = province_id;
+	}
 }

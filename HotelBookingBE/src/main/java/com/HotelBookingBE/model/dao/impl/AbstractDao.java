@@ -1,4 +1,4 @@
-package com.HotelBookingBE.dao.impl;
+package com.HotelBookingBE.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.HotelBookingBE.dao.genericDao;
+import com.HotelBookingBE.model.dao.genericDao;
 import com.HotelBookingBE.mapper.IRowMapper;
 
 public class AbstractDao<T> implements genericDao<T> {
@@ -87,6 +87,45 @@ public class AbstractDao<T> implements genericDao<T> {
 				e.printStackTrace();
 			}
 		}
+	}
+	@Override
+	public void insert(String sql, Object... Parameters) {
+		Connection connect = null;
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		try {
+			connect = getConnection();
+			connect.setAutoCommit(false);
+			statement= connect.prepareStatement(sql,statement.RETURN_GENERATED_KEYS);
+			setParameter(statement, Parameters);
+			statement.executeUpdate();
+			rs = statement.getGeneratedKeys();
+			rs.next();
+			connect.commit();
+		} catch (SQLException e) {
+			System.err.print(e.toString());
+			if(connect!= null)
+			{
+				try {
+					connect.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (connect != null)
+				connect.close();
+				if (statement != null)
+					statement.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 
 }

@@ -8,6 +8,7 @@ public class BookingModel extends AbstractModel{
 	private Long hotel_id;
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
+	private Timestamp deadlineDate;
 	public Long getRoom_id() {
 		return room_id;
 	}
@@ -37,6 +38,12 @@ public class BookingModel extends AbstractModel{
 	}
 	public void setCheckoutDate(Timestamp checkoutDate) {
 		this.checkoutDate = checkoutDate;
+	}
+	public Timestamp getDeadlineDate() {
+		return deadlineDate;
+	}
+	public void setDeadlineDate(Timestamp deadlineDate) {
+		this.deadlineDate = deadlineDate;
 	}
 	
 }

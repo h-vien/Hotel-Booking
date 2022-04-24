@@ -4,7 +4,7 @@ public class UserModel extends AbstractModel {
 	private String username;
 	private String password;
 	private String fisrtName;
-	private String LastName;
+	private String lastName;
 	private boolean gender;
 	private String phoneNumber;
 	private String email;
@@ -14,12 +14,6 @@ public class UserModel extends AbstractModel {
 	}
 	public void setFisrtName(String fisrtName) {
 		this.fisrtName = fisrtName;
-	}
-	public String getLastName() {
-		return LastName;
-	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
 	}
 	public String getUsername() {
 		return username;
@@ -56,6 +50,12 @@ public class UserModel extends AbstractModel {
 	}
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

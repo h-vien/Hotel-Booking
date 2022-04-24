@@ -4,17 +4,11 @@
   <listener>
     <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
   </listener>
+  <session-config>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>HomeController</display-name>
-    <servlet-name>HomeController</servlet-name>
-    <servlet-class>com.HotelBookingBE.controller.web.HomeController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HomeController</servlet-name>
-    <url-pattern>/HomeController</url-pattern>
-  </servlet-mapping>
+  
 </web-app>

@@ -1,4 +1,4 @@
-package com.HotelBookingBE.service;
+package com.HotelBookingBE.model.service;
 
 import java.util.List;
 
@@ -6,4 +6,5 @@ import com.HotelBookingBE.model.UserModel;
 
 public interface IUserService {
 	List<UserModel> findAllUser();
+	void saveUser(UserModel u);
 }
