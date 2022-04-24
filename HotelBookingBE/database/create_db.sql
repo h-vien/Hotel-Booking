@@ -16,7 +16,7 @@ CREATE TABLE user(
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
-CREATE TABLE hotelmanager(
+CREATE TABLE hotel(
 	id bigint NOT NULL PRIMARY KEY auto_increment,
     user_id bigint NOT NULL, 
     province_id bigint not null,
@@ -24,7 +24,6 @@ CREATE TABLE hotelmanager(
     hotel_desc TEXT NULL,
     hotel_address VARCHAR(200) NOT NULL,
     image TEXT NULL,
-    roleid bigint NOT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
@@ -53,6 +52,7 @@ CREATE TABLE booking(
     hotel_id bigint NOT NULL,
     checkin_date TIMESTAMP NOT NULL,
     checkout_date TIMESTAMP NOT NULL,
+	deadline_date TIMESTAMP NOT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
@@ -72,18 +72,17 @@ CREATE TABLE province (
 ALTER TABLE user ADD CONSTRAINT fk_user_role FOREIGN KEY (roleid) REFERENCES role(id);
 
 
-ALTER TABLE hotelmanager ADD CONSTRAINT fk_hotelmanager_role FOREIGN KEY (roleid) REFERENCES role(id);
-ALTER TABLE hotelmanager ADD CONSTRAINT fk_hotelmanager_user FOREIGN KEY (user_id) REFERENCES user(id);
-ALTER TABLE hotelmanager ADD CONSTRAINT fk_hotelmanager_province FOREIGN KEY (province_id) REFERENCES province(id);
+ALTER TABLE hotel ADD CONSTRAINT fk_hotel_user FOREIGN KEY (user_id) REFERENCES user(id);
+ALTER TABLE hotel ADD CONSTRAINT fk_hotel_province FOREIGN KEY (province_id) REFERENCES province(id);
 
 
-ALTER TABLE hotelroom ADD CONSTRAINT fk_hotelroom_hotelmanager FOREIGN KEY (hotel_id) REFERENCES hotelmanager(id);
+ALTER TABLE hotelroom ADD CONSTRAINT fk_hotelroom_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id);
 ALTER TABLE hotelroom ADD CONSTRAINT fk_hotelroom_typeroom FOREIGN KEY (type_id) REFERENCES typeroom(id);
 
 
 ALTER TABLE booking ADD CONSTRAINT fk_booking_hotelroom FOREIGN KEY (room_id) REFERENCES hotelroom(id);
 ALTER TABLE booking ADD CONSTRAINT fk_booking_user FOREIGN KEY (user_id) REFERENCES user(id);
-ALTER TABLE booking ADD CONSTRAINT fk_booking_hotelmanager FOREIGN KEY (hotel_id) REFERENCES hotelmanager(id);
+ALTER TABLE booking ADD CONSTRAINT fk_booking_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id);
 
 
 
