@@ -1,10 +1,26 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Row, Col, Form, Input, Button } from "antd";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { register } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
 
 const Register = () => {
-  const onFinish = (values) => {
+  const dispatch = useDispatch();
+
+  const onFinish = async (values) => {
     console.log("Success:", values);
+
+    const { fisrtName, lastName, email, password } = values;
+    const data = { fisrtName, lastName, email, password };
+    console.log(data);
+    try {
+      const res = await dispatch(register(data));
+      unwrapResult(res);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -36,7 +52,7 @@ const Register = () => {
               <div className={styles.formInputName}>
                 <Form.Item
                   label="First Name"
-                  name="firstName"
+                  name="fisrtName"
                   rules={[
                     {
                       required: true,

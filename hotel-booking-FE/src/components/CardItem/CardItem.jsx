@@ -1,6 +1,5 @@
 import { Card, Tag, Tooltip } from "antd";
-import React, { createElement } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 const CardItem = () => {
   return (
     <div className="my-2">
