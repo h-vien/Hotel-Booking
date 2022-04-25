@@ -3,18 +3,13 @@ package com.HotelBookingBE.model;
 public class UserModel extends AbstractModel {
 	private String username;
 	private String password;
-	private String fisrtName;
+	private String firstName;
 	private String lastName;
 	private boolean gender;
 	private String phoneNumber;
 	private String email;
 	private Long roleId;
-	public String getFisrtName() {
-		return fisrtName;
-	}
-	public void setFisrtName(String fisrtName) {
-		this.fisrtName = fisrtName;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -56,6 +51,12 @@ public class UserModel extends AbstractModel {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
 }
