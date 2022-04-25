@@ -1,8 +1,8 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,16 +24,26 @@ public class LoginApi extends HttpServlet {
 		userService = new UserService();
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		UserModel user = userService.findOne(email,password);
+		if(user == null) {
+			mapper.writeValue(response.getOutputStream(), null);
+		}else {
+			mapper.writeValue(response.getOutputStream(), user);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
+//		String s = "{\"password\":\"1234\",\"fisrtName\":\"nhat\",\"lastName\":\"minh\",\"email\":\"dangvannhatminh93@gmail.com\"}";
 		UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
 		userService.saveUser(user);
-		System.out.print(user.getFisrtName());
 	}
 
 }

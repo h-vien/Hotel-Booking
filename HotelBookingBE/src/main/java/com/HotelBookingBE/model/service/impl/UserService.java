@@ -26,5 +26,9 @@ public class UserService implements IUserService {
 		u.setRoleId(1L);
 		userDao.save(u);
 	}
+	@Override
+	public UserModel findOne(String emailUser, String pass) {
+		return userDao.findOne(emailUser, pass);
+	}
 	
 }

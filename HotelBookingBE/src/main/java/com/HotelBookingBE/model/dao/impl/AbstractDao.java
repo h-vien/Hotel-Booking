@@ -45,7 +45,7 @@ public class AbstractDao<T> implements genericDao<T> {
 			{
 				results.add(rowMapper.MappingRow(rs));
 			}
-			return results;
+			return results;		
 		} catch (SQLException e)
 		{
 			return null;

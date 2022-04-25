@@ -7,4 +7,5 @@ import com.HotelBookingBE.model.UserModel;
 public interface IUserService {
 	List<UserModel> findAllUser();
 	void saveUser(UserModel u);
+	UserModel findOne(String emailUser, String pass);
 }
