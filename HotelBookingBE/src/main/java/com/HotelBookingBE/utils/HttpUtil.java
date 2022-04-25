@@ -8,26 +8,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class HttpUtil {
-//	private String value;
-//	public HttpUtil(String value) {
-//		this.value = value;
-//	}
-//	public <T> T toModel(Class<T> tClass)
-//	{
-//		try {
-//			return new ObjectMapper().readValue(value, tClass);
-//		} catch (JsonParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (JsonMappingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
 	public static String getjson(BufferedReader reader)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -43,6 +23,11 @@ public class HttpUtil {
 		}
 		
 		return sb.toString();
+	}
+	public static String getPathURL(String s)
+	{
+		String[] sarr = s.split("/");
+		return sarr[sarr.length-1];
 	}
 
 }

@@ -20,10 +20,10 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		insert(sql, u.getPassword(),u.getFisrtName(),u.getLastName(),u.getEmail(),u.getRoleId(),u.getCreatedDate());
 	}
 	@Override
-	public UserModel findOne(String emailUser, String pass) {
+	public UserModel findOne(UserModel user) {
 		String sql = "SELECT * FROM user WHERE email = ? and password = ?";
 		List<UserModel> data = new ArrayList<>();
-		data = query(sql,new UserMapper(),emailUser,pass);
+		data = query(sql,new UserMapper(), user.getEmail(),user.getPassword());
 		if(data.isEmpty())
 		{
 			return null;

@@ -7,16 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.HotelBookingBE.model.UserModel;
+import com.HotelBookingBE.model.service.IUserService;
+import com.HotelBookingBE.model.service.impl.UserService;
+import com.HotelBookingBE.utils.HttpUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet(urlPatterns = {"/User"})
+
+@WebServlet(urlPatterns = {"/User","/User/login","/User/register"})
 public class UserApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public UserApi() {
-        
-    }
-
+	private IUserService userService;
+	public UserApi()
+	{
+		userService = new UserService();
+	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -24,6 +30,28 @@ public class UserApi extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
+		System.out.print(HttpUtil.getPathURL(request.getRequestURI()));
+		if(HttpUtil.getPathURL(request.getRequestURI()).equals("login"))
+		{
+			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
+			user = userService.findOne(user);
+			if(user == null)
+			{
+				mapper.writeValue(response.getOutputStream(), null);
+			} else 
+			{
+				mapper.writeValue(response.getOutputStream(), user);
+			}
+		} 
+		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
+		{
+			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
+			userService.saveUser(user);			
+		}
+		
 		
 	}
 

@@ -27,8 +27,8 @@ public class UserService implements IUserService {
 		userDao.save(u);
 	}
 	@Override
-	public UserModel findOne(String emailUser, String pass) {
-		return userDao.findOne(emailUser, pass);
+	public UserModel findOne(UserModel user) {
+		return userDao.findOne(user);
 	}
 	
 }
