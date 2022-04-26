@@ -17,12 +17,17 @@ img {
 .ant-layout-header {
   background: none;
 }
+.ant-btn,
+.ant-btn:hover,
+.ant-btn:active {
+  border-radius: 8px;
+  color: $--color-secondary;
+  border-color: $--color-secondary;
+}
 
 .ant-btn.ant-btn-primary {
   color: $--color-white;
   background: $--color-secondary;
-  border-color: $--color-secondary;
-  border-radius: 8px;
 }
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {

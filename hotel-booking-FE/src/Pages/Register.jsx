@@ -1,13 +1,13 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Row, Col, Form, Input, Button } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { register } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const onFinish = async (values) => {
     console.log("Success:", values);
 
@@ -18,6 +18,7 @@ const Register = () => {
       const res = await dispatch(register(data));
       unwrapResult(res);
       console.log(res);
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -45,18 +46,18 @@ const Register = () => {
           >
             <Form.Item>
               <div className="text-center flex items-center flex-col justify-center">
-                <h1 className={styles.formHeading}>Create an account</h1>
+                <h1 className={styles.formHeading}>Tạo tài khoản </h1>
               </div>
             </Form.Item>
             <Form.Item>
               <div className={styles.formInputName}>
                 <Form.Item
-                  label="First Name"
+                  label="Họ"
                   name="fisrtName"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your first name!",
+                      message: " Trường này không được trống",
                     },
                   ]}
                   className="mr-4"
@@ -64,12 +65,12 @@ const Register = () => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="Last name"
+                  label="Tên"
                   name="lastName"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your last name!",
+                      message: "Trường này không được trống!",
                     },
                   ]}
                 >
@@ -84,31 +85,31 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: "Vui lòng nhập email!",
                 },
               ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
-              label="Password"
+              label="Mật khẩu"
               name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Mật khẩu không được trống!",
                 },
               ]}
             >
               <Input.Password />
             </Form.Item>
             <Form.Item
-              label="Confirm Password"
+              label="Xác nhận mật khẩu"
               name="cfrmPassword"
               rules={[
                 {
                   required: true,
-                  message: "Please confirm your password!",
+                  message: "Bạn phải xác nhận mật khẩu",
                 },
               ]}
             >
@@ -118,13 +119,13 @@ const Register = () => {
             <Form.Item>
               <div className="flex justify-center">
                 <Button type="primary" htmlType="submit">
-                  Sign up
+                  Đăng kí
                 </Button>
               </div>
             </Form.Item>
             <div>
-              <span>You do have an account.</span>
-              <Link to="/login">Login</Link>
+              <span>Bạn đã có tài khoản?</span>
+              <Link to="/login">Đăng nhập</Link>
             </div>
           </Form>
         </div>
