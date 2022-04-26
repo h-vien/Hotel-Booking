@@ -1,10 +1,33 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Col, Row } from "antd";
 import { Form, Input, Button, Checkbox } from "antd";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import LocalStorage from "../constant/localStorage";
+import { rules } from "../constant/rules";
+import { login } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
+import { isEmail } from "../utils/helper";
 const Login = () => {
-  const onFinish = (values) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onFinish = async (values) => {
     console.log("Success:", values);
+    const { email, password, remember } = values;
+    try {
+      const res = await dispatch(login({ email, password }));
+      unwrapResult(res);
+      console.log(res.payload.data);
+      if (remember) {
+        localStorage.setItem(
+          LocalStorage.user,
+          JSON.stringify(res.payload.data)
+        );
+      }
+      history.push("/");
+    } catch (error) {}
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -28,34 +51,19 @@ const Login = () => {
               >
                 <Form.Item>
                   <div className="text-center flex items-center flex-col justify-center">
-                    <h1 className={styles.formHeading}>Welcome back</h1>
-                    <span>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </span>
+                    <h1 className={styles.formHeading}>Chào mừng trở lại</h1>
+                    <span>Trải nghiệm của bạn là niềm vui của chúng tôi</span>
                   </div>
                 </Form.Item>
-                <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your username!",
-                    },
-                  ]}
-                >
+
+                <Form.Item label="Email" name="email" rules={rules.email}>
                   <Input />
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
+                  label="Mật khẩu"
                   name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your password!",
-                    },
-                  ]}
+                  rules={rules.password}
                 >
                   <Input.Password />
                 </Form.Item>
@@ -63,7 +71,7 @@ const Login = () => {
                 <Form.Item className="mt-6">
                   <div className="flex justify-between items-center">
                     <Form.Item name="remember" valuePropName="checked">
-                      <Checkbox>Remember me</Checkbox>
+                      <Checkbox>Lưu mật khẩu</Checkbox>
                     </Form.Item>
                     <Form.Item>
                       <div className="flex justify-end">
@@ -75,8 +83,8 @@ const Login = () => {
                   </div>
                 </Form.Item>
                 <div>
-                  <span>You do not have an account yet?.</span>
-                  <Link to="/register">Sign up</Link>
+                  <span>Bạn chưa có tài khoản?.</span>
+                  <Link to="/register">Đăng kí</Link>
                 </div>
               </Form>
             </div>

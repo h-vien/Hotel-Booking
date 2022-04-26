@@ -8,7 +8,7 @@ const authApi = {
     return http.post("user/login", data);
   },
   logout() {
-    return http.post("logout");
+    return;
   },
 };
 

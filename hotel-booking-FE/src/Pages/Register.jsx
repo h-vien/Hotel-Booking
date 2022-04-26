@@ -1,23 +1,27 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Row, Col, Form, Input, Button } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { rules } from "../constant/rules";
 import { register } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const onFinish = async (values) => {
     console.log("Success:", values);
 
-    const { fisrtName, lastName, email, password } = values;
-    const data = { fisrtName, lastName, email, password };
+    const { firstName, lastName, email, password } = values;
+    const data = { firstName, lastName, email, password };
     console.log(data);
     try {
       const res = await dispatch(register(data));
       unwrapResult(res);
       console.log(res);
+      history.push("/login");
+      toast.success("Dang ki thanh cong");
     } catch (error) {
       console.log(error);
     }
@@ -45,71 +49,49 @@ const Register = () => {
           >
             <Form.Item>
               <div className="text-center flex items-center flex-col justify-center">
-                <h1 className={styles.formHeading}>Create an account</h1>
+                <h1 className={styles.formHeading}>Tạo tài khoản </h1>
               </div>
             </Form.Item>
             <Form.Item>
               <div className={styles.formInputName}>
                 <Form.Item
-                  label="First Name"
-                  name="fisrtName"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your first name!",
-                    },
-                  ]}
+                  label="Họ"
+                  name="firstName"
+                  rules={rules.name}
                   className="mr-4"
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  label="Last name"
-                  name="lastName"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your last name!",
-                    },
-                  ]}
-                >
+                <Form.Item label="Tên" name="lastName" rules={rules.name}>
                   <Input />
                 </Form.Item>
               </div>
             </Form.Item>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-            >
+            <Form.Item label="Email" name="email" rules={rules.email}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
+            <Form.Item label="Mật khẩu" name="password" rules={rules.password}>
               <Input.Password />
             </Form.Item>
             <Form.Item
-              label="Confirm Password"
-              name="cfrmPassword"
+              name="confirm"
+              label="Xác nhận mật khẩu"
+              dependencies={["password"]}
+              hasFeedback
               rules={[
                 {
                   required: true,
-                  message: "Please confirm your password!",
+                  message: "Vui lòng xác nhận mật khẩu!",
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("Mật khẩu không khớp"));
+                  },
+                }),
               ]}
             >
               <Input.Password />
@@ -118,13 +100,13 @@ const Register = () => {
             <Form.Item>
               <div className="flex justify-center">
                 <Button type="primary" htmlType="submit">
-                  Sign up
+                  Đăng kí
                 </Button>
               </div>
             </Form.Item>
             <div>
-              <span>You do have an account.</span>
-              <Link to="/login">Login</Link>
+              <span>Bạn đã có tài khoản?</span>
+              <Link to="/login">Đăng nhập</Link>
             </div>
           </Form>
         </div>
