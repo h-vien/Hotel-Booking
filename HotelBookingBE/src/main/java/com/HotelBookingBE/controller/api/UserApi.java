@@ -14,7 +14,7 @@ import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@WebServlet(urlPatterns = {"/User","/User/login","/User/register"})
+@WebServlet(urlPatterns = {"/user","/user/login","/user/register"})
 public class UserApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,7 +40,7 @@ public class UserApi extends HttpServlet {
 			user = userService.findOne(user);
 			if(user == null)
 			{
-				mapper.writeValue(response.getOutputStream(), null);
+				mapper.writeValue(response.getOutputStream(), "Khong tim thay user");
 			} else 
 			{
 				mapper.writeValue(response.getOutputStream(), user);
@@ -49,7 +49,8 @@ public class UserApi extends HttpServlet {
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-			userService.saveUser(user);			
+			userService.saveUser(user);		
+			mapper.writeValue(response.getOutputStream(), "Ban da dang ki thanh cong");
 		}
 		
 		

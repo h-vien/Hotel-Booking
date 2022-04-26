@@ -16,17 +16,15 @@ public class AbstractDao<T> implements genericDao<T> {
 
 	public Connection getConnection(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/hotelbookingdb";
 			String user ="root";
-			String password = "Quang123";
+			String password = "";
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;
 		} 
-//		catch (SQLException e) {
-//			return null;		// cach viet cu~
-//		}
+
 		
 	}
 	@Override
