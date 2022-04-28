@@ -8,4 +8,5 @@ public interface IUserService {
 	List<UserModel> findAllUser();
 	void saveUser(UserModel u);
 	UserModel findOne(UserModel user);
+
 }

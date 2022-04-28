@@ -1,8 +1,6 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,17 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.HotelBookingBE.model.HotelModel;
-import com.HotelBookingBE.model.ProvinceModel;
 import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.IUserService;
 import com.HotelBookingBE.model.service.impl.HotelService;
 import com.HotelBookingBE.model.service.impl.UserService;
 import com.HotelBookingBE.utils.HttpUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.sun.javafx.collections.MappingChange.Map;
 
 
 @WebServlet(urlPatterns = {"/user","/user/login","/user/register","/user/manager"})

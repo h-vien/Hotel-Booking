@@ -30,5 +30,6 @@ public class UserService implements IUserService {
 	public UserModel findOne(UserModel user) {
 		return userDao.findOne(user);
 	}
+
 	
 }
