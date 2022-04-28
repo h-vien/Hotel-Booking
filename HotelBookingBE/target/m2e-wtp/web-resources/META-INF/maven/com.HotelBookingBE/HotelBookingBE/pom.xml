@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.HotelBookingBE</groupId>
-  <artifactId>HotelBookingBE</artifactId>
-  <version>1.0</version>
-  <packaging>war</packaging>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.HotelBookingBE</groupId>
+	<artifactId>HotelBookingBE</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<properties>
 		<jsp.api.version>2.0</jsp.api.version>
 		<jstl.version>1.2</jstl.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
@@ -46,6 +48,7 @@
 			<version>${weld.servlet.version}</version>
 		</dependency>
 		<!-- json -->
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -72,6 +75,7 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
 		<!--end json -->
 	</dependencies>
 	<build>
