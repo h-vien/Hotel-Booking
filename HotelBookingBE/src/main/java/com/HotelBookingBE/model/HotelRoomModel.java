@@ -3,9 +3,18 @@ package com.HotelBookingBE.model;
 public class HotelRoomModel extends AbstractModel{
 	private Long hotel_id;
 	private Long type_id;
+	private String roomName;
 	private String description;
 	private int status;
 	private String image;
+	
+	
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
 	public Long getHotel_id() {
 		return hotel_id;
 	}

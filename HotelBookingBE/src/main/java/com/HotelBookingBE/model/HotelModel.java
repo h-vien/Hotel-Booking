@@ -7,6 +7,8 @@ public class HotelModel extends AbstractModel {
 	private String hotelDescription;
 	private String hotelAddress;
 	private String image;	
+	private String hotelEmail;
+	private String hotelPhone;
 	public long getUser_id() {
 		return user_id;
 	}
@@ -42,5 +44,17 @@ public class HotelModel extends AbstractModel {
 	}
 	public void setProvince_id(long province_id) {
 		this.province_id = province_id;
+	}
+	public String getHotelPhone() {
+		return hotelPhone;
+	}
+	public void setHotelPhone(String hotelPhone) {
+		this.hotelPhone = hotelPhone;
+	}
+	public String getHotelEmail() {
+		return hotelEmail;
+	}
+	public void setHotelEmail(String hotelEmail) {
+		this.hotelEmail = hotelEmail;
 	}
 }

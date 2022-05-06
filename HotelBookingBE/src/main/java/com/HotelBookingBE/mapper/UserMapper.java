@@ -20,6 +20,7 @@ public class UserMapper implements IRowMapper<UserModel>{
 			user.setPhoneNumber(rs.getString("phonenumber"));
 			user.setEmail(rs.getString("email"));
 			user.setRoleId(rs.getLong("roleid"));
+			user.setCreatedDate(rs.getTimestamp("createddate"));
 			return user;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

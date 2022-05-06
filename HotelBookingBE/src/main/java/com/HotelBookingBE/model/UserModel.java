@@ -1,5 +1,7 @@
 package com.HotelBookingBE.model;
 
+import java.sql.Timestamp;
+
 public class UserModel extends AbstractModel {
 	private String username;
 	private String password;
@@ -9,7 +11,21 @@ public class UserModel extends AbstractModel {
 	private String phoneNumber;
 	private String email;
 	private Long roleId;
+	private Timestamp birthday;
+	private String image;
 	
+	public Timestamp getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(Timestamp birthday) {
+		this.birthday = birthday;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getUsername() {
 		return username;
 	}

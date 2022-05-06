@@ -9,6 +9,8 @@ CREATE TABLE user(
     password VARCHAR(150) NOT NULL,
     firstname VARCHAR(150) NOT NULL,
     lastname VARCHAR(150) NOT NULL,
+    birthday timestamp null,
+    image TEXT NULL,
     gender bool NULL,
     phonenumber VARCHAR(100) NULL,
     email VARCHAR(200) NOT NULL,
@@ -23,6 +25,8 @@ CREATE TABLE hotel(
     hotel_name VARCHAR(200) NOT NULL,
     hotel_desc TEXT NULL,
     hotel_address VARCHAR(200) NOT NULL,
+    hotel_phone VARCHAR(50) NULL,
+    hotel_email varchar(150) NULL,
     image TEXT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
@@ -39,6 +43,7 @@ CREATE TABLE hotelroom(
 	id bigint NOT NULL PRIMARY KEY auto_increment,
     hotel_id bigint NOT NULL,
     type_id bigint NOT NULL,
+    name varchar(20) NOT NULL,
     description TEXT NULL,
     status int NOT NULL,
     image TEXT NULL,
@@ -50,9 +55,14 @@ CREATE TABLE booking(
     room_id bigint NOT NULL,
     user_id bigint NOT NULL,
     hotel_id bigint NOT NULL,
-    checkin_date TIMESTAMP NOT NULL,
-    checkout_date TIMESTAMP NOT NULL,
-	deadline_date TIMESTAMP NOT NULL,
+    fullName varchar(200) NULL,
+    phonenumber varchar(50) null,
+    cccd varchar(50) null,
+    email varchar(100) null,
+    birthday timestamp null,
+    checkin_date TIMESTAMP NULL,
+    checkout_date TIMESTAMP NULL,
+	deadline_date TIMESTAMP NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
@@ -60,7 +70,7 @@ CREATE TABLE receipt(
 	id bigint NOT NULL PRIMARY KEY auto_increment,
     booking_id  bigint NOT NULL,
     user_id bigint NOT NULL,
-    sumprice bigint NOT NULL,
+    totalprice bigint NOT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );

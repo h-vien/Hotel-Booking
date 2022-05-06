@@ -3,7 +3,7 @@ package com.HotelBookingBE.model;
 public class ReceiptModel extends AbstractModel {
 	private Long booking_id;
 	private Long user_id;
-	private Long sumprice;
+	private Long totalPrice;
 	public Long getBooking_id() {
 		return booking_id;
 	}
@@ -16,11 +16,12 @@ public class ReceiptModel extends AbstractModel {
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
-	public Long getSumprice() {
-		return sumprice;
+	public Long getTotalPrice() {
+		return totalPrice;
 	}
-	public void setSumprice(Long sumprice) {
-		this.sumprice = sumprice;
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
 	}
+
 	
 }
