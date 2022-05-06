@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
 
 export function useAuthenticated() {
-  return useSelector((state) => Boolean(state.auth.profile.id));
+  return useSelector((state) => Boolean(state.auth.profile.email));
 }

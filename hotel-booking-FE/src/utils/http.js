@@ -19,12 +19,12 @@ class Http {
         return result;
       },
       ({ response }) => {
-        // if (response.status === 401) {
-        //   toast.error(response.data.message, {
-        //     position: "top-center",
-        //     autoClose: 3000,
-        //   });
-        // }
+        if (response.status === 401) {
+          toast.error(response?.data, {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        }
         const result = { ...response };
         return Promise.reject(result);
       }

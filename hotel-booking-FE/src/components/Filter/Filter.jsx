@@ -10,6 +10,7 @@ import {
   Typography,
 } from "antd";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import RatingStars from "../RatingStars/RatingStars";
 import styles from "./style.module.scss";
 
@@ -83,7 +84,7 @@ export default function Filter() {
               type="primary"
               className="text-center my-4"
             >
-              Áp dụng
+              <Link to="/search/?q=hoian">Áp dụng</Link>
             </Button>
           </Col>
         </Row>

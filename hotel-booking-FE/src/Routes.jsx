@@ -1,13 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
+import AdminGuard from "./core/guards/AdminGuard";
 import AuthenticatedGuard from "./core/guards/AuthenticatedGuard";
+import UnAuth from "./core/guards/UnAuth";
 import NotFound from "./core/layout/NotFound";
+import Admin from "./Pages/Admin";
 import HomePage from "./Pages/HomePage";
 import HotelDetail from "./Pages/HotelDetail";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
+import RegisterMember from "./Pages/RegisterMember";
 import RoomDetail from "./Pages/RoomDetail";
 import SearchPage from "./Pages/SearchPage";
 
@@ -27,10 +32,33 @@ const Routes = () => {
         <RoomDetail />
       </Route>
       <Route path="/login">
-        <Login />
+        <UnAuth>
+          <Login heading="Chào mừng trở lại" role={1} />
+        </UnAuth>
       </Route>
+      <Route path="/admin/login">
+        <UnAuth>
+          <Login heading="Hello admin" role={2} />
+        </UnAuth>
+      </Route>
+      <Route path="/admin">
+        <AdminGuard>
+          <Admin />
+        </AdminGuard>
+      </Route>
+      <Route path="/register-member">
+        <RegisterMember />
+      </Route>
+      <Route path="/admin">
+        <AdminGuard>
+          <Admin />
+        </AdminGuard>
+      </Route>
+
       <Route path="/register">
-        <Register />
+        <UnAuth>
+          <Register />
+        </UnAuth>
       </Route>
       <Route path="/profile">
         <AuthenticatedGuard>

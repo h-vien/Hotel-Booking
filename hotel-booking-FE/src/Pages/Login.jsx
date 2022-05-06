@@ -1,35 +1,31 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Col, Row } from "antd";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import LocalStorage from "../constant/localStorage";
 import { rules } from "../constant/rules";
 import { login } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
-import { isEmail } from "../utils/helper";
-const Login = () => {
+const Login = ({ heading, role }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [error, setError] = useState("");
   const onFinish = async (values) => {
     console.log("Success:", values);
-    const { email, password, remember } = values;
     try {
-      const res = await dispatch(login({ email, password }));
+      const res = await dispatch(login(values));
       unwrapResult(res);
-      console.log(res.payload.data);
-      if (remember) {
-        localStorage.setItem(
-          LocalStorage.user,
-          JSON.stringify(res.payload.data)
-        );
-      }
-      history.push("/");
-    } catch (error) {}
-  };
 
+      if (res.payload.data.roleId === 0) history.push("/admin");
+      else history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        setError(error.data);
+      }
+    }
+  };
+  console.log(error);
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -37,7 +33,7 @@ const Login = () => {
     <>
       <div className="overflow-hidden">
         <Row>
-          <Col xl={12}>
+          <Col xl={role === 1 ? 12 : 24}>
             <div className={styles.formContainer}>
               <Form
                 className={styles.form}
@@ -51,8 +47,7 @@ const Login = () => {
               >
                 <Form.Item>
                   <div className="text-center flex items-center flex-col justify-center">
-                    <h1 className={styles.formHeading}>Chào mừng trở lại</h1>
-                    <span>Trải nghiệm của bạn là niềm vui của chúng tôi</span>
+                    <h1 className={styles.formHeading}>{heading}</h1>
                   </div>
                 </Form.Item>
 
@@ -64,37 +59,36 @@ const Login = () => {
                   label="Mật khẩu"
                   name="password"
                   rules={rules.password}
+                  validateStatus="error"
+                  help={error}
                 >
                   <Input.Password />
                 </Form.Item>
 
-                <Form.Item className="mt-6">
-                  <div className="flex justify-between items-center">
-                    <Form.Item name="remember" valuePropName="checked">
-                      <Checkbox>Lưu mật khẩu</Checkbox>
-                    </Form.Item>
-                    <Form.Item>
-                      <div className="flex justify-end">
-                        <Button type="primary" htmlType="submit">
-                          Login
-                        </Button>
-                      </div>
-                    </Form.Item>
-                  </div>
-                </Form.Item>
-                <div>
-                  <span>Bạn chưa có tài khoản?.</span>
-                  <Link to="/register">Đăng kí</Link>
+                <div className="flex justify-center mt-6">
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Login
+                    </Button>
+                  </Form.Item>
                 </div>
+                {role !== 2 ? (
+                  <div>
+                    <span>Bạn chưa có tài khoản?.</span>
+                    <Link to="/register">Đăng kí</Link>
+                  </div>
+                ) : null}
               </Form>
             </div>
           </Col>
-          <Col xl={12}>
-            <div className={styles.loginRight}>
-              <span>Go happy, go anywhere.</span>
-              <h1>Stay here</h1>
-            </div>
-          </Col>
+          {role === 1 ? (
+            <Col xl={12}>
+              <div className={styles.loginRight}>
+                <span>Go happy, go anywhere.</span>
+                <h1>Stay here</h1>
+              </div>
+            </Col>
+          ) : null}
         </Row>
       </div>
     </>

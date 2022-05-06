@@ -31,7 +31,7 @@ const RoomCardItem = () => {
               </span>
 
               <Link to="/rooms/123" className="text-right block">
-                <Button type="primary">Xem phòng</Button>
+                <Button type="primary">Đặt phòng</Button>
               </Link>
             </div>
           </div>

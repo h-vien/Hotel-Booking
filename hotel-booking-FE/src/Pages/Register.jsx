@@ -20,8 +20,14 @@ const Register = () => {
       const res = await dispatch(register(data));
       unwrapResult(res);
       console.log(res);
+      toast.success(
+        "Bạn đã đăng kí thành công! Vui lòng đăng nhập để tiếp tục",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
       history.push("/login");
-      toast.success("Dang ki thanh cong");
     } catch (error) {
       console.log(error);
     }

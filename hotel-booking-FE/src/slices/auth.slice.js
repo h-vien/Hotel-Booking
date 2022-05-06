@@ -22,8 +22,16 @@ export const logout = createAsyncThunk(
 //   payloadCreator(userApi.updateMe)
 // );
 const handleAuthFulfilled = (state, action) => {
-  state.profile = action.payload.data;
-  localStorage.setItem(LocalStorage.user, JSON.stringify(action.payload.data));
+  console.log(typeof action.payload.data);
+  console.log(typeof action.payload.data === "object");
+  if (typeof action.payload.data === "object") {
+    console.log(typeof action.payload.data);
+    state.profile = action.payload.data;
+    localStorage.setItem(
+      LocalStorage.user,
+      JSON.stringify(action.payload.data)
+    );
+  }
 };
 const handleUnauth = (state) => {
   console.log("Logout");

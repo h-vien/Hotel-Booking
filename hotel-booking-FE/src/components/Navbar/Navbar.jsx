@@ -41,7 +41,7 @@ const Navbar = () => {
             <img src={Logo} alt="" />
           </div>
           <span className="ml-3 font-bold capitalize cursor-pointer">
-            Hauteo Búcking
+            Hotel Booking
           </span>
         </div>
       </Link>

@@ -16,7 +16,9 @@ const CardItem = () => {
         <div className="flex flex-col">
           <div className="flex flex-row justify-between items-center">
             <div className="w-2/3 whitespace-nowrap overflow-hidden overflow-ellipsis">
-              <span className="event-time font-medium text-xl">Khách sạn</span>
+              <span className="font-medium text-lg text-gray-400">
+                Khách sạn
+              </span>
             </div>
             <Tag color="blue">Ngàn sao</Tag>
           </div>
@@ -29,7 +31,7 @@ const CardItem = () => {
               Paradol Extra
             </a>
           </Tooltip>
-          <span className="mb-2 line-clamp-2 overflow-ellipsis">
+          <span className="mb-2 line-clamp-2 overflow-ellipsis ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </span>
           <div className="flex items-center">
