@@ -2,7 +2,7 @@ package com.HotelBookingBE.model;
 
 import java.sql.Timestamp;
 
-public class UserModel extends AbstractModel {
+public class UserModel extends AbstractModel<UserModel> {
 	private String username;
 	private String password;
 	private String firstName;

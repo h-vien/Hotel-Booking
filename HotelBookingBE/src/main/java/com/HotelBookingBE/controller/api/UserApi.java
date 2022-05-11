@@ -34,7 +34,12 @@ public class UserApi extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
 	}
 
 
@@ -49,8 +54,6 @@ public class UserApi extends HttpServlet {
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("login"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-//			HashMap<String,Object> map1 = mapper.readValue(s, HashMap.class);
-//			map1.entrySet().forEach(System.out::println);
 			user = userService.findOne(user);
 			if(user == null)
 			{
@@ -75,6 +78,16 @@ public class UserApi extends HttpServlet {
 		}
 		
 		
+	}
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
+		userService.updateUser(user);
+		session.setAttribute("user", user);
 	}
 
 }

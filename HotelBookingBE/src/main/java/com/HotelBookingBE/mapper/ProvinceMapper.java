@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import com.HotelBookingBE.model.ProvinceModel;
 
-public class ProvinceMapper implements IRowMapper {
+public class ProvinceMapper implements IRowMapper<ProvinceModel> {
 
 	@Override
 	public ProvinceModel MappingRow(ResultSet rs) {

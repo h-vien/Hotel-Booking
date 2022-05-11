@@ -1,14 +1,17 @@
-package com.HotelBookingBE.model;
+	package com.HotelBookingBE.model;
 
-public class HotelModel extends AbstractModel {
+public class HotelModel extends AbstractModel<HotelModel> {
 	private long user_id;
 	private long province_id;
 	private String hotelName;
 	private String hotelDescription;
 	private String hotelAddress;
 	private String image;	
+	private Long roomQuantity;
 	private String hotelEmail;
 	private String hotelPhone;
+	
+	
 	public long getUser_id() {
 		return user_id;
 	}
@@ -56,5 +59,11 @@ public class HotelModel extends AbstractModel {
 	}
 	public void setHotelEmail(String hotelEmail) {
 		this.hotelEmail = hotelEmail;
+	}
+	public Long getRoomQuantity() {
+		return roomQuantity;
+	}
+	public void setRoomQuantity(Long roomQuantity) {
+		this.roomQuantity = roomQuantity;
 	}
 }

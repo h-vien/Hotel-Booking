@@ -1,26 +1,21 @@
 package com.HotelBookingBE.model;
 
-public class TyperoomModel extends AbstractModel {
+public class TyperoomModel {
+	private Long id;
 	private String name;
-	private Long quantity;
-	private Long price;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getQuantity() {
-		return quantity;
+	public Long getId() {
+		return id;
 	}
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public Long getPrice() {
-		return price;
-	}
-	public void setPrice(Long price) {
-		this.price = price;
-	}
+
+
 	
 }

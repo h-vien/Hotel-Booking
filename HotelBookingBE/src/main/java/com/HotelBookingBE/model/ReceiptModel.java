@@ -1,6 +1,6 @@
 package com.HotelBookingBE.model;
 
-public class ReceiptModel extends AbstractModel {
+public class ReceiptModel extends AbstractModel<ReceiptModel> {
 	private Long booking_id;
 	private Long user_id;
 	private Long totalPrice;

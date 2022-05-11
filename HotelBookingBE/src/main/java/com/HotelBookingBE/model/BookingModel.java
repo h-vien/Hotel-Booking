@@ -2,7 +2,7 @@ package com.HotelBookingBE.model;
 
 import java.sql.Timestamp;
 
-public class BookingModel extends AbstractModel{
+public class BookingModel extends AbstractModel<BookingModel>{
 	private Long room_id;
 	private Long user_id;
 	private Long hotel_id;
