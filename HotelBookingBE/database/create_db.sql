@@ -27,23 +27,23 @@ CREATE TABLE hotel(
     hotel_address VARCHAR(200) NOT NULL,
     hotel_phone VARCHAR(50) NULL,
     hotel_email varchar(150) NULL,
+    room_quantity bigint NOT NULL,
     image TEXT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
 CREATE TABLE typeroom(
 	id bigint NOT NULL PRIMARY KEY auto_increment,
-    name VARCHAR(100) NOT NULL ,
-    quantity bigint NOT NULL,
-    price bigint NOT NULL,
-    createddate TIMESTAMP NULL,
-    modifieddate TIMESTAMP NULL
+    name VARCHAR(100) NOT NULL   
+
 );
 CREATE TABLE hotelroom(
 	id bigint NOT NULL PRIMARY KEY auto_increment,
     hotel_id bigint NOT NULL,
     type_id bigint NOT NULL,
     name varchar(20) NOT NULL,
+    bed_quantity bigint not null,
+	price bigint NOT NULL,
     description TEXT NULL,
     status int NOT NULL,
     image TEXT NULL,
