@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.HotelRoomModel;
+import com.HotelBookingBE.model.UserModel;
 
 public interface IHotelDao extends genericDao<HotelModel>{
 	Long save(HotelModel hotel);
@@ -14,4 +15,5 @@ public interface IHotelDao extends genericDao<HotelModel>{
 			Long bedQuantity,Integer startPage,Integer endPage);
 	Integer countMaxItem(Timestamp checkinDate,Timestamp checkoutDate,Long provinceId,Long typeroomId,Long bedQuantity);
 	void updateHotel(HotelModel hotel);
+	HotelModel findOne(UserModel user);
 }

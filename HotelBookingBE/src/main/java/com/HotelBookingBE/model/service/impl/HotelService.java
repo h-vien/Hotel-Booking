@@ -64,6 +64,10 @@ public class HotelService implements IHotelService {
 		hotel.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		hotelDao.updateHotel(hotel);
 	}
+	@Override
+	public HotelModel findOne(UserModel user) {
+		return hotelDao.findOne(user);
+	}
 	
 	
 }

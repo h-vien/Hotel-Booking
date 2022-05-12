@@ -6,6 +6,7 @@ import java.util.List;
 import com.HotelBookingBE.mapper.HotelMapper;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.HotelRoomModel;
+import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.dao.IHotelDao;
 
 public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
@@ -55,13 +56,6 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 	}
 
 	@Override
-	public void updateHotel(HotelModel hotel) {
-		String sql = "update hotel set hotel_name = ?, hotel_desc=?,hotel_address=?,hotel_phone=?,hotel_email=?,room_quantity=?,image=?,modifieddate=? where id = ?";
-		update(sql,hotel.getHotelName(),hotel.getHotelDescription(),hotel.getHotelAddress(),hotel.getHotelPhone(),hotel.getHotelEmail(),
-				hotel.getRoomQuantity(),hotel.getImage(),hotel.getModifiedDate(),hotel.getId());
-	}
-
-	@Override
 	public HotelModel findOne(HotelRoomModel hotelroom) {
 		String sql = "select distinct hotel.* " + 
 				" from hotel" + 
@@ -70,6 +64,17 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 		return query(sql,new HotelMapper(),hotelroom.getHotel_id()).get(0);
 	}
 
+	@Override
+	public HotelModel findOne(UserModel user) {
+		String sql = "select * from hotel where user_id = ?";
+		return query(sql,new HotelMapper(),user.getId()).get(0);
+	}
+	@Override
+	public void updateHotel(HotelModel hotel) {
+		String sql = "update hotel set hotel_name = ?, hotel_desc=?,hotel_address=?,hotel_phone=?,hotel_email=?,room_quantity=?,image=?,modifieddate=? where id = ?";
+		update(sql,hotel.getHotelName(),hotel.getHotelDescription(),hotel.getHotelAddress(),hotel.getHotelPhone(),hotel.getHotelEmail(),
+				hotel.getRoomQuantity(),hotel.getImage(),hotel.getModifiedDate(),hotel.getId());
+	}
 
 
 }

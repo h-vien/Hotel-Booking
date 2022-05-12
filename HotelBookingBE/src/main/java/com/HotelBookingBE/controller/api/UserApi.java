@@ -1,6 +1,9 @@
+
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,7 @@ import com.HotelBookingBE.model.service.impl.UserService;
 import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 
 @WebServlet(urlPatterns = {"/user","/user/login","/user/register","/user/manager"})
@@ -57,19 +61,32 @@ public class UserApi extends HttpServlet {
 			if(user == null)
 			{
 				response.setStatus(405);
-				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Khong tim thay user"));
+				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Không tìm thấy user"));
 				//set status
 			} else 	
 			{
-				//rut gon thong tin response
-				mapper.writeValue(response.getOutputStream(), user);
+				Map<String,Object> map = new HashMap<>();
+                map.put("user", user);
+                HotelModel hotel = new HotelModel();
+                if(user.getRoleId() == 2L)
+                {
+                    hotel = hotelService.findOne(user);
+                    map.put("hotel", hotel);
+                    //rut gon thong tin response
+                } else
+                {
+                    map.put("hotel", "");
+                }
+                mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+				
+				
 			}
 		} 
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
 			userService.saveUser(user);			
-			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Dang ki thanh cong"));
+			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Đăng kí thành công"));
 			//set status
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))

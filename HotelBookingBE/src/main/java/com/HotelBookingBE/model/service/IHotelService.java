@@ -10,4 +10,5 @@ public interface IHotelService {
 	HotelModel Search(Timestamp checkinDate,Timestamp checkoutDate,Long provinceId,Long typeroomId,Long bedQuantity,int page);
 	HotelModel findOne(Long id);
 	void saveChange(HotelModel hotel);
+	HotelModel findOne(UserModel user);
 }
