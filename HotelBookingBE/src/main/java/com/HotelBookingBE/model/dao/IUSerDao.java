@@ -6,7 +6,7 @@ import com.HotelBookingBE.model.UserModel;
 
 public interface IUSerDao extends genericDao<UserModel>  {
 	List<UserModel> findAll();
-	void save(UserModel u);
+	Long save(UserModel u);
 	UserModel findOne(UserModel user);
 	UserModel findOne(Long user_id);
 	void UpdateRoleId(UserModel u);

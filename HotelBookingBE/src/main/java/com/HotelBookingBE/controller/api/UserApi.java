@@ -39,7 +39,7 @@ public class UserApi extends HttpServlet {
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
 		// lay thong tin user khong can session
-//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
+		//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
 	}
 
 
@@ -56,6 +56,7 @@ public class UserApi extends HttpServlet {
 			user = userService.findOne(user);
 			if(user == null)
 			{
+				response.setStatus(405);
 				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Khong tim thay user"));
 				//set status
 			} else 	
@@ -68,7 +69,7 @@ public class UserApi extends HttpServlet {
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
 			userService.saveUser(user);			
-			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Dang ki khong thanh cong"));
+			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Dang ki thanh cong"));
 			//set status
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))

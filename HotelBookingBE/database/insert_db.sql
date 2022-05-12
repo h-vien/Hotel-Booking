@@ -76,16 +76,16 @@ insert into user(username,password,firstname,lastname,gender,phonenumber,email,r
 insert into user(username,password,firstname,lastname,gender,phonenumber,email,roleid) values ('minhkycho20','1234','Nhat',' Minh',true,'02323221111','dangvannhatminh02@gmail.com',1);
 insert into user(username,password,firstname,lastname,gender,phonenumber,email,roleid) values ('minhkycho21','123','Nhat',' Minh',true,'0232223516','dangvannhatminh01@gmail.com',1);
     
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(1,15,'khach san A',20,'aaaaaaaaaaaaaaaaaaa','145 Nguyen Luong Bang','0935123421','khachsana@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(1,15,'khach san B',15,'bbbbbbbbbbbbbbbbbbb','120 Au Co','0932412412','khachsanb@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(1,15,'khach san C',10,'ccccccccccccccccccc','342 Nguyen Tat Thanh','0935674848','khachsanc@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(1,15,'khach san D',30,'ddddddddddddddddddd','52 Nguyen Tat Thanh','0932521525','khachsand@gmail.com');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(1,15,'khach san A',20,'aaaaaaaaaaaaaaaaaaa','145 Nguyen Luong Bang','0935123421','khachsana@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(1,15,'khach san B',15,'bbbbbbbbbbbbbbbbbbb','120 Au Co','0932412412','khachsanb@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(1,15,'khach san C',10,'ccccccccccccccccccc','342 Nguyen Tat Thanh','0935674848','khachsanc@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(1,15,'khach san D',30,'ddddddddddddddddddd','52 Nguyen Tat Thanh','0932521525','khachsand@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
 
 
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san A',30,'aaaaaaaaaaaaaaaaaaa','145 Cach Mang Thang 8','0935122312','khachsana1@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san B',50,'bbbbbbbbbbbbbbbbbbb','120 Le Thanh Ton','0932415231','khachsanb1@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san C',60,'ccccccccccccccccccc','342 Nguyen Hue','0935674235','khachsanc1@gmail.com');
-insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san D',70,'ddddddddddddddddddd','52 Nguyen Tat Thanh','093252144','khachsand2@gmail.com');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(2,58,'khach san A',30,'aaaaaaaaaaaaaaaaaaa','145 Cach Mang Thang 8','0935122312','khachsana1@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(2,58,'khach san B',50,'bbbbbbbbbbbbbbbbbbb','120 Le Thanh Ton','0932415231','khachsanb1@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(2,58,'khach san C',60,'ccccccccccccccccccc','342 Nguyen Hue','0935674235','khachsanc1@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
+insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email,image) values(2,58,'khach san D',70,'ddddddddddddddddddd','52 Nguyen Tat Thanh','093252144','khachsand2@gmail.com','https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?');
 
 insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,1,'A',2,200000,'aaaaaaaa');
 insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,1,'B',1,200000,'bbbbbbbb');

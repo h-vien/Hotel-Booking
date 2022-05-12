@@ -23,12 +23,10 @@ public class HotelService implements IHotelService {
 	public void save(HotelModel hotel) {
 		hotel.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		hotel.setRoomQuantity(0L);
-		hotelDao.save(hotel);
-
+		Long id = hotelDao.save(hotel);
 		UserModel u = userDao.findOne(hotel.getUser_id());
 		u.setRoleId(2L);
 		userDao.UpdateRoleId(u);
-
 		
 	}
 	@Override

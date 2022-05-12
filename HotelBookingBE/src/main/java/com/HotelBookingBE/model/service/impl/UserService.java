@@ -24,7 +24,7 @@ public class UserService implements IUserService {
 	public void saveUser(UserModel u) {
 		u.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		u.setRoleId(1L);
-		userDao.save(u);
+		Long id = userDao.save(u);
 	}
 	@Override
 	public UserModel findOne(UserModel user) {

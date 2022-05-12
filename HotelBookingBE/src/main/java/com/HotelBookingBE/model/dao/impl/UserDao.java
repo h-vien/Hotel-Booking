@@ -15,9 +15,9 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		return query(sql,new UserMapper());
 	}
 	@Override
-	public void save(UserModel u) {
+	public Long save(UserModel u) {
 		String sql = "INSERT INTO user(password,firstname,lastname,email,roleid,createddate) values (?,?,?,?,?,?)";
-		insert(sql, u.getPassword(),u.getFirstName(),u.getLastName(),u.getEmail(),u.getRoleId(),u.getCreatedDate());
+		return insert(sql, u.getPassword(),u.getFirstName(),u.getLastName(),u.getEmail(),u.getRoleId(),u.getCreatedDate());
 	}
 	@Override
 	public UserModel findOne(UserModel user) {

@@ -6,7 +6,7 @@ import com.HotelBookingBE.mapper.IRowMapper;
 
 public interface genericDao<T> {
 	List<T> query(String sql, IRowMapper<T> rowMapper, Object... Parameters); 
-	void insert(String sql,Object... Parameters);
+	Long insert(String sql,Object... Parameters);
 	void update(String sql,Object... Parameters);
 	Integer count(String sql,Object... Parameters);
 }
