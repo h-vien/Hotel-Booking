@@ -7,6 +7,7 @@ import AuthenticatedGuard from "./core/guards/AuthenticatedGuard";
 import UnAuth from "./core/guards/UnAuth";
 import NotFound from "./core/layout/NotFound";
 import Admin from "./Pages/Admin";
+import CreateRoom from "./Pages/CreateRoom";
 import HomePage from "./Pages/HomePage";
 import HotelDetail from "./Pages/HotelDetail";
 import Login from "./Pages/Login";
@@ -48,6 +49,9 @@ const Routes = () => {
       </Route>
       <Route path="/register-member">
         <RegisterMember />
+      </Route>
+      <Route path="/create-room">
+        <CreateRoom />
       </Route>
       <Route path="/admin">
         <AdminGuard>

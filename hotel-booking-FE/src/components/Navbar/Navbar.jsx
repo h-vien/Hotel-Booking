@@ -1,29 +1,41 @@
-import { DownOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { DownOutlined, PlusOutlined, profileOutlined } from "@ant-design/icons";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Avatar, Button, Dropdown, Menu } from "antd";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Logo from "../../assets/Logo.png";
 import { role } from "../../constant/role";
 import { useAuthenticated } from "../../core/hooks/useAuthenticated";
 import { logout } from "../../slices/auth.slice";
 import styles from "./style.module.scss";
-const DropDownList = () => {
+const DropDownList = ({ roleId }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
+      const res = await dispatch(logout());
+      unwrapResult(res);
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <Menu>
       <Menu.Item key="0">
-        <Link to="/profile">Profile</Link>
+        <Link to="/profile">Trang cá nhân</Link>
       </Menu.Item>
+      {roleId === 2 ? (
+        <Menu.Item key="2">
+          <Link to="/create-room">Tạo phòng</Link>
+        </Menu.Item>
+      ) : null}
       <Menu.Item key="1">
         <Link to="/login" onClick={handleLogout}>
-          Log out
+          Đăng xuất
         </Link>
       </Menu.Item>
     </Menu>
@@ -31,7 +43,9 @@ const DropDownList = () => {
 };
 const Navbar = () => {
   const profile = useSelector((state) => state.auth.profile);
-  console.log(profile.roleId);
+  console.log(profile.user);
+  const roleId = profile.user.roleId;
+  console.log(roleId);
   const authenticated = useAuthenticated();
   return (
     <nav
@@ -50,7 +64,7 @@ const Navbar = () => {
       <div className="flex items-center">
         {authenticated && (
           <>
-            {profile.roleId !== 2 ? (
+            {profile.user.roleId !== 2 ? (
               <Link to="/register-member">
                 <Button
                   type="primary"
@@ -63,16 +77,16 @@ const Navbar = () => {
             ) : null}
 
             <div className="flex items-center">
-              <Dropdown overlay={DropDownList()} trigger={["click"]}>
+              <Dropdown overlay={DropDownList({ roleId })} trigger={["click"]}>
                 <a href="/" className="flex items-center ml-4">
-                  <Avatar src="" icon={<UserOutlined />} />
+                  <Avatar src="" icon={<profileOutlined />} />
                   <div>
                     <span className="text-lg inline-block px-2">
-                      {profile.lastName}
+                      {profile.user.lastName}
                     </span>
                     <span> - </span>
                     <span className="text-sm inline-block px-2">
-                      {role[profile.roleId].name}
+                      {role[profile.user.roleId].name}
                     </span>
                   </div>
                   <DownOutlined />
