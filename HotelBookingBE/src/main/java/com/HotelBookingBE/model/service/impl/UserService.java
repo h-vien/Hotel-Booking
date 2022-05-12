@@ -1,11 +1,11 @@
 package com.HotelBookingBE.model.service.impl;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-import com.HotelBookingBE.model.dao.impl.*;
-import com.HotelBookingBE.model.dao.IUSerDao;
+
 import com.HotelBookingBE.model.UserModel;
+import com.HotelBookingBE.model.dao.IUSerDao;
+import com.HotelBookingBE.model.dao.impl.UserDao;
 import com.HotelBookingBE.model.service.IUserService;
 
 public class UserService implements IUserService {

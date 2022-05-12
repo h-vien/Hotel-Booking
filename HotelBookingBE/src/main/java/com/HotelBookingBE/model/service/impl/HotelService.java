@@ -1,7 +1,6 @@
 package com.HotelBookingBE.model.service.impl;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.UserModel;
@@ -21,12 +20,14 @@ public class HotelService implements IHotelService {
 		userDao = new UserDao();
 	}
 	@Override
-	public void save(HotelModel hotel, UserModel user) {
+	public void save(HotelModel hotel) {
 		hotel.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		hotel.setUser_id(user.getId());
-		user.setRoleId(2L);
+		hotel.setRoomQuantity(0L);
 		hotelDao.save(hotel);
-		userDao.UpdateRoleId(user);
+		
+		UserModel u = userDao.findOne(hotel.getUser_id());
+		u.setRoleId(2L);
+		userDao.UpdateRoleId(u);
 		
 	}
 	@Override
@@ -54,6 +55,15 @@ public class HotelService implements IHotelService {
 		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,endPage));
 		
 		return hotel;
+	}
+	@Override
+	public HotelModel findOne(Long id) {
+		return hotelDao.findOne(id);
+	}
+	@Override
+	public void saveChange(HotelModel hotel) {
+		hotel.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		hotelDao.updateHotel(hotel);
 	}
 	
 }

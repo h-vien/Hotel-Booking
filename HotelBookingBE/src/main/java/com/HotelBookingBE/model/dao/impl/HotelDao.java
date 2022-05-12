@@ -11,9 +11,9 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 
 	@Override
 	public void save(HotelModel hotel) {
-		String sql= "insert into hotel(user_id,province_id,hotel_name,hotel_desc,hotel_address,image,createddate,hotel_email,hotel_phone) values (?,?,?,?,?,?,?,?,?)";
+		String sql= "insert into hotel(user_id,province_id,hotel_name,hotel_desc,hotel_address,image,createddate,hotel_email,hotel_phone,room_quantity) values (?,?,?,?,?,?,?,?,?,?)";
 		insert(sql,hotel.getUser_id(),hotel.getProvince_id(),hotel.getHotelName(),
-				hotel.getHotelDescription(),hotel.getHotelAddress(),hotel.getImage(),hotel.getCreatedDate(),hotel.getHotelEmail(),hotel.getHotelPhone());		
+				hotel.getHotelDescription(),hotel.getHotelAddress(),hotel.getImage(),hotel.getCreatedDate(),hotel.getHotelEmail(),hotel.getHotelPhone(),hotel.getRoomQuantity());		
 	}
 
 	@Override
@@ -45,6 +45,20 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 				" and hotel.province_id = ?" +
 				" and ((booking.checkin_date > ? and booking.checkin_date > ?) or (booking.checkout_date < ? and booking.checkout_date <  ?))";
 		return count(sql,typeroomId,bedQuantity,provinceId,checkinDate,checkoutDate,checkinDate,checkoutDate);
+	}
+
+	@Override
+	public HotelModel findOne(Long id) {
+		String sql = "select * from hotel where user_id = ?";
+		return query(sql,new HotelMapper(),id).get(0);
+	}
+
+	@Override
+	public void updateHotel(HotelModel hotel) {
+		String sql = "update hotel set hotel_name = ?, hotel_desc=?,hotel_address=?,hotel_phone=?,hotel_email=?,"
+				+ "room_quantity=?,image=?,modifieddate=?";
+		update(sql,hotel.getHotelName(),hotel.getHotelDescription(),hotel.getHotelAddress(),hotel.getHotelPhone(),hotel.getHotelEmail(),
+				hotel.getRoomQuantity(),hotel.getImage(),hotel.getModifiedDate());
 	}
 
 

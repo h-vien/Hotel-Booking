@@ -7,7 +7,6 @@ public class HotelRoomModel extends AbstractModel<HotelRoomModel>{
 	private String description;
 	private Long price;
 	private Long bed_quantity;
-	private int status;
 	private String image;
 	
 	
@@ -46,12 +45,6 @@ public class HotelRoomModel extends AbstractModel<HotelRoomModel>{
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
 	}
 	public String getImage() {
 		return image;

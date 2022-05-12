@@ -45,7 +45,6 @@ CREATE TABLE hotelroom(
     bed_quantity bigint not null,
 	price bigint NOT NULL,
     description TEXT NULL,
-    status int NOT NULL,
     image TEXT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL

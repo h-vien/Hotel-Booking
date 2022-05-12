@@ -43,5 +43,10 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public UserModel findOne(Long user_id) {
+		String sql = "SELECT * FROM user WHERE id=?";
+		return query(sql,new UserMapper(),user_id).get(0);
+	}
 	
 }

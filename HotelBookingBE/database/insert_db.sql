@@ -87,25 +87,25 @@ insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_
 insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san C',60,'ccccccccccccccccccc','342 Nguyen Hue','0935674235','khachsanc1@gmail.com');
 insert into hotel(user_id,province_id,hotel_name,room_quantity,hotel_desc,hotel_address,hotel_phone,hotel_email) values(2,58,'khach san D',70,'ddddddddddddddddddd','52 Nguyen Tat Thanh','093252144','khachsand2@gmail.com');
 
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (1,1,'A',2,200000,'aaaaaaaa',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (1,1,'B',1,200000,'bbbbbbbb',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (1,2,'C',2,100000,'cccccccc',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (1,2,'D',1,100000,'dddddddd',1);
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,1,'A',2,200000,'aaaaaaaa');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,1,'B',1,200000,'bbbbbbbb');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,2,'C',2,100000,'cccccccc');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (1,2,'D',1,100000,'dddddddd');
 
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (2,1,'A',2,200000,'aaaaaaaa',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (2,1,'B',1,200000,'bbbbbbbb',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (2,2,'C',2,100000,'cccccccc',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (2,2,'D',1,100000,'dddddddd',1);
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (2,1,'A',2,200000,'aaaaaaaa');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (2,1,'B',1,200000,'bbbbbbbb');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (2,2,'C',2,100000,'cccccccc');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (2,2,'D',1,100000,'dddddddd');
 
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (5,1,'A',2,200000,'aaaaaaaa',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (5,1,'B',1,200000,'bbbbbbbb',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (5,2,'C',2,100000,'cccccccc',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (5,2,'D',1,100000,'dddddddd',1);
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (5,1,'A',2,200000,'aaaaaaaa');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (5,1,'B',1,200000,'bbbbbbbb');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (5,2,'C',2,100000,'cccccccc');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (5,2,'D',1,100000,'dddddddd');
 
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (6,1,'A',2,200000,'aaaaaaaa',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (6,1,'B',1,200000,'bbbbbbbb',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (6,2,'C',2,100000,'cccccccc',1);
-insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,status) values (6,2,'D',1,100000,'dddddddd',1);
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (6,1,'A',2,200000,'aaaaaaaa');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (6,1,'B',1,200000,'bbbbbbbb');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (6,2,'C',2,100000,'cccccccc');
+insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description) values (6,2,'D',1,100000,'dddddddd');
 
 insert into booking(room_id,user_id,hotel_id,checkin_date,checkout_date) values (1,3,1,'2022-05-05','2022-05-10');
 insert into booking(room_id,user_id,hotel_id,checkin_date,checkout_date) values (2,3,1,'2022-05-21','2022-05-23');
