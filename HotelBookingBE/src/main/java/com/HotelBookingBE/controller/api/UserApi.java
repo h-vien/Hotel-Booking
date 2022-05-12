@@ -38,8 +38,8 @@ public class UserApi extends HttpServlet {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
+		// lay thong tin user khong can session
+//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
 	}
 
 
@@ -48,7 +48,6 @@ public class UserApi extends HttpServlet {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 
 		
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("login"))
@@ -57,27 +56,26 @@ public class UserApi extends HttpServlet {
 			user = userService.findOne(user);
 			if(user == null)
 			{
-				mapper.writeValue(response.getOutputStream(), "Khong tim thay user");
+				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Khong tim thay user"));
+				//set status
 			} else 	
 			{
+				//rut gon thong tin response
 				mapper.writeValue(response.getOutputStream(), user);
-				session.setAttribute("user", user);
 			}
 		} 
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-			userService.saveUser(user);		
-			mapper.writeValue(response.getOutputStream(), "Ban da dang ki thanh cong");
+			userService.saveUser(user);			
+			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Dang ki khong thanh cong"));
+			//set status
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
 		{
-			UserModel user = (UserModel) session.getAttribute("user");
 			HotelModel hotel = mapper.readValue(HttpUtil.getjson(request.getReader()), HotelModel.class);
-			hotelService.save(hotel, user);
+			hotelService.save(hotel);
 		}
-		
-		
 	}
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
