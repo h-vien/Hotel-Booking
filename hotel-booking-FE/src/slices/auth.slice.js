@@ -16,7 +16,10 @@ export const logout = createAsyncThunk(
   "auth/logout",
   payloadCreator(authApi.logout)
 );
-
+export const registerMember = createAsyncThunk(
+  "auth/registerMember",
+  payloadCreator(authApi.registerMember)
+);
 // export const updateMe = createAsyncThunk(
 //   "auth/updateMe",
 //   payloadCreator(userApi.updateMe)
@@ -51,6 +54,10 @@ const auth = createSlice({
     [register.fulfilled]: handleAuthFulfilled,
     [login.fulfilled]: handleAuthFulfilled,
     [logout.fulfilled]: handleUnauth,
+    [registerMember.fulfilled]: (state, action) => {
+      state.profile.roleId = 2;
+      localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+    },
   },
 });
 

@@ -1,22 +1,65 @@
 import HomeLayout from "../core/layout/HomeLayout";
 import { Content } from "antd/lib/layout/layout";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import { rules } from "../constant/rules";
 import styles from "../styles/pages/login.module.scss";
 import Dragger from "antd/lib/upload/Dragger";
 import { InboxOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { province } from "../constant/province";
+import { Option } from "antd/lib/mentions";
+import { registerMember } from "../slices/auth.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import LocalStorage from "../constant/localStorage";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 const RegisterMember = () => {
+  const [provinceId, setProvinceId] = useState();
+  const [data, setData] = useState({});
+  const userId = useSelector((state) => state.auth.profile.id);
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    const _data = {
+      ...values,
+      province_id: provinceId,
+      roomQuantity: 0,
+      user_id: userId,
+      image:
+        "https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    };
+    console.log(_data);
+    setData(_data);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  function handleAddressChange(value) {
+    console.log(value);
+    setProvinceId(value);
+  }
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+  useEffect(() => {
+    const _registerMember = async () => {
+      console.log(data);
+      try {
+        const res = await dispatch(registerMember(data));
+        unwrapResult(res);
+        console.log(res);
+        history.push("/");
+        toast.success("Chúc mừng bạn đã trở thành thành viên của chúng tôi", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    _registerMember();
+  }, [dispatch, data]);
   const props = {
     name: "file",
-    multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -53,27 +96,41 @@ const RegisterMember = () => {
               >
                 <Form.Item
                   label="Tên khách sạn"
-                  name="hotel_name"
+                  name="hotelName"
                   rules={rules.name}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item label="Email" name="hotel_email" rules={rules.email}>
+                <Form.Item label="Email" name="hotelEmail" rules={rules.email}>
                   <Input />
                 </Form.Item>
+
                 <Form.Item>
                   <div className={styles.formInputName}>
                     <Form.Item
                       label="Số điện thoại"
-                      name="hotel_phone"
+                      name="hotelPhone"
                       rules={[{ required: true }]}
                       className="mr-4"
                     >
                       <Input />
                     </Form.Item>
+                    <Form.Item label="Thành phố">
+                      <Select
+                        defaultValue={province[0].name}
+                        style={{ width: 150 }}
+                        onChange={handleAddressChange}
+                      >
+                        {province.map((province) => (
+                          <Option value={province.id} key={province.id}>
+                            {province.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
                     <Form.Item
                       label="Địa chỉ"
-                      name="hotel_address"
+                      name="hotelAddress"
                       rules={rules.name}
                     >
                       <Input />
@@ -83,7 +140,7 @@ const RegisterMember = () => {
 
                 <Form.Item
                   label="Mô tả khách sạn"
-                  name="hotel_desc"
+                  name="hotelDescription"
                   rules={[{ required: true }]}
                   validateStatus="error"
                 >

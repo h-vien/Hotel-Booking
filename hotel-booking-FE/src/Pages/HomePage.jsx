@@ -7,7 +7,7 @@ import HomeLayout from "../core/layout/HomeLayout";
 const HomePage = () => {
   return (
     <HomeLayout>
-      <div className="overflow-hidden max-w-6xl mx-auto ">
+      <div className="overflow-hidden max-w-6xl mx-auto h-screen ">
         <div
           className="site-layout-background mt-4 rounded-lg"
           style={{ padding: 24, minHeight: 380 }}
@@ -15,7 +15,7 @@ const HomePage = () => {
           <Hero />
         </div>
         {/* <HotelSlider /> */}
-        <h1 className="mt-8 mb-2 text-4xl font-medium">
+        {/* <h1 className="mt-8 mb-2 text-4xl font-medium">
           Các khách sạn phổ biến
         </h1>
         <Row gutter={[16, 16]}>
@@ -31,7 +31,7 @@ const HomePage = () => {
           <Col xl={6}>
             <CardItem />
           </Col>
-        </Row>
+        </Row> */}
       </div>
     </HomeLayout>
   );

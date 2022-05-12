@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { rules } from "../constant/rules";
 import { login } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
+import { convertToJSON } from "../utils/helper";
 const Login = ({ heading, role }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,12 +21,15 @@ const Login = ({ heading, role }) => {
       if (res.payload.data.roleId === 0) history.push("/admin");
       else history.push("/");
     } catch (error) {
-      if (error.status === 422) {
-        setError(error.data);
+      if (error.status === 405) {
+        const toJSON = convertToJSON(error.data);
+        console.log(toJSON);
+        setError(toJSON.message);
       }
     }
   };
   console.log(error);
+  // console.log(convertToJSON(error));
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -60,7 +64,7 @@ const Login = ({ heading, role }) => {
                   name="password"
                   rules={rules.password}
                   validateStatus="error"
-                  help={error}
+                  help={error || null}
                 >
                   <Input.Password />
                 </Form.Item>

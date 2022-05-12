@@ -3,6 +3,7 @@ import { Avatar, Button, Dropdown, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
+import { role } from "../../constant/role";
 import { useAuthenticated } from "../../core/hooks/useAuthenticated";
 import { logout } from "../../slices/auth.slice";
 import styles from "./style.module.scss";
@@ -30,6 +31,7 @@ const DropDownList = () => {
 };
 const Navbar = () => {
   const profile = useSelector((state) => state.auth.profile);
+  console.log(profile.roleId);
   const authenticated = useAuthenticated();
   return (
     <nav
@@ -48,20 +50,31 @@ const Navbar = () => {
       <div className="flex items-center">
         {authenticated && (
           <>
-            <Link to="/register-member">
-              <Button
-                type="primary"
-                className="mr-2 flex items-center py-2 px-3"
-              >
-                <PlusOutlined />
-                Đăng ký thành viên
-              </Button>
-            </Link>
+            {profile.roleId !== 2 ? (
+              <Link to="/register-member">
+                <Button
+                  type="primary"
+                  className="mr-2 flex items-center py-2 px-3"
+                >
+                  <PlusOutlined />
+                  Đăng ký thành viên
+                </Button>
+              </Link>
+            ) : null}
+
             <div className="flex items-center">
               <Dropdown overlay={DropDownList()} trigger={["click"]}>
                 <a href="/" className="flex items-center ml-4">
                   <Avatar src="" icon={<UserOutlined />} />
-                  <p className="px-2">{profile.lastName}</p>
+                  <div>
+                    <span className="text-lg inline-block px-2">
+                      {profile.lastName}
+                    </span>
+                    <span> - </span>
+                    <span className="text-sm inline-block px-2">
+                      {role[profile.roleId].name}
+                    </span>
+                  </div>
                   <DownOutlined />
                 </a>
               </Dropdown>

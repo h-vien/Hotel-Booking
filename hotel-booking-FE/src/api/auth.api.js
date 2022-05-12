@@ -7,6 +7,9 @@ const authApi = {
   login(data) {
     return http.post("user/login", data);
   },
+  registerMember(data) {
+    return http.post("user/manager", data);
+  },
   logout() {
     return;
   },

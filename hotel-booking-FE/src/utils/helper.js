@@ -9,3 +9,9 @@ export const payloadCreator = (asyncFunc) => async (arg, thunkAPI) => {
     return thunkAPI.rejectWithValue(error);
   }
 };
+
+export const convertToJSON = (str) => {
+  const _data = str.slice(0, -3);
+  const convertToJson = JSON.parse(_data);
+  return convertToJson;
+};
