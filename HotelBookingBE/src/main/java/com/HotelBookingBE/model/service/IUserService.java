@@ -8,5 +8,6 @@ public interface IUserService {
 	List<UserModel> findAllUser();
 	void saveUser(UserModel u);
 	UserModel findOne(UserModel user);
+	UserModel findOne(Long user_id);
 	void updateUser(UserModel u);
 }

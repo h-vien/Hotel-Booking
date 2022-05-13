@@ -1,4 +1,3 @@
-
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
@@ -66,19 +65,18 @@ public class UserApi extends HttpServlet {
 			} else 	
 			{
 				Map<String,Object> map = new HashMap<>();
-                map.put("user", user);
-                HotelModel hotel = new HotelModel();
-                if(user.getRoleId() == 2L)
-                {
-                    hotel = hotelService.findOne(user);
-                    map.put("hotel", hotel);
-                    //rut gon thong tin response
-                } else
-                {
-                    map.put("hotel", "");
-                }
-                mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
-				
+				map.put("user", user);
+				HotelModel hotel = new HotelModel();
+				if(user.getRoleId() == 2L)
+				{
+					hotel = hotelService.findOne(user);
+					map.put("hotel", hotel);
+					//rut gon thong tin response
+				} else
+				{
+					map.put("hotel", "");
+				}
+				mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
 				
 			}
 		} 
@@ -92,7 +90,9 @@ public class UserApi extends HttpServlet {
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
 		{
 			HotelModel hotel = mapper.readValue(HttpUtil.getjson(request.getReader()), HotelModel.class);
-			hotelService.save(hotel);
+			Long id = hotelService.save(hotel);
+			hotel = hotelService.findOne(id);
+			mapper.writeValue(response.getOutputStream(), hotel);
 		}
 	}
 	@Override

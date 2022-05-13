@@ -1,5 +1,10 @@
 package com.HotelBookingBE.model.dao.impl;
 
+import java.sql.Timestamp;
+import java.util.List;
+
+import com.HotelBookingBE.mapper.HotelMapper;
+import com.HotelBookingBE.mapper.HotelroomMapper;
 import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.dao.IHotelRoomDao;
 
@@ -10,6 +15,35 @@ public class HotelRoomDao extends AbstractDao<HotelRoomModel> implements IHotelR
 		String sql = "insert into hotelroom(hotel_id,type_id,name,bed_quantity,price,description,image,createddate) values (?,?,?,?,?,?,?,?)";
 		return insert(sql,room.getHotel_id(),room.getType_id(),room.getRoomName(),room.getBed_quantity(),room.getPrice(),
 				room.getDescription(),room.getImage(),room.getCreatedDate());
+	}
+
+	@Override
+	public List<HotelRoomModel> Search(Timestamp checkinDate, Timestamp checkoutDate, Long hotelId, Long typeroomId,
+			Long bedQuantity, Integer startPage, Integer endPage) {
+		String sql = "select distinct hotelroom.*" + 
+				" from hotel " + 
+				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
+				" inner join booking on hotel.id = booking.hotel_id" + 
+				" where hotelroom.type_id = ?" + 
+				" and hotelroom.bed_quantity = ?" + 
+				" and hotel.id = ?" +
+				" and ((booking.checkin_date > ? and booking.checkin_date > ?) or (booking.checkout_date < ? and booking.checkout_date <  ?))" +
+		        " limit ?, ?";
+		return query(sql,new HotelroomMapper(),typeroomId,bedQuantity,hotelId,checkinDate,checkoutDate,checkinDate,checkoutDate,startPage,endPage);
+	}
+
+	@Override
+	public Integer countMaxItem(Timestamp checkinDate, Timestamp checkoutDate, Long hotelId, Long typeroomId,
+			Long bedQuantity) {
+		String sql = "select count(distinct hotelroom.id)" + 
+				" from hotel " + 
+				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
+				" inner join booking on hotel.id = booking.hotel_id" + 
+				" where hotelroom.type_id = ?" + 
+				" and hotelroom.bed_quantity = ?" + 
+				" and hotel.id = ?" +
+				" and ((booking.checkin_date > ? and booking.checkin_date > ?) or (booking.checkout_date < ? and booking.checkout_date <  ?))";
+		return count(sql,typeroomId,bedQuantity,hotelId,checkinDate,checkoutDate,checkinDate,checkoutDate);
 	}
 	
 }

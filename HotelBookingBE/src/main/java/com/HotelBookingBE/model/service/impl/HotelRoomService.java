@@ -29,5 +29,31 @@ public class HotelRoomService implements IHotelRoomService {
 		hotel.setRoomQuantity(hotel.getRoomQuantity()+1);
 		hotelService.saveChange(hotel);
 	}
+	@Override
+	public HotelRoomModel Search(Timestamp checkinDate, Timestamp checkoutDate, Long HotelId, Long typeroomId,
+			Long bedQuantity, int page) {
+		Integer startPage = 0;
+		Integer endPage = 0;
+		HotelRoomModel room = new HotelRoomModel();
+		room.setMaxPageItem(10);
+		room.setPage(page);
+		Integer maxItem = hotelroomDao.countMaxItem(checkinDate, checkoutDate, HotelId, typeroomId, bedQuantity);
+
+		room.setTotalPage((int)Math.ceil((double)maxItem/(double)room.getMaxPageItem()));
+		
+		if(page==1)
+		{
+			startPage = room.getPage()-1;
+			endPage =room.getMaxPageItem()-1;
+		}else
+		{
+			startPage = room.getPage()*room.getMaxPageItem();
+			endPage = room.getPage()*room.getMaxPageItem() + room.getMaxPageItem()-1;
+		}
+		
+		room.setResults(hotelroomDao.Search(checkinDate, checkoutDate, HotelId, typeroomId, bedQuantity, startPage,endPage));
+		
+		return room;
+	}
 	
 }

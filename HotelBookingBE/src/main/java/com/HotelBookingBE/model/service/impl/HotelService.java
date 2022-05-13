@@ -20,14 +20,14 @@ public class HotelService implements IHotelService {
 		userDao = new UserDao();
 	}
 	@Override
-	public void save(HotelModel hotel) {
+	public Long save(HotelModel hotel) {
 		hotel.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		hotel.setRoomQuantity(0L);
 		Long id = hotelDao.save(hotel);
 		UserModel u = userDao.findOne(hotel.getUser_id());
 		u.setRoleId(2L);
 		userDao.UpdateRoleId(u);
-		
+		return id;
 	}
 	@Override
 	public HotelModel Search(Timestamp checkinDate, Timestamp checkoutDate, Long provinceId, Long typeroomId,

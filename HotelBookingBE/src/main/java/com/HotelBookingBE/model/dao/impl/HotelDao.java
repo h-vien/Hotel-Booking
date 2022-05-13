@@ -51,7 +51,7 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 
 	@Override
 	public HotelModel findOne(Long id) {
-		String sql = "select * from hotel where user_id = ?";
+		String sql = "select * from hotel where id = ?";
 		return query(sql,new HotelMapper(),id).get(0);
 	}
 
