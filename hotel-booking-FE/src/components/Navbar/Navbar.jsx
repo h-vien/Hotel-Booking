@@ -1,7 +1,6 @@
-import { DownOutlined, PlusOutlined, profileOutlined } from "@ant-design/icons";
+import { DownOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Avatar, Button, Dropdown, Menu } from "antd";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -79,7 +78,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Dropdown overlay={DropDownList({ roleId })} trigger={["click"]}>
                 <a href="/" className="flex items-center ml-4">
-                  <Avatar src="" icon={<profileOutlined />} />
+                  <Avatar src="" icon={<UserOutlined />} />
                   <div>
                     <span className="text-lg inline-block px-2">
                       {profile.user.lastName}

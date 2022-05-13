@@ -3,10 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const HotelDesc = ({ hotelInfo }) => {
-  console.log(hotelInfo);
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4">
-      <div className="flex justify-between ">
+      <div className="flex justify-between items-center">
         <div className="h-40 w-56 mr-4 ">
           <img
             className="rounded mr-4 inline-block"

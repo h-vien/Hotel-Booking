@@ -1,13 +1,47 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Col, Row } from "antd";
 import { Content } from "antd/lib/layout/layout";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Filter from "../components/Filter/Filter";
 import HotelDesc from "../components/HotelDesc/HotelDesc";
+import useQuery from "../core/hooks/useQuery";
 import HomeLayout from "../core/layout/HomeLayout";
+import { getHotels } from "../slices/hotel.slice";
+import { convertToJSON } from "../utils/helper";
 
 const SearchPage = () => {
   const hotelSearch = useSelector((state) => state.hotel.hotels);
+  console.log("test");
+  const [hotelList, setHotelList] = useState({});
+
+  const query = useQuery();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const _filters = {
+      ...query,
+      page: query.page || 1,
+    };
+
+    const params = {
+      checkin_date: _filters.checkin_date,
+      checkout_date: _filters.checkout_date,
+      province_id: _filters.province_id,
+      type_room_id: _filters.type_room_id,
+      bed_quantity: _filters.bed_quantity,
+      page: _filters.page,
+    };
+    console.log({ params }, "test");
+    const _getHotels = async () => {
+      const data = await dispatch(getHotels({ params }));
+      const res = unwrapResult(data);
+      const toJSON = convertToJSON(res.data);
+      setHotelList(toJSON);
+    };
+    _getHotels();
+  }, [query, dispatch]);
+  console.log(hotelList);
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">

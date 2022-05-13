@@ -23,7 +23,7 @@ const Routes = () => {
       <Route path="/" exact>
         <HomePage />
       </Route>
-      <Route path="/search">
+      <Route path="/hotel/search">
         <SearchPage />
       </Route>
       <Route path="/hotel/:id">

@@ -3,6 +3,8 @@ import { Button, DatePicker, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import qs from "query-string";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { province } from "../../constant/province";
 import { getHotels } from "../../slices/hotel.slice";
 const { Option, OptGroup } = Select;
@@ -23,29 +25,18 @@ const Hero = () => {
   function onChange(value, dateString) {
     setDate(dateString);
   }
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const handleSearch = () => {
     const _filters = {
-      page: 1,
-    };
-    const params = {
       checkin_date: date[0],
       checkout_date: date[1],
       province_id: address,
       type_room_id: room,
       bed_quantity: bed,
-      page: _filters.page,
+      page: 1,
     };
-    const _getHotels = async () => {
-      const data = await dispatch(getHotels({ params }));
-      const res = unwrapResult(data);
-      const _data = res.data.slice(0, -3);
-      const convertToJson = JSON.parse(_data);
-
-      setHotelList(convertToJson);
-    };
-    _getHotels();
+    history.push(`/hotel/search?${qs.stringify(_filters)}`);
   };
   console.log(hotelList);
   const provinceData = province;
@@ -98,11 +89,9 @@ const Hero = () => {
             <Option value="2">2 giường</Option>
           </OptGroup>
         </Select>
-        <Link to="/search">
-          <Button type="primary" className="btnSearch" onClick={handleSearch}>
-            Search
-          </Button>
-        </Link>
+        <Button type="primary" className="btnSearch" onClick={handleSearch}>
+          Search
+        </Button>
       </div>
     </>
   );
