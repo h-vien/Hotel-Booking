@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-console.log(process.env.REACT_APP_API);
 class Http {
   constructor() {
     this.instance = axios.create({

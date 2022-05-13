@@ -83,7 +83,21 @@ img {
     margin-top: -2px;
   }
 }
-
+.ant-btn-danger {
+  background-color: #ff4d4f !important;
+  color: #fff !important;
+}
+.ant-btn:hover,
+.ant-btn:focus {
+  color: $--color-secondary;
+  border-color: $--color-secondary;
+  background: #fff;
+}
+.ant-modal-close-x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .ant-ribbon,
 .ant-ribbon.ant-ribbon-placement-start {
   border-radius: 20px;

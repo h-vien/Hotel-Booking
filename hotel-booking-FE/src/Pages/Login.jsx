@@ -23,13 +23,10 @@ const Login = ({ heading, role }) => {
     } catch (error) {
       if (error.status === 405) {
         const toJSON = convertToJSON(error.data);
-        console.log(toJSON);
         setError(toJSON.message);
       }
     }
   };
-  console.log(error);
-  // console.log(convertToJSON(error));
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

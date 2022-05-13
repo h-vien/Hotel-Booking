@@ -38,7 +38,6 @@ const Hero = () => {
     };
     history.push(`/hotel/search?${qs.stringify(_filters)}`);
   };
-  console.log(hotelList);
   const provinceData = province;
   function handleAddressChange(value) {
     setAddress(value);

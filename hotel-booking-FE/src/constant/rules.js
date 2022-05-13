@@ -4,7 +4,7 @@ export const rules = {
   name: [
     {
       required: true,
-      message: "Trường này không được trống",
+      message: "Trường này không được bỏ trống",
     },
     {
       max: 120,

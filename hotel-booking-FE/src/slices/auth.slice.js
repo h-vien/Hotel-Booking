@@ -31,7 +31,6 @@ const handleAuthFulfilled = (state, action) => {
   localStorage.setItem(LocalStorage.hotel, JSON.stringify(_data.hotel));
 };
 const handleUnauth = (state) => {
-  console.log("Logout");
   state.profile = {};
   localStorage.removeItem(LocalStorage.user);
 };
@@ -53,8 +52,17 @@ const auth = createSlice({
     [login.fulfilled]: handleAuthFulfilled,
     [logout.fulfilled]: handleUnauth,
     [registerMember.fulfilled]: (state, action) => {
-      state.profile.roleId = 2;
-      localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+      console.log(action.payload);
+      state.profile.hotel = action.payload.data;
+      state.profile.user.roleId = 2;
+      localStorage.setItem(
+        LocalStorage.user,
+        JSON.stringify(state.profile.user)
+      );
+      localStorage.setItem(
+        LocalStorage.hotel,
+        JSON.stringify(state.profile.hotel)
+      );
     },
   },
 });

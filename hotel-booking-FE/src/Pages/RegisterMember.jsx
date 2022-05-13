@@ -17,17 +17,16 @@ import { toast } from "react-toastify";
 const RegisterMember = () => {
   const [provinceId, setProvinceId] = useState();
   const [data, setData] = useState({});
-  const userId = useSelector((state) => state.auth.profile.id);
+  const userId = useSelector((state) => state.auth.profile.user.id);
+  console.log(userId);
   const onFinish = async (values) => {
     const _data = {
       ...values,
       province_id: provinceId,
-      roomQuantity: 0,
       user_id: userId,
       image:
         "https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     };
-    console.log(_data);
     setData(_data);
   };
   const onFinishFailed = (errorInfo) => {
@@ -42,11 +41,9 @@ const RegisterMember = () => {
   const history = useHistory();
   useEffect(() => {
     const _registerMember = async () => {
-      console.log(data);
       try {
         const res = await dispatch(registerMember(data));
         unwrapResult(res);
-        console.log(res);
         history.push("/");
         toast.success("Chúc mừng bạn đã trở thành thành viên của chúng tôi", {
           position: "top-right",

@@ -42,9 +42,7 @@ const DropDownList = ({ roleId }) => {
 };
 const Navbar = () => {
   const profile = useSelector((state) => state.auth.profile);
-  console.log(profile.user);
-  const roleId = profile.user.roleId;
-  console.log(roleId);
+  const roleId = profile?.user?.roleId;
   const authenticated = useAuthenticated();
   return (
     <nav

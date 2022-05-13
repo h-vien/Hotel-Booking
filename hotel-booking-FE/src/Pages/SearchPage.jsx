@@ -12,7 +12,6 @@ import { convertToJSON } from "../utils/helper";
 
 const SearchPage = () => {
   const hotelSearch = useSelector((state) => state.hotel.hotels);
-  console.log("test");
   const [hotelList, setHotelList] = useState({});
 
   const query = useQuery();
@@ -32,7 +31,6 @@ const SearchPage = () => {
       bed_quantity: _filters.bed_quantity,
       page: _filters.page,
     };
-    console.log({ params }, "test");
     const _getHotels = async () => {
       const data = await dispatch(getHotels({ params }));
       const res = unwrapResult(data);
@@ -41,7 +39,6 @@ const SearchPage = () => {
     };
     _getHotels();
   }, [query, dispatch]);
-  console.log(hotelList);
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">

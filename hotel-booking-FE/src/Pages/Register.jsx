@@ -15,11 +15,9 @@ const Register = () => {
 
     const { firstName, lastName, email, password } = values;
     const data = { firstName, lastName, email, password };
-    console.log(data);
     try {
       const res = await dispatch(register(data));
       unwrapResult(res);
-      console.log(res);
       toast.success(
         "Bạn đã đăng kí thành công! Vui lòng đăng nhập để tiếp tục",
         {

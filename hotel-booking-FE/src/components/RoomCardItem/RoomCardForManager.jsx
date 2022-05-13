@@ -25,14 +25,12 @@ const RoomCardForManager = () => {
           </div>
           <div className="flex justify-end">
             <div className="flex-col items-center ">
-              <span className="block text-right line-through">999.999 vnd</span>
-              <span className="block text-right font-bold text-2xl py-1 text-red-400">
-                999.997 vnd
-              </span>
-
-              <Link to="/rooms/123" className="text-right block">
-                <Button type="primary">Đặt phòng</Button>
-              </Link>
+              <div className="my-4">
+                <Button type="danger">Xóa phòng</Button>
+              </div>
+              <div className="my-4">
+                <Button type="primary">Sửa phòng</Button>
+              </div>
             </div>
           </div>
         </div>
