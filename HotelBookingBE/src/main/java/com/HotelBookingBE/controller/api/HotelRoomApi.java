@@ -39,6 +39,7 @@ public class HotelRoomApi extends HttpServlet {
 		Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
 		int page =Integer.parseInt(request.getParameter("page"));
 		HotelRoomModel room = new HotelRoomModel();
+		System.out.print(1);
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("search")) {
 			Timestamp checkoutDate = new Timestamp(Date.valueOf(request.getParameter("checkout_date")).getTime());
 			Timestamp checkinDate = new Timestamp(Date.valueOf(request.getParameter("checkin_date")).getTime());
