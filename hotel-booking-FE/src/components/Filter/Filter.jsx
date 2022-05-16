@@ -1,94 +1,99 @@
-import { HomeOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Checkbox,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Row,
-  Typography,
-} from "antd";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import RatingStars from "../RatingStars/RatingStars";
+import { Button, Col, DatePicker, Form, Row, Select } from "antd";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { province } from "../../constant/province";
 import styles from "./style.module.scss";
+const { Option, OptGroup } = Select;
 
-export default function Filter() {
+export default function Filter({ filters }) {
+  const _filters = {
+    ...filters,
+  };
+  const history = useHistory();
+  const onFinish = async (values) => {
+    const rangeValue = values["date"];
+    const _val = {
+      ...values,
+      date: [
+        rangeValue[0].format("YYYY-MM-DD"),
+        rangeValue[1].format("YYYY-MM-DD"),
+      ],
+    };
+    const _filters = {
+      checkin_date: _val.date[0],
+      checkout_date: _val.date[1],
+      province_id: _val.province_id,
+      type_room_id: _val.type_room_id,
+      bed_quantity: _val.bed_quantity,
+      page: 1,
+    };
+    history.push(`/hotel/search?${qs.stringify(_filters)}`);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+    toast.error("Vui lòng nhập thông tin");
+  };
   const [form] = Form.useForm();
-  const [searchValue, setSearchValue] = useState("");
-  const [date, setDate] = useState([]);
-
-  const onSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  function onChange(value, dateString) {
-    setDate(dateString);
-  }
-
-  const onFinish = (values) => {
-    console.log(values);
-  };
-  function HandleCheckBox(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
+  useEffect(() => {
+    form.setFieldsValue(filters);
+  }, [form, filters]);
   return (
     <div className={styles.filterWrapper}>
-      <Form form={form} name="filter" layout="vertical" onFinish={onFinish}>
-        <div className="py-3 flex items-center justify-between text-lg">
-          <span className="text-xl">Tìm kiếm theo </span>
-          <span className={styles.filterBtnDelete}>Xoá</span>
-        </div>
+      <div className="py-3 flex items-center justify-between text-lg">
+        <span className="text-xl">Tìm kiếm theo </span>
+      </div>
 
-        <Row>
-          <Col span={24} className="m-auto items-center flex flex-col">
-            <div>
-              <span className="py-2 inline-block">Địa điểm</span>
-              <Input
-                placeholder="Nhập địa điểm"
-                size="large"
-                icon={<HomeOutlined />}
-                onChange={onSearch}
-                onPressEnter={onSearch}
-              />
-            </div>
-            <div className="mt-4">
-              <span className="py-2 inline-block">Ngày nhận/ trả phòng</span>
-              <DatePicker.RangePicker format="YYYY-MM-DD" onChange={onChange} />
-            </div>
-            <div className="mt-4">
-              <span className="py-2 inline-block">Lọc theo giá</span>
-              <Row>
-                <Col span={24}>
-                  <Checkbox onChange={HandleCheckBox}>
-                    1.000.000 - 5.000.000
-                  </Checkbox>
-                </Col>
-                <Col span={24}>
-                  <Checkbox onChange={HandleCheckBox}>
-                    500.000 - 1.000.000
-                  </Checkbox>
-                </Col>
-                <Col span={24}>
-                  <Checkbox onChange={HandleCheckBox}> dưới 500.000</Checkbox>
-                </Col>
-              </Row>
-            </div>
-            <div className="mt-4">
-              <span className="py-2 inline-block">Lọc theo sao</span>
-              <RatingStars />
-            </div>
-            <Button
-              htmlType="submit"
-              type="primary"
-              className="text-center my-4"
+      <Row>
+        <Col span={24} className="m-auto items-center flex flex-col">
+          <Form
+            name="basic"
+            form={form}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            initialValues={filters}
+          >
+            <Form.Item
+              name="province_id"
+              label="Thành phố"
+              initialValue={filters?.province_id}
             >
-              <Link to="/search/?q=hoian">Áp dụng</Link>
+              <Select placeholder="Chọn tỉnh" style={{ width: "100%" }}>
+                {province.map((province) => (
+                  <Option value={province.id} key={province.id}>
+                    {province.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item name="date" label="Ngày đến/ Ngày đi">
+              <DatePicker.RangePicker format="YYYY-MM-DD" />
+            </Form.Item>
+            <Form.Item name="type_room_id" label="Loại phòng">
+              <Select placeholder="Chọn  phòng">
+                <OptGroup label="Loại phòng">
+                  <Select.Option value="1">Phòng Vip</Select.Option>
+                  <Select.Option value="2">Phòng thường</Select.Option>
+                </OptGroup>
+              </Select>
+            </Form.Item>
+            <Form.Item name="bed_quantity" label="Giường">
+              <Select placeholder="Chọn giường">
+                <OptGroup label="Số giường">
+                  <Select.Option value="1">1 giường</Select.Option>
+                  <Select.Option value="2">2 giường</Select.Option>
+                </OptGroup>
+              </Select>
+            </Form.Item>
+
+            <Button type="primary" className="my-8 h-10" htmlType="submit">
+              Áp dụng
             </Button>
-          </Col>
-        </Row>
-      </Form>
+          </Form>
+        </Col>
+      </Row>
     </div>
   );
 }

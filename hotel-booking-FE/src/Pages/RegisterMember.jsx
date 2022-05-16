@@ -15,14 +15,12 @@ import LocalStorage from "../constant/localStorage";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 const RegisterMember = () => {
-  const [provinceId, setProvinceId] = useState();
   const [data, setData] = useState({});
   const userId = useSelector((state) => state.auth.profile.user.id);
   console.log(userId);
   const onFinish = async (values) => {
     const _data = {
       ...values,
-      province_id: provinceId,
       user_id: userId,
       image:
         "https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -32,10 +30,6 @@ const RegisterMember = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  function handleAddressChange(value) {
-    console.log(value);
-    setProvinceId(value);
-  }
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -107,16 +101,30 @@ const RegisterMember = () => {
                     <Form.Item
                       label="Số điện thoại"
                       name="hotelPhone"
-                      rules={[{ required: true }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Trường này không được bỏ trống",
+                        },
+                      ]}
                       className="mr-4"
                     >
                       <Input />
                     </Form.Item>
-                    <Form.Item label="Thành phố">
+                    <Form.Item
+                      label="Thành phố"
+                      name="province_id"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Trường này không được bỏ trống",
+                        },
+                      ]}
+                    >
                       <Select
                         defaultValue={province[0].name}
                         style={{ width: 150 }}
-                        onChange={handleAddressChange}
+                        className="register-member__select"
                       >
                         {province.map((province) => (
                           <Option value={province.id} key={province.id}>
@@ -138,7 +146,12 @@ const RegisterMember = () => {
                 <Form.Item
                   label="Mô tả khách sạn"
                   name="hotelDescription"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này không được bỏ trống",
+                    },
+                  ]}
                   validateStatus="error"
                 >
                   <Input.TextArea />

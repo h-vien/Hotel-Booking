@@ -119,8 +119,6 @@ img {
 
 .btnSearch {
   border-radius: 4px !important;
-  height: 100%;
-  padding: 10px 20px;
   margin-left: 4px;
 }
 .filterBtn {
@@ -137,6 +135,7 @@ img {
 }
 
 a {
+  margin: 0;
   color: $--color-secondary;
   margin-left: 8px;
   display: inline-block;
@@ -156,11 +155,6 @@ a {
   display: inherit !important;
 }
 
-a {
-  margin: 0;
-}
-
-.ant-select-selector {
+.register-member__select .ant-select-selector {
   border-radius: 8px !important;
-  padding: 4px 12px !important;
 }

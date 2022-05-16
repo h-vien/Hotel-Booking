@@ -16,7 +16,8 @@ const SearchPage = () => {
 
   const query = useQuery();
   const dispatch = useDispatch();
-
+  const [filters, setFilters] = useState();
+  console.log(filters, "filter");
   useEffect(() => {
     const _filters = {
       ...query,
@@ -31,6 +32,7 @@ const SearchPage = () => {
       bed_quantity: _filters.bed_quantity,
       page: _filters.page,
     };
+    setFilters(params);
     const _getHotels = async () => {
       const data = await dispatch(getHotels({ params }));
       const res = unwrapResult(data);
@@ -44,7 +46,7 @@ const SearchPage = () => {
       <Content className="max-w-6xl mx-auto mt-5">
         <Row gutter={[16, 16]}>
           <Col span={6}>
-            <Filter />
+            <Filter filters={filters} />
           </Col>
           <Col span={18}>
             <Row>
