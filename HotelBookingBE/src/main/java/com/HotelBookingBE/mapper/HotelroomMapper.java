@@ -21,12 +21,14 @@ public class HotelroomMapper implements IRowMapper<HotelRoomModel> {
 			room.setImage(rs.getString("image"));
 			room.setCreatedDate(rs.getTimestamp("createddate"));
 			room.setModifiedDate(rs.getTimestamp("modifieddate"));
+			return room;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();		
+			return null;
 		}
 		
-		return null;
+
 	}
 	
 }

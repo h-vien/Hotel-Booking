@@ -45,5 +45,25 @@ public class HotelRoomDao extends AbstractDao<HotelRoomModel> implements IHotelR
 				" and ((booking.checkin_date > ? and booking.checkin_date > ?) or (booking.checkout_date < ? and booking.checkout_date <  ?))";
 		return count(sql,typeroomId,bedQuantity,hotelId,checkinDate,checkoutDate,checkinDate,checkoutDate);
 	}
+
+	@Override
+	public List<HotelRoomModel> SearchAll(Long hotelId, Integer startPage, Integer endPage) {
+		String sql = "select distinct hotelroom.*" + 
+				" from hotel " + 
+				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
+				" where hotel.id= ?" + 
+		        " limit ?, ?";
+		return query(sql,new HotelroomMapper(),hotelId,startPage,endPage);
+	}
+
+	@Override
+	public Integer countMaxAll(Long hotelId) {
+		String sql = "select count(distinct hotelroom.id)" + 
+				" from hotel " + 
+				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
+				" and hotel.id = ?" ;
+				
+		return count(sql,hotelId);
+	}
 	
 }
