@@ -47,8 +47,8 @@ public class HotelService implements IHotelService {
 			endPage =hotel.getMaxPageItem()-1;
 		}else
 		{
-			startPage = hotel.getPage()*hotel.getMaxPageItem();
-			endPage = hotel.getPage()*hotel.getMaxPageItem() + hotel.getMaxPageItem()-1;
+			startPage = (hotel.getPage() -1) * hotel.getMaxPageItem() ;
+			endPage = (hotel.getPage( ) -1)*hotel.getMaxPageItem() + hotel.getMaxPageItem()-1;
 		}
 		
 		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,endPage));

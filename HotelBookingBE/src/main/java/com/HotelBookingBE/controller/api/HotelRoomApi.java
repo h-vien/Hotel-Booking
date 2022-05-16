@@ -36,41 +36,28 @@ public class HotelRoomApi extends HttpServlet {
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		
+		Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
+		int page =Integer.parseInt(request.getParameter("page"));
+		HotelRoomModel room = new HotelRoomModel();
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("search")) {
-			Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
 			Timestamp checkoutDate = new Timestamp(Date.valueOf(request.getParameter("checkout_date")).getTime());
 			Timestamp checkinDate = new Timestamp(Date.valueOf(request.getParameter("checkin_date")).getTime());
 			Long typeroomId =  Long.parseLong(request.getParameter("type_room_id"));
 			Long bedQuantity =  Long.parseLong(request.getParameter("bed_quantity"));
-			int page = Integer.parseInt(request.getParameter("page"));
-			
-			HotelRoomModel room = new HotelRoomModel();
-			
 			room= hotelroomService.Search(checkinDate, checkoutDate, hotelId, typeroomId, bedQuantity,page); 
-			
-			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("page", room.getPage());
-			map.put("maxPageItem", room.getMaxPageItem());
-			map.put("totalPage", room.getTotalPage());
-			map.put("rooms", room.getResults());
-			mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
 		}
 		else  if(HttpUtil.getPathURL(request.getRequestURI()).equals("searchAll")) {
-				Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
-				int page =Integer.parseInt(request.getParameter("page"));
-				System.out.println("hehe");
-				HotelRoomModel room = new HotelRoomModel();
-				room= hotelroomService.SearchAll(hotelId,page);
 				
-				Map<String,Object> map = new HashMap<String,Object>();
-				map.put("page", room.getPage());
-				map.put("maxPageItem", room.getMaxPageItem());
-				map.put("totalPage", room.getTotalPage());
-				map.put("rooms", room.getResults());
-				mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+				room= hotelroomService.SearchAll(hotelId,page);
+			
 			
 		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("page", room.getPage());
+		map.put("maxPageItem", room.getMaxPageItem());
+		map.put("totalPage", room.getTotalPage());
+		map.put("rooms", room.getResults());
+		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
 	}
 
 

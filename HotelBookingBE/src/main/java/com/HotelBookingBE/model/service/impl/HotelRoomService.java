@@ -47,8 +47,8 @@ public class HotelRoomService implements IHotelRoomService {
 			endPage =room.getMaxPageItem()-1;
 		}else
 		{
-			startPage = room.getPage()*room.getMaxPageItem();
-			endPage = room.getPage()*room.getMaxPageItem() + room.getMaxPageItem()-1;
+			startPage = (room.getPage() -1) * room.getMaxPageItem() ;
+			endPage = (room.getPage( ) -1)*room.getMaxPageItem() + room.getMaxPageItem()-1;
 		}
 		
 		room.setResults(hotelroomDao.Search(checkinDate, checkoutDate, HotelId, typeroomId, bedQuantity, startPage,endPage));
@@ -71,8 +71,8 @@ public class HotelRoomService implements IHotelRoomService {
 			endPage =room.getMaxPageItem()-1;
 		}else
 		{
-			startPage = room.getPage()*room.getMaxPageItem();
-			endPage = room.getPage()*room.getMaxPageItem() + room.getMaxPageItem()-1;
+			startPage = (room.getPage() -1) * room.getMaxPageItem() ;
+			endPage = (room.getPage( ) -1)*room.getMaxPageItem() + room.getMaxPageItem()-1;
 		}
 		
 		room.setResults(hotelroomDao.SearchAll( HotelId, startPage,endPage));
