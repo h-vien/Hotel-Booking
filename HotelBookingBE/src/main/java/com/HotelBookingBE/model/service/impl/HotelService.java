@@ -44,11 +44,11 @@ public class HotelService implements IHotelService {
 		if(page==1)
 		{
 			startPage = hotel.getPage()-1;
-			endPage =hotel.getMaxPageItem()-1;
+			endPage =hotel.getMaxPageItem();
 		}else
 		{
 			startPage = (hotel.getPage() -1) * hotel.getMaxPageItem() ;
-			endPage = (hotel.getPage( ) -1)*hotel.getMaxPageItem() + hotel.getMaxPageItem()-1;
+			endPage = hotel.getMaxPageItem();
 		}
 		
 		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,endPage));

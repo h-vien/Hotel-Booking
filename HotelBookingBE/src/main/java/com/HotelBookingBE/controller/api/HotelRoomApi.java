@@ -1,6 +1,7 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.service.IHotelRoomService;
 import com.HotelBookingBE.model.service.impl.HotelRoomService;
@@ -20,6 +20,8 @@ import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @WebServlet(urlPatterns = {"/hotel/room","/hotel/room/search","/hotel/room/searchAll",})
 public class HotelRoomApi extends HttpServlet {
@@ -59,6 +61,11 @@ public class HotelRoomApi extends HttpServlet {
 		map.put("totalPage", room.getTotalPage());
 		map.put("rooms", room.getResults());
 		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+		
+		
+//		PrintWriter out = response.getWriter();
+//		Gson gson = new Gson();
+//		out.print(gson.toJson(map));
 	}
 
 
