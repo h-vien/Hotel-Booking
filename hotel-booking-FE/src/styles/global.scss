@@ -45,7 +45,15 @@ img {
   width: 100%;
   height: 85%;
   background-position: top;
-  background-image: url("https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background: rgb(26, 37, 66);
+
+  background-image: linear-gradient(
+      0deg,
+      rgba(26, 37, 66, 1) 8%,
+      rgba(26, 37, 66, 0.6561975131849616) 43%,
+      rgba(187, 190, 241, 0) 100%
+    ),
+    url("https://images.unsplash.com/photo-1501961431051-1b13e78c4551?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80");
 }
 .ant-layout-header {
   box-shadow: 4px 0px 8px 0px #1a254214;
@@ -61,7 +69,12 @@ img {
 .ant-descriptions-title {
   font-size: 30px;
 }
-
+.ant-form-item-label {
+  text-align: left;
+}
+.ant-form-item {
+  flex-direction: column;
+}
 .ant-descriptions-item-content {
   font-size: 20px;
 }
@@ -157,4 +170,10 @@ a {
 
 .register-member__select .ant-select-selector {
   border-radius: 8px !important;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  width: 100% !important;
+}
+.ant-input-number {
+  width: 100%;
 }

@@ -11,15 +11,4 @@
     font-weight: 500;
     color: #4d608d;
   }
-  :global {
-    .ant-form-item-label {
-      text-align: left;
-    }
-    .ant-form-item {
-      flex-direction: column;
-    }
-    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      width: 100% !important;
-    }
-  }
 }

@@ -53,7 +53,7 @@ const SearchPage = () => {
               {hotelSearch.hotels?.[0] ? (
                 hotelSearch.hotels.map((hotel) => (
                   <Col span={24} key={hotel.id}>
-                    <HotelDesc hotelInfo={hotel} />
+                    <HotelDesc filters={filters} hotelInfo={hotel} />
                   </Col>
                 ))
               ) : (
