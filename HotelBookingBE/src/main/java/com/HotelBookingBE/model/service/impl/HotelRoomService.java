@@ -65,14 +65,16 @@ public class HotelRoomService implements IHotelRoomService {
 		Integer maxItem = hotelroomDao.countMaxAll( HotelId);
 		room.setTotalPage((int)Math.ceil((double)maxItem/(double)room.getMaxPageItem()));
 	
+
 		if(page==1)
 		{
 			startPage = room.getPage()-1;
-			endPage =room.getMaxPageItem()-1;
-		}else
+			endPage = room.getMaxPageItem();
+		}
+		else
 		{
-			startPage = (room.getPage() -1) * room.getMaxPageItem() ;
-			endPage = (room.getPage( ) -1)*room.getMaxPageItem() + room.getMaxPageItem()-1;
+			startPage = (room.getPage() - 1) * room.getMaxPageItem() ;
+			endPage = room.getMaxPageItem();
 		}
 		
 		room.setResults(hotelroomDao.SearchAll( HotelId, startPage,endPage));
