@@ -1,5 +1,13 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Form, Input, InputNumber, Modal, Select } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Pagination,
+  Select,
+} from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { Option } from "antd/lib/mentions";
 import React, { useEffect, useState } from "react";
@@ -16,7 +24,8 @@ const CreateRoom = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [roomList, setRoomList] = useState([]);
   const [banner, setBanner] = useState("");
-
+  const [currPage, setCurrPage] = useState(1);
+  const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth.profile);
   const showModal = () => {
@@ -39,7 +48,6 @@ const CreateRoom = () => {
     console.log(_data);
     const res = dispatch(createRoom(_data));
     unwrapResult(res);
-    _getRooms();
 
     toast.success("Tạo phòng thành công", {
       position: "top-right",
@@ -48,29 +56,41 @@ const CreateRoom = () => {
     handleCancel();
   };
   useEffect(() => {
+    const params = {
+      hotel_id: profile.hotel.id,
+      page: currPage,
+    };
+    const _getRooms = async () => {
+      const _data = await dispatch(getRoomByHotelId({ params }));
+      const res = unwrapResult(_data);
+      const toJSON = convertToJSON(res.data);
+      setRoomList(toJSON.rooms);
+    };
     _getRooms();
-  }, []);
-  const params = {
-    hotel_id: profile.hotel.id,
-    page: 1,
-  };
-  const _getRooms = async () => {
-    const _data = await dispatch(getRoomByHotelId({ params }));
-    const res = unwrapResult(_data);
-    const toJSON = convertToJSON(res.data);
-    setRoomList(toJSON.rooms);
-  };
+  }, [currPage, dispatch, profile.hotel.id]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
   console.log(roomList);
+  const onShowSizeChange = (curr, pgSize) => {
+    console.log({ curr, pgSize }, "hehe");
+    setCurrPage(curr);
+  };
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">
-        <Button type="secondary" className="mb-5" onClick={showModal}>
-          Tạo phòng
-        </Button>
+        <div className="flex justify-between mb-5">
+          <Button type="secondary" onClick={showModal}>
+            Tạo phòng
+          </Button>
+          <Pagination
+            simple
+            defaultCurrent={1}
+            total={20}
+            onChange={onShowSizeChange}
+          />
+        </div>
         {roomList?.[0] &&
           roomList.map((room) => (
             <RoomCardForManager key={room.id} room={room} />
@@ -81,6 +101,7 @@ const CreateRoom = () => {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
+          destroyOnClose={true}
           footer={[null]}
         >
           <Form
@@ -88,6 +109,9 @@ const CreateRoom = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            initialValues={{
+              remember: true,
+            }}
           >
             <Form.Item label="Tên phòng" name="roomName" rules={rules.name}>
               <Input />
@@ -150,13 +174,23 @@ const CreateRoom = () => {
               </div>
             </Form.Item>
             <Form.Item>
-              <UploadImage onChange={setBanner} />
+              <UploadImage
+                onChange={setBanner}
+                setProgress={setProgress}
+                progress={progress}
+              />
             </Form.Item>
             <div className="flex justify-center mt-1 mb-0">
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Tạo phòng
-                </Button>
+                {progress === 100 ? (
+                  <Button type="primary" htmlType="submit">
+                    Tạo phòng
+                  </Button>
+                ) : (
+                  <Button type="primary" htmlType="submit" disabled>
+                    Tạo phòng
+                  </Button>
+                )}
               </Form.Item>
             </div>
           </Form>

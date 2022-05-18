@@ -10,3 +10,7 @@ export const getRoomByHotelId = createAsyncThunk(
   "hotel/room/getByHotelId",
   payloadCreator(roomApi.getRoomByHotelId)
 );
+export const searchRoomById = createAsyncThunk(
+  "hotel/room/searchRoomById",
+  payloadCreator(roomApi.searchRoomById)
+);

@@ -6,4 +6,7 @@ export const roomApi = {
   getRoomByHotelId(config) {
     return http.get("/hotel/room/searchAll", config);
   },
+  searchRoomById(config) {
+    return http.get("/hotel/room/search", config);
+  },
 };

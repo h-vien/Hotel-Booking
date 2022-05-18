@@ -1,15 +1,13 @@
-import { Button, Image, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Upload } from "antd";
 import React, { useState } from "react";
 import { getImageUpload } from "../utils/cloudinary";
-import ImgCrop from "antd-img-crop";
-import { UploadOutlined } from "@ant-design/icons";
-import { toast } from "react-toastify";
 
-const UploadImage = ({ onChange }) => {
-  const [progress, setProgress] = useState(0);
+const UploadImage = ({ onChange, setProgress, progress }) => {
   const handleUpload = async ({ file }) => {
     try {
       setProgress(0);
+
       const data = await getImageUpload(file, setProgress);
       const src = data?.url;
       if (src) {
@@ -26,6 +24,7 @@ const UploadImage = ({ onChange }) => {
       console.log("err");
     }
   };
+  console.log(progress);
   return (
     <Upload
       accept="image/*"

@@ -14,8 +14,9 @@ import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
 import RegisterMember from "./Pages/RegisterMember";
-import RoomDetail from "./Pages/RoomDetail";
+import RoomDetail from "./Pages/Booking";
 import SearchPage from "./Pages/SearchPage";
+import Booking from "./Pages/Booking";
 
 const Routes = () => {
   return (
@@ -29,8 +30,8 @@ const Routes = () => {
       <Route path="/hotel/:id">
         <HotelDetail />
       </Route>
-      <Route path="/rooms/:id">
-        <RoomDetail />
+      <Route path="/booking/:id">
+        <Booking />
       </Route>
       <Route path="/login">
         <UnAuth>
