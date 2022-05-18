@@ -76,5 +76,14 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 				hotel.getRoomQuantity(),hotel.getImage(),hotel.getModifiedDate(),hotel.getId());
 	}
 
+	@Override
+	public HotelModel findOneByRoomId(Long room_id) {
+		String sql = "select distinct hotel.* " + 
+				" from hotel" + 
+				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
+				" where hotelroom.id = ?";
+		return query(sql,new HotelMapper(),room_id).get(0);
+	}
+
 
 }

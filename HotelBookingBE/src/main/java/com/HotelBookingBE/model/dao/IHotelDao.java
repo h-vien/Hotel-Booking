@@ -12,6 +12,7 @@ public interface IHotelDao extends genericDao<HotelModel>{
 	HotelModel findOne(Long id);
 	HotelModel findOne(HotelRoomModel hotelroom);
 	HotelModel findOne(UserModel user);
+	HotelModel findOneByRoomId(Long room_id);
 	List<HotelModel> Search(Timestamp checkinDate,Timestamp checkoutDate,Long provinceId,Long typeroomId,
 			Long bedQuantity,Integer startPage,Integer endPage);
 	Integer countMaxItem(Timestamp checkinDate,Timestamp checkoutDate,Long provinceId,Long typeroomId,Long bedQuantity);

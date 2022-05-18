@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.HotelRoomModel;
+import com.HotelBookingBE.model.dao.IBookingDao;
 import com.HotelBookingBE.model.dao.IHotelDao;
 import com.HotelBookingBE.model.dao.IHotelRoomDao;
+import com.HotelBookingBE.model.dao.impl.BookingDao;
 import com.HotelBookingBE.model.dao.impl.HotelDao;
 import com.HotelBookingBE.model.dao.impl.HotelRoomDao;
 import com.HotelBookingBE.model.service.IHotelRoomService;
@@ -16,10 +18,12 @@ public class HotelRoomService implements IHotelRoomService {
 	private IHotelRoomDao hotelroomDao;
 	private IHotelService hotelService;
 	private IHotelDao hotelDao;
+	private IBookingDao bookingDao;
 	public HotelRoomService() {
 		hotelroomDao = new HotelRoomDao();
 		hotelService = new HotelService();
 		hotelDao = new HotelDao();
+		bookingDao = new BookingDao();
 	}
 	@Override
 	public void save(HotelRoomModel room) {
@@ -84,8 +88,9 @@ public class HotelRoomService implements IHotelRoomService {
 		hotelroomDao.UpdateRoom(room);
 	}
 	@Override
-	public void Delete(HotelRoomModel room) {
-		hotelroomDao.DeleteRoom(room);
+	public void Delete(Long room_id) {
+		bookingDao.deleteByRoomId(room_id);
+		hotelroomDao.DeleteRoom(room_id);	
 	}
 	
 	

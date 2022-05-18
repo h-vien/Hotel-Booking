@@ -3,7 +3,6 @@ package com.HotelBookingBE.model.dao.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.HotelBookingBE.mapper.HotelMapper;
 import com.HotelBookingBE.mapper.HotelroomMapper;
 import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.dao.IHotelRoomDao;
@@ -75,9 +74,9 @@ public class HotelRoomDao extends AbstractDao<HotelRoomModel> implements IHotelR
 	}
 
 	@Override
-	public void DeleteRoom(HotelRoomModel room) {
-		String sql = "delete from hotelroom where hotel_id = ?,type_id = ?";
-		delete(sql, room.getHotel_id(),room.getType_id());
+	public void DeleteRoom(Long room_id) {
+		String sql = "delete from hotelroom where id = ?";
+		update(sql, room_id);
 	}
 
 	

@@ -13,6 +13,13 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 				book.getEmail(),book.getBirthday(),book.getCheckinDate(),book.getCheckoutDate(),book.getDeadlineDate(),book.getCreatedDate());
 	}
 
+	@Override
+	public void deleteByRoomId(Long room_id) {
+		String sql = "delete from booking where room_id = ?";
+		update(sql,room_id);
+		
+	}
+
 	
 	
 }

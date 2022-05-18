@@ -13,5 +13,5 @@ public interface IHotelRoomDao extends genericDao<HotelRoomModel> {
 	Integer countMaxItem(Timestamp checkinDate,Timestamp checkoutDate,Long hotelId,Long typeroomId,Long bedQuantity);
 	Integer countMaxAll(Long hotelId);
 	void UpdateRoom(HotelRoomModel room);
-	void DeleteRoom(HotelRoomModel room);
+	void DeleteRoom(Long room_id);
 	}

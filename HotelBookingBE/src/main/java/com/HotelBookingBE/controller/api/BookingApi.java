@@ -1,6 +1,7 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +13,9 @@ import com.HotelBookingBE.model.service.IBookingService;
 import com.HotelBookingBE.model.service.impl.BookingService;
 import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 
-@WebServlet(urlPatterns = {"/booking"})
+@WebServlet(urlPatterns = {"/booking","/booking/user"})
 public class BookingApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,6 +26,9 @@ public class BookingApi extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
 		
 	}
 
@@ -35,7 +38,11 @@ public class BookingApi extends HttpServlet {
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
 		BookingModel book = mapper.readValue(HttpUtil.getjson(request.getReader()), BookingModel.class);
-		bookingService.save(book);
+		Long id = bookingService.save(book);
+		if(id == null)
+		{
+			response.setStatus(405);
+		} 
 	}
 
 }
