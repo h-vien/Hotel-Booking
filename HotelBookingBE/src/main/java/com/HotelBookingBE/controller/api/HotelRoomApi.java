@@ -1,6 +1,7 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 
 @WebServlet(urlPatterns = {"/hotel/room","/hotel/room/search","/hotel/room/searchAll",})
 public class HotelRoomApi extends HttpServlet {
@@ -31,10 +33,12 @@ public class HotelRoomApi extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		
 		Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
 		int page =Integer.parseInt(request.getParameter("page"));
@@ -58,12 +62,10 @@ public class HotelRoomApi extends HttpServlet {
 		map.put("maxPageItem", room.getMaxPageItem());
 		map.put("totalPage", room.getTotalPage());
 		map.put("rooms", room.getResults());
-		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
-		
-		
-//		PrintWriter out = response.getWriter();
-//		Gson gson = new Gson();
-//		out.print(gson.toJson(map));
+//		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+				
+
+		out.print(gson.toJson(map));
 	}
 
 

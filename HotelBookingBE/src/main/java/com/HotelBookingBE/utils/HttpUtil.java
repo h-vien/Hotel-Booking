@@ -34,16 +34,12 @@ public class HttpUtil {
 		String[] sarr = s.split("/");
 		return sarr[sarr.length-1];
 	}
-	public static JSONPObject toJsonObject(String s)
+	public static Map<String,Object> toJsonObject(String s)
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(SystemConstant.Message, s);
-		try {
-			return new JSONPObject(mapper.writeValueAsString(map), 1);
-		} catch (JsonProcessingException e) {
-			return null;
-		}
+		return map;
 	}
 
 }

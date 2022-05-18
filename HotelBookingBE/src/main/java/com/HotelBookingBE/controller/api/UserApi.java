@@ -1,6 +1,7 @@
 package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 
 
 @WebServlet(urlPatterns = {"/user","/user/login","/user/register","/user/manager"})
@@ -37,20 +39,22 @@ public class UserApi extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		response.setContentType("application/json");
-		request.setCharacterEncoding("UTF-8");
-		// lay thong tin user khong can session
-		//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//		response.setContentType("application/json");
+//		request.setCharacterEncoding("UTF-8");
+//		// lay thong tin user khong can session
+//		//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 
 		
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("login"))
@@ -60,7 +64,8 @@ public class UserApi extends HttpServlet {
 			if(user == null)
 			{
 				response.setStatus(405);
-				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Không tìm thấy user"));
+				out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
+//				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Không tìm thấy user"));
 				//set status
 			} else 	
 			{
@@ -76,7 +81,8 @@ public class UserApi extends HttpServlet {
 				{
 					map.put("hotel", "");
 				}
-				mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+				out.print(gson.toJson(map));
+//				mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
 				
 			}
 		} 
@@ -84,7 +90,8 @@ public class UserApi extends HttpServlet {
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
 			userService.saveUser(user);			
-			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Đăng kí thành công"));
+			out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thành công")));
+//			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Đăng kí thành công"));
 			//set status
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
