@@ -33,6 +33,8 @@ const handleAuthFulfilled = (state, action) => {
 const handleUnauth = (state) => {
   state.profile = {};
   localStorage.removeItem(LocalStorage.user);
+  localStorage.removeItem(LocalStorage.hotel);
+  localStorage.removeItem(LocalStorage.filters);
 };
 
 const auth = createSlice({

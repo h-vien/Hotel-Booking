@@ -1,25 +1,19 @@
-import HomeLayout from "../core/layout/HomeLayout";
-import { Content } from "antd/lib/layout/layout";
-import { Button, Form, Input, message, Select, Upload } from "antd";
-import { rules } from "../constant/rules";
-import styles from "../styles/pages/login.module.scss";
-import Dragger from "antd/lib/upload/Dragger";
-import { InboxOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-import { province } from "../constant/province";
-import { Option } from "antd/lib/mentions";
-import { registerMember } from "../slices/auth.slice";
-import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import LocalStorage from "../constant/localStorage";
+import { Button, Form, Input, Select } from "antd";
+import { Content } from "antd/lib/layout/layout";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { getImageUpload } from "../utils/cloudinary";
 import UploadImage from "../common/UploadImage";
+import { province } from "../constant/province";
+import { rules } from "../constant/rules";
+import HomeLayout from "../core/layout/HomeLayout";
+import { registerMember } from "../slices/auth.slice";
+import styles from "../styles/pages/login.module.scss";
 const RegisterMember = () => {
   const [banner, setBanner] = useState("");
-
+  const [progress, setProgress] = useState(0);
   const userId = useSelector((state) => state.auth.profile.user.id);
 
   const dispatch = useDispatch();
@@ -30,7 +24,7 @@ const RegisterMember = () => {
     const _data = {
       ...values,
       user_id: userId,
-      image: banner.url,
+      image: banner?.url,
     };
     console.log(_data);
     const _registerMember = async () => {
@@ -60,7 +54,7 @@ const RegisterMember = () => {
         <div className="w-full h-auto rounded-lg shadow-lg">
           <div className="px-24 py-5">
             <div className="text-center flex items-center flex-col justify-center">
-              <h1 className="text-5xl font-bold">Đăng kí thành viên </h1>
+              <h1 className="text-5xl font-bold mb-4">Đăng kí thành viên </h1>
             </div>
             <div className={styles.formRegisterMemberContainer}>
               <Form
@@ -146,7 +140,11 @@ const RegisterMember = () => {
                 </Form.Item>
                 <Form.Item>
                   <div className="flex justify-between">
-                    <UploadImage onChange={setBanner} />
+                    <UploadImage
+                      onChange={setBanner}
+                      setProgress={setProgress}
+                      progress={progress}
+                    />
                     <Button
                       onClick={() =>
                         setBanner(
@@ -160,9 +158,15 @@ const RegisterMember = () => {
                 </Form.Item>
                 <div className="flex justify-center mt-10 mb-24">
                   <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Đăng kí thành viên
-                    </Button>
+                    {progress === 100 ? (
+                      <Button type="primary" htmlType="submit">
+                        Đăng kí thành viên
+                      </Button>
+                    ) : (
+                      <Button type="primary" htmlType="submit" disabled>
+                        Đăng kí thành viên
+                      </Button>
+                    )}
                   </Form.Item>
                 </div>
               </Form>

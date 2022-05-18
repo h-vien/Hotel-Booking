@@ -9,9 +9,9 @@ import {
   Select,
 } from "antd";
 import { Content } from "antd/lib/layout/layout";
-import { Option } from "antd/lib/mentions";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 import UploadImage from "../common/UploadImage";
 import RoomCardForManager from "../components/RoomCardItem/RoomCardForManager";
@@ -23,10 +23,12 @@ import { convertToJSON } from "../utils/helper";
 const CreateRoom = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [roomList, setRoomList] = useState([]);
+  const [paginate, setPaginate] = useState({});
   const [banner, setBanner] = useState("");
   const [currPage, setCurrPage] = useState(1);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
+  const history = useHistory();
   const profile = useSelector((state) => state.auth.profile);
   const showModal = () => {
     setIsModalVisible(true);
@@ -40,14 +42,22 @@ const CreateRoom = () => {
   };
   const onFinish = async (values) => {
     console.log(values);
+    console.log(banner);
+
     const _data = {
       ...values,
-      image: banner.url,
+      image:
+        banner.url ||
+        "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg",
       hotel_id: profile.hotel.id,
     };
-    console.log(_data);
-    const res = dispatch(createRoom(_data));
-    unwrapResult(res);
+    try {
+      const res = dispatch(createRoom(_data));
+      unwrapResult(res);
+      history.go(0);
+    } catch (error) {
+      console.log(error);
+    }
 
     toast.success("Tạo phòng thành công", {
       position: "top-right",
@@ -56,6 +66,7 @@ const CreateRoom = () => {
     handleCancel();
   };
   useEffect(() => {
+    console.log("render");
     const params = {
       hotel_id: profile.hotel.id,
       page: currPage,
@@ -64,19 +75,19 @@ const CreateRoom = () => {
       const _data = await dispatch(getRoomByHotelId({ params }));
       const res = unwrapResult(_data);
       const toJSON = convertToJSON(res.data);
+      setPaginate(toJSON);
       setRoomList(toJSON.rooms);
     };
     _getRooms();
   }, [currPage, dispatch, profile.hotel.id]);
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(roomList);
   const onShowSizeChange = (curr, pgSize) => {
-    console.log({ curr, pgSize }, "hehe");
+    console.log(pgSize, curr);
     setCurrPage(curr);
   };
+
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">
@@ -86,8 +97,12 @@ const CreateRoom = () => {
           </Button>
           <Pagination
             simple
-            defaultCurrent={1}
-            total={20}
+            current={currPage}
+            total={
+              paginate.totalPage * paginate.maxPageItem !== 0
+                ? paginate.totalPage * paginate.maxPageItem
+                : 1
+            }
             onChange={onShowSizeChange}
           />
         </div>
@@ -167,9 +182,14 @@ const CreateRoom = () => {
                       required: true,
                       message: "Trường này không được bỏ trống",
                     },
+                    {
+                      type: "number",
+                      min: 0,
+                      message: "Giá tiền phải lớn hơn 0",
+                    },
                   ]}
                 >
-                  <InputNumber />
+                  <InputNumber prefix="VNĐ" className="w-full" />
                 </Form.Item>
               </div>
             </Form.Item>

@@ -18,23 +18,27 @@ const HotelDesc = ({ hotelInfo }) => {
           />
         </div>
         <div className="flex flex-col flex-1 justify-between">
-          <Typography.Title>{hotelInfo.hotelName}</Typography.Title>
-          <Typography.Text className="pb-4">
-            {hotelInfo.hotelDescription}
-          </Typography.Text>
-          <div className="flex justify-between items-center">
-            <div>
+          <div className="flex justify-between">
+            <div className="w-3/4 pr-4">
+              <Typography.Text className="text-2xl mb-2 inline-block font-medium">
+                {hotelInfo.hotelName}
+              </Typography.Text>
+              <Typography.Text className="mb-4 line-clamp-3 overflow-ellipsis">
+                {hotelInfo.hotelDescription}
+              </Typography.Text>
               <span className="font-medium text-orange-400">
                 {hotelInfo.hotelAddress}
               </span>
             </div>
-            <div className="flex flex-col">
-              <span className="block  py-2">
-                Số lượng phòng : {hotelInfo.roomQuantity}
-              </span>
-              <Link to={`/hotel/${hotelInfo.id}`}>
-                <Button>Xem Khách sạn</Button>
-              </Link>
+            <div className="flex justify-end items-end w-1/4">
+              <div className="flex flex-col">
+                {/* <span className="block  py-2">
+                  Số lượng phòng : {hotelInfo.roomQuantity}
+                </span> */}
+                <Link to={`/hotel/${hotelInfo.id}`}>
+                  <Button>Xem Khách sạn</Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
