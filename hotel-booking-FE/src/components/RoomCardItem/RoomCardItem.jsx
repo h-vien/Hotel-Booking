@@ -1,36 +1,41 @@
-import { Button, Typography } from "antd";
+import { Button, Tag, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-
-const RoomCardItem = () => {
+import { typeOfRoom } from "../../constant/common";
+const RoomCardItem = ({ room }) => {
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4">
       <div className="flex justify-between ">
         <div className="h-40 w-56 mr-4 ">
           <img
             className="rounded mr-4 inline-block"
-            src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            alt=""
+            src={room.image}
+            alt={room.roomName}
           />
         </div>
         <div className="flex items-center flex-1 justify-between">
           <div className="flex-col  w-3/4">
-            <Typography.Title>Phòng Vip</Typography.Title>
+            <Typography.Title>{room.roomName}</Typography.Title>
+            <Tag color={typeOfRoom[room.type_id].color}>
+              {typeOfRoom[room.type_id].label}
+            </Tag>
+            <Typography.Text className="block py-2 font-bold">
+              Số giường: {room.bed_quantity}
+            </Typography.Text>
             <Typography.Text className="pb-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed
-              neque, eaque natus, enim ipsa sint dolorem beatae accusantium quis
-              in ea, sequi distinctio aperiam asperiores ut? Esse, non.
-              Perferendis, ex?
+              {room.description}
             </Typography.Text>
           </div>
           <div className="flex justify-end">
             <div className="flex-col items-center ">
-              <span className="block text-right line-through">999.999 vnd</span>
+              <span className="block text-right line-through">
+                {room.price} vnd
+              </span>
               <span className="block text-right font-bold text-2xl py-1 text-red-400">
-                999.997 vnd
+                {room.price} vnd
               </span>
 
-              <Link to="/rooms/123" className="text-right block">
+              <Link to={`/booking/${room.id}`} className="text-right block">
                 <Button type="primary">Đặt phòng</Button>
               </Link>
             </div>

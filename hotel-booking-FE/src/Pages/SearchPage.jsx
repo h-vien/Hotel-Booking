@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Filter from "../components/Filter/Filter";
 import HotelDesc from "../components/HotelDesc/HotelDesc";
+import LocalStorage from "../constant/localStorage";
 import useQuery from "../core/hooks/useQuery";
 import HomeLayout from "../core/layout/HomeLayout";
 import { getHotels } from "../slices/hotel.slice";
-import { convertToJSON } from "../utils/helper";
 
 const SearchPage = () => {
   const hotelSearch = useSelector((state) => state.hotel.hotels);
@@ -17,7 +17,6 @@ const SearchPage = () => {
   const query = useQuery();
   const dispatch = useDispatch();
   const [filters, setFilters] = useState();
-  console.log(filters, "filter");
   useEffect(() => {
     const _filters = {
       ...query,
@@ -36,11 +35,12 @@ const SearchPage = () => {
     const _getHotels = async () => {
       const data = await dispatch(getHotels({ params }));
       const res = unwrapResult(data);
-      const toJSON = convertToJSON(res.data);
-      setHotelList(toJSON);
+      setHotelList(res.data);
     };
     _getHotels();
   }, [query, dispatch]);
+  localStorage.setItem(LocalStorage.filters, JSON.stringify(filters));
+
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">

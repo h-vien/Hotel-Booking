@@ -1,42 +1,36 @@
-import HomeLayout from "../core/layout/HomeLayout";
-import { Content } from "antd/lib/layout/layout";
-import { Button, Form, Input, message, Select } from "antd";
-import { rules } from "../constant/rules";
-import styles from "../styles/pages/login.module.scss";
-import Dragger from "antd/lib/upload/Dragger";
-import { InboxOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-import { province } from "../constant/province";
-import { Option } from "antd/lib/mentions";
-import { registerMember } from "../slices/auth.slice";
-import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import LocalStorage from "../constant/localStorage";
+import { Button, Form, Input, Select } from "antd";
+import { Content } from "antd/lib/layout/layout";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import UploadImage from "../common/UploadImage";
+import { province } from "../constant/province";
+import { rules } from "../constant/rules";
+import HomeLayout from "../core/layout/HomeLayout";
+import { registerMember } from "../slices/auth.slice";
+import styles from "../styles/pages/login.module.scss";
 const RegisterMember = () => {
-  const [data, setData] = useState({});
+  const [banner, setBanner] = useState("");
+  const [progress, setProgress] = useState(0);
   const userId = useSelector((state) => state.auth.profile.user.id);
-  console.log(userId);
-  const onFinish = async (values) => {
-    const _data = {
-      ...values,
-      user_id: userId,
-      image:
-        "https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    };
-    setData(_data);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
 
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
+  const onFinish = async (values) => {
+    console.log(values);
+    const province = values["province_id"];
+    const _data = {
+      ...values,
+      province_id: String(province),
+      user_id: String(userId),
+      image: banner?.url || banner,
+    };
+    console.log(_data);
     const _registerMember = async () => {
       try {
-        const res = await dispatch(registerMember(data));
+        const res = await dispatch(registerMember(_data));
         unwrapResult(res);
         history.push("/");
         toast.success("Chúc mừng bạn đã trở thành thành viên của chúng tôi", {
@@ -48,31 +42,26 @@ const RegisterMember = () => {
       }
     };
     _registerMember();
-  }, [dispatch, data]);
-  const props = {
-    name: "file",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
   };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  const [image, setImage] = "";
+  const handleDefaultBanner = () => {
+    setBanner(
+      "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg"
+    );
+    setProgress(100);
+  };
+  console.log(banner, "banner");
+  console.log(progress);
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">
         <div className="w-full h-auto rounded-lg shadow-lg">
           <div className="px-24 py-5">
             <div className="text-center flex items-center flex-col justify-center">
-              <h1 className="text-3xl mb-20 font-bold">Đăng kí thành viên </h1>
+              <h1 className="text-5xl font-bold mb-4">Đăng kí thành viên </h1>
             </div>
             <div className={styles.formRegisterMemberContainer}>
               <Form
@@ -122,14 +111,14 @@ const RegisterMember = () => {
                       ]}
                     >
                       <Select
-                        defaultValue={province[0].name}
+                        placeholder="Chọn tỉnh/thành phố"
                         style={{ width: 150 }}
                         className="register-member__select"
                       >
                         {province.map((province) => (
-                          <Option value={province.id} key={province.id}>
+                          <Select.Option value={province.id} key={province.id}>
                             {province.name}
-                          </Option>
+                          </Select.Option>
                         ))}
                       </Select>
                     </Form.Item>
@@ -156,21 +145,29 @@ const RegisterMember = () => {
                 >
                   <Input.TextArea />
                 </Form.Item>
-                <div className="w-3/4">
-                  <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
-                    <p className="ant-upload-text">
-                      Click or drag file to upload image
-                    </p>
-                  </Dragger>
-                </div>
+                <Form.Item>
+                  <div className="flex justify-between">
+                    <UploadImage
+                      onChange={setBanner}
+                      setProgress={setProgress}
+                      progress={progress}
+                    />
+                    <Button onClick={handleDefaultBanner}>
+                      Hình ảnh mặc định
+                    </Button>
+                  </div>
+                </Form.Item>
                 <div className="flex justify-center mt-10 mb-24">
                   <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Đăng kí thành viên
-                    </Button>
+                    {progress === 100 ? (
+                      <Button type="primary" htmlType="submit">
+                        Đăng kí thành viên
+                      </Button>
+                    ) : (
+                      <Button type="primary" htmlType="submit" disabled>
+                        Đăng kí thành viên
+                      </Button>
+                    )}
                   </Form.Item>
                 </div>
               </Form>
