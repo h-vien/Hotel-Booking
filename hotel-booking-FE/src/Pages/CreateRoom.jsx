@@ -18,7 +18,6 @@ import RoomCardForManager from "../components/RoomCardItem/RoomCardForManager";
 import { rules } from "../constant/rules";
 import HomeLayout from "../core/layout/HomeLayout";
 import { createRoom, getRoomByHotelId } from "../slices/room.slice";
-import { convertToJSON } from "../utils/helper";
 
 const CreateRoom = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -74,9 +73,8 @@ const CreateRoom = () => {
     const _getRooms = async () => {
       const _data = await dispatch(getRoomByHotelId({ params }));
       const res = unwrapResult(_data);
-      const toJSON = convertToJSON(res.data);
-      setPaginate(toJSON);
-      setRoomList(toJSON.rooms);
+      setPaginate(res.data);
+      setRoomList(res.data.rooms);
     };
     _getRooms();
   }, [currPage, dispatch, profile.hotel.id]);

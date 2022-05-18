@@ -9,7 +9,6 @@ import LocalStorage from "../constant/localStorage";
 import useQuery from "../core/hooks/useQuery";
 import HomeLayout from "../core/layout/HomeLayout";
 import { getHotels } from "../slices/hotel.slice";
-import { convertToJSON } from "../utils/helper";
 
 const SearchPage = () => {
   const hotelSearch = useSelector((state) => state.hotel.hotels);
@@ -36,8 +35,7 @@ const SearchPage = () => {
     const _getHotels = async () => {
       const data = await dispatch(getHotels({ params }));
       const res = unwrapResult(data);
-      const toJSON = convertToJSON(res.data);
-      setHotelList(toJSON);
+      setHotelList(res.data);
     };
     _getHotels();
   }, [query, dispatch]);

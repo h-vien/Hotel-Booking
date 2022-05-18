@@ -1,9 +1,25 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Button, Space, Tag, Typography } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { toast } from "react-toastify";
 import { typeOfRoom } from "../../constant/common";
+import { deleteRoomById } from "../../slices/room.slice";
 
 const RoomCardForManager = ({ room }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleDelete = async (id) => {
+    try {
+      const res = dispatch(deleteRoomById(id));
+      unwrapResult(res);
+
+      toast.success(res.message);
+      history.go(0);
+    } catch (error) {}
+  };
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4 z-0">
       <div className="flex justify-between ">
@@ -40,7 +56,9 @@ const RoomCardForManager = ({ room }) => {
           <div className="flex justify-end">
             <div className="flex-col items-center ">
               <div className="my-4">
-                <Button type="danger">Xóa phòng</Button>
+                <Button type="danger" onClick={() => handleDelete(room.id)}>
+                  Xóa phòng
+                </Button>
               </div>
               <div className="my-4">
                 <Button type="primary">Sửa phòng</Button>

@@ -8,7 +8,6 @@ import RoomCardItem from "../components/RoomCardItem/RoomCardItem";
 import LocalStorage from "../constant/localStorage";
 import HomeLayout from "../core/layout/HomeLayout";
 import { searchRoomById } from "../slices/room.slice";
-import { convertToJSON } from "../utils/helper";
 
 const HotelDetail = () => {
   const [roomFiltered, setRoomFiltered] = useState();
@@ -24,9 +23,8 @@ const HotelDetail = () => {
     const _getRoom = async () => {
       const _data = await dispatch(searchRoomById({ params }));
       const res = unwrapResult(_data);
-      const toJSON = convertToJSON(res.data);
-      console.log(toJSON);
-      setRoomFiltered(toJSON);
+
+      setRoomFiltered(res.data);
     };
     _getRoom();
   }, []);

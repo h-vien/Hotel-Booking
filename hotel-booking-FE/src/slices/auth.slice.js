@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import authApi from "../api/auth.api";
 import LocalStorage from "../constant/localStorage";
-import { convertToJSON, payloadCreator } from "../utils/helper";
+import { payloadCreator } from "../utils/helper";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -25,7 +24,7 @@ export const registerMember = createAsyncThunk(
 //   payloadCreator(userApi.updateMe)
 // );
 const handleAuthFulfilled = (state, action) => {
-  const _data = convertToJSON(action.payload.data);
+  const _data = action.payload.data;
   state.profile = _data;
   localStorage.setItem(LocalStorage.user, JSON.stringify(_data.user));
   localStorage.setItem(LocalStorage.hotel, JSON.stringify(_data.hotel));

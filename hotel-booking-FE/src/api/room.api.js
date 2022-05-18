@@ -9,4 +9,8 @@ export const roomApi = {
   searchRoomById(config) {
     return http.get("/hotel/room/search", config);
   },
+  deleteRoomById(id) {
+    console.log(id);
+    return http.delete(`/hotel/room/${id}`);
+  },
 };

@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { rules } from "../constant/rules";
 import { login } from "../slices/auth.slice";
 import styles from "../styles/pages/login.module.scss";
-import { convertToJSON } from "../utils/helper";
 const Login = ({ heading, role }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,8 +21,7 @@ const Login = ({ heading, role }) => {
       else history.push("/");
     } catch (error) {
       if (error.status === 405) {
-        const toJSON = convertToJSON(error.data);
-        setError(toJSON.message);
+        setError(error.data.message);
       }
     }
   };

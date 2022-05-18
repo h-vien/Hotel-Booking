@@ -20,11 +20,12 @@ const RegisterMember = () => {
   const history = useHistory();
   const onFinish = async (values) => {
     console.log(values);
-
+    const province = values["province_id"];
     const _data = {
       ...values,
-      user_id: userId,
-      image: banner?.url,
+      province_id: String(province),
+      user_id: String(userId),
+      image: banner?.url || banner,
     };
     console.log(_data);
     const _registerMember = async () => {
@@ -46,8 +47,14 @@ const RegisterMember = () => {
     console.log("Failed:", errorInfo);
   };
   const [image, setImage] = "";
-
+  const handleDefaultBanner = () => {
+    setBanner(
+      "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg"
+    );
+    setProgress(100);
+  };
   console.log(banner, "banner");
+  console.log(progress);
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">
@@ -145,13 +152,7 @@ const RegisterMember = () => {
                       setProgress={setProgress}
                       progress={progress}
                     />
-                    <Button
-                      onClick={() =>
-                        setBanner(
-                          "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg"
-                        )
-                      }
-                    >
+                    <Button onClick={handleDefaultBanner}>
                       Hình ảnh mặc định
                     </Button>
                   </div>
