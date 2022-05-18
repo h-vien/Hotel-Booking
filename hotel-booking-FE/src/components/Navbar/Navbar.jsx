@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Logo from "../../assets/Logo.png";
-import { role } from "../../constant/role";
+import { role } from "../../constant/common";
 import { useAuthenticated } from "../../core/hooks/useAuthenticated";
 import { logout } from "../../slices/auth.slice";
 import styles from "./style.module.scss";

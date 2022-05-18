@@ -1,14 +1,50 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { Button, Col, DatePicker, Form, Input, Row } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
+import { toast } from "react-toastify";
 import Filter from "../components/Filter/Filter";
+import LocalStorage from "../constant/localStorage";
 import { rules } from "../constant/rules";
 import HomeLayout from "../core/layout/HomeLayout";
+import { booking } from "../slices/booking.slice";
 import styles from "../styles/pages/login.module.scss";
 
-const RoomDetail = () => {
+const Booking = () => {
+  const { id } = useParams();
+  const { user, hotel } = useSelector((state) => state.auth.profile);
+  const user_id = user.id;
+  const hotel_id = hotel.id;
+  const { checkin_date, checkout_date } = JSON.parse(
+    localStorage.getItem(LocalStorage.filters)
+  );
+  const history = useHistory();
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     console.log("Success:", values);
+    const birthday = values["birthday"];
+    const _val = {
+      ...values,
+      birthday: birthday.format("YYYY-MM-DD"),
+      checkinDate: checkin_date,
+      checkoutDate: checkout_date,
+      hotel_id,
+      user_id,
+      room_id: Number(id),
+    };
+    try {
+      const res = await dispatch(booking(_val));
+      unwrapResult(res);
+      history.push("/");
+      toast.success("Bạn đã đặt vé thành công");
+    } catch (error) {
+      console.log(error);
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -39,6 +75,7 @@ const RoomDetail = () => {
                   <Form.Item>
                     <div className={styles.formInputName}>
                       <Form.Item
+                        initialValue={id}
                         label="Phòng"
                         name="room_id"
                         rules={[
@@ -49,19 +86,24 @@ const RoomDetail = () => {
                         ]}
                         className="mr-4"
                       >
-                        <Input />
+                        <Input disabled />
                       </Form.Item>
                       <Form.Item
                         label="Năm sinh"
-                        name="user_birthday"
+                        name="birthday"
                         className="mr-4"
-                        rules={rules.name}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Trường này không được bỏ trống",
+                          },
+                        ]}
                       >
-                        <Input />
+                        <DatePicker format="YYYY-MM-DD" />
                       </Form.Item>
                       <Form.Item
                         label="Họ và tên"
-                        name="user_name"
+                        name="fullName"
                         rules={rules.name}
                       >
                         <Input />
@@ -76,13 +118,14 @@ const RoomDetail = () => {
                             message: "Trường này không được bỏ trống",
                           },
                         ]}
+                        name="phonenumber"
                         className="mr-4"
                       >
                         <Input />
                       </Form.Item>
                       <Form.Item
                         label="CCCD/CMND"
-                        name="user_cccd"
+                        name="cccd"
                         rules={rules.name}
                       >
                         <Input />
@@ -92,7 +135,7 @@ const RoomDetail = () => {
 
                   <Form.Item
                     label="Email"
-                    name="user_email"
+                    name="email"
                     rules={rules.email}
                     validateStatus="error"
                   >
@@ -116,4 +159,4 @@ const RoomDetail = () => {
   );
 };
 
-export default RoomDetail;
+export default Booking;

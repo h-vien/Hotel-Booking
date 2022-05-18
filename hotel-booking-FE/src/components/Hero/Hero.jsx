@@ -62,7 +62,7 @@ const Hero = () => {
               },
             ]}
           >
-            <Select placeholder="Chọn tỉnh">
+            <Select placeholder="Chọn tỉnh" style={{ width: "180px" }}>
               {provinceData.map((province) => (
                 <Option value={province.id} key={province.id}>
                   {province.name}
@@ -90,7 +90,7 @@ const Hero = () => {
             name="type_room_id"
             label="Loại phòng"
           >
-            <Select placeholder="Chọn  phòng">
+            <Select placeholder="Chọn  phòng" style={{ width: "180px" }}>
               <OptGroup label="Loại phòng">
                 <Select.Option value="1">Phòng Vip</Select.Option>
                 <Select.Option value="2">Phòng thường</Select.Option>
@@ -106,7 +106,7 @@ const Hero = () => {
             name="bed_quantity"
             label="Giường"
           >
-            <Select placeholder="Chọn giường">
+            <Select placeholder="Chọn giường" style={{ width: "180px" }}>
               <OptGroup label="Số giường">
                 <Select.Option value="1">1 giường</Select.Option>
                 <Select.Option value="2">2 giường</Select.Option>
