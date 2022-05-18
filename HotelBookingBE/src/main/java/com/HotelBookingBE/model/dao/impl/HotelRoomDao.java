@@ -65,5 +65,25 @@ public class HotelRoomDao extends AbstractDao<HotelRoomModel> implements IHotelR
 				
 		return count(sql,hotelId);
 	}
+
+	@Override
+	public void UpdateRoom(HotelRoomModel room) {
+		String sql = "update hotelroom set hotel_id = ?, type_id = ?, name = ? , bed_quantity = ? , price = ?" +
+					", description = ?, image = ? , modifieddate = ? where id = ?";
+		update(sql, room.getHotel_id(),room.getType_id(),room.getRoomName(),room.getBed_quantity(),room.getPrice(),
+				room.getDescription(),room.getImage(),room.getModifiedDate(),room.getId());
+	}
+
+	@Override
+	public void DeleteRoom(HotelRoomModel room) {
+		String sql = "delete from hotelroom where hotel_id = ?,type_id = ?";
+		delete(sql, room.getHotel_id(),room.getType_id());
+	}
+
+	
+	
+	
+	
+	
 	
 }

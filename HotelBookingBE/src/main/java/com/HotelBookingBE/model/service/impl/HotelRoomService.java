@@ -78,6 +78,18 @@ public class HotelRoomService implements IHotelRoomService {
 		room.setResults(hotelroomDao.SearchAll( HotelId, startPage,endPage));
 		return room;		
 	}
+	@Override
+	public void Update(HotelRoomModel room) {
+		room.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		hotelroomDao.UpdateRoom(room);
+	}
+	@Override
+	public void Delete(HotelRoomModel room) {
+		hotelroomDao.DeleteRoom(room);
+	}
+	
+	
+	
 
 	
 }

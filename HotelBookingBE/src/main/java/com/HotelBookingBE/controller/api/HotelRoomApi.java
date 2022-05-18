@@ -76,5 +76,21 @@ public class HotelRoomApi extends HttpServlet {
 		HotelRoomModel room = mapper.readValue(HttpUtil.getjson(request.getReader()), HotelRoomModel.class);
 		hotelroomService.save(room);
 	}
-
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");		
+		HotelRoomModel room = mapper.readValue(HttpUtil.getjson(request.getReader()) , HotelRoomModel.class);
+		hotelroomService.Update(room);
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");		
+		HotelRoomModel room = mapper.readValue(HttpUtil.getjson(request.getReader()) , HotelRoomModel.class);
+		hotelroomService.Delete(room);
+	}
+	
 }
