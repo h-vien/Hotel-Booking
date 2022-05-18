@@ -51,7 +51,9 @@ public class UserApi extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		response.setContentType("application/json; charset=UTF-8");
+
+		response.setCharacterEncoding("UTF-8");
+	    response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
@@ -99,13 +101,17 @@ public class UserApi extends HttpServlet {
 			HotelModel hotel = mapper.readValue(HttpUtil.getjson(request.getReader()), HotelModel.class);
 			Long id = hotelService.save(hotel);
 			hotel = hotelService.findOne(id);
-			mapper.writeValue(response.getOutputStream(), hotel);
+			out.print(gson.toJson(hotel));
+			//	mapper.writeValue(response.getOutputStream(), hotel);
 		}
 	}
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		response.setContentType("application/json");
+
+		response.setCharacterEncoding("UTF-8");
+	    response.setContentType("application/json");
+		
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);

@@ -92,6 +92,11 @@ public class HotelRoomService implements IHotelRoomService {
 		bookingDao.deleteByRoomId(room_id);
 		hotelroomDao.DeleteRoom(room_id);	
 	}
+	@Override
+	public HotelRoomModel findOne(Long id) {
+		return hotelroomDao.FindOne(id);
+		
+	}
 	
 	
 	

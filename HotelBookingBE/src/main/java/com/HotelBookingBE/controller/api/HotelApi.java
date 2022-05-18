@@ -34,10 +34,13 @@ public class HotelApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		ObjectMapper mapper = new ObjectMapper();
 //		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		response.setCharacterEncoding("UTF-8");
+	    response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		response.setContentType("application/json");
-		request.setCharacterEncoding("UTF-8");
+
+	
 		
 		Long provinceId = Long.parseLong(request.getParameter("province_id"));
 		Timestamp checkoutDate = new Timestamp(Date.valueOf(request.getParameter("checkout_date")).getTime());
