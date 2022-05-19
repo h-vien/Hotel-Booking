@@ -24,8 +24,8 @@ const CreateRoom = () => {
   const [roomList, setRoomList] = useState([]);
   const [paginate, setPaginate] = useState({});
   const [banner, setBanner] = useState("");
-  const [currPage, setCurrPage] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [currPage, setCurrPage] = useState(1);
   const dispatch = useDispatch();
   const history = useHistory();
   const profile = useSelector((state) => state.auth.profile);
@@ -88,7 +88,7 @@ const CreateRoom = () => {
 
   return (
     <HomeLayout>
-      <Content className="max-w-6xl mx-auto mt-5">
+      <Content className="max-w-6xl h-screen mx-auto mt-5">
         <div className="flex justify-between mb-5">
           <Button type="secondary" onClick={showModal}>
             Tạo phòng

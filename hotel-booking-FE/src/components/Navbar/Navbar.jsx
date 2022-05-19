@@ -1,6 +1,6 @@
 import { DownOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Avatar, Button, Dropdown, Menu } from "antd";
+import { Avatar, Button, Dropdown, Menu, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -76,15 +76,17 @@ const Navbar = () => {
             <div className="flex items-center">
               <Dropdown overlay={DropDownList({ roleId })} trigger={["click"]}>
                 <a href="/" className="flex items-center ml-4">
-                  <Avatar src="" icon={<UserOutlined />} />
-                  <div>
-                    <span className="text-lg inline-block px-2">
-                      {profile.user.lastName}
-                    </span>
-                    <span> - </span>
-                    <span className="text-sm inline-block px-2">
+                  <Avatar
+                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880"
+                    icon={<UserOutlined />}
+                  />
+                  <div className="flex flex-col px-4">
+                    <Typography.Text className="text-lg inline-block nav-title">
+                      {profile.user.username || profile.user.lastName}
+                    </Typography.Text>
+                    <Typography.Text className="text-sm inline-block">
                       {role[profile.user.roleId].name}
-                    </span>
+                    </Typography.Text>
                   </div>
                   <DownOutlined />
                 </a>

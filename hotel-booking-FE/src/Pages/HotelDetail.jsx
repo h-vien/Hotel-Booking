@@ -30,7 +30,7 @@ const HotelDetail = () => {
   }, []);
   return (
     <HomeLayout>
-      <Content className="max-w-6xl mx-auto mt-5">
+      <Content className="max-w-6xl h-screen mx-auto mt-5">
         <Typography.Title level={1}>Danh sách các phòng</Typography.Title>
         {roomFiltered?.rooms?.[0] &&
           roomFiltered.rooms.map((room) => (
