@@ -32,7 +32,8 @@ public class UserService implements IUserService {
 	}
 	@Override
 	public void updateUser(UserModel u) {
-		
+		u.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		 userDao.updateUser(u);
 	}
 	@Override
 	public UserModel findOne(Long user_id) {

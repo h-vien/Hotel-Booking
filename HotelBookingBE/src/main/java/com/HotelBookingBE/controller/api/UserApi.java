@@ -2,6 +2,8 @@ package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.HotelBookingBE.model.HotelModel;
+import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.IUserService;
@@ -107,16 +110,28 @@ public class UserApi extends HttpServlet {
 	}
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+		System.out.println("test");
+			ObjectMapper mapper = new ObjectMapper();
 
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+		    response.setContentType("application/json");
+			request.setCharacterEncoding("UTF-8");		
+			PrintWriter out = response.getWriter();
+			Gson gson = new Gson();
+			UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
 		
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-		userService.updateUser(user);
-		session.setAttribute("user", user);
+			u = userService.findOne(u.getId());
+			if(u == null)
+			{
+				response.setStatus(405);
+				out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
+
+			} else 	
+			{
+				
+				userService.updateUser(u);
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhập thành công")));
+			}
 	}
 
 }
