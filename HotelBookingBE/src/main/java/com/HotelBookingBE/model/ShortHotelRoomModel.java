@@ -1,8 +1,7 @@
 package com.HotelBookingBE.model;
 
-import java.util.List;
-
-public class HotelRoomModel extends AbstractModel<HotelRoomModel>{
+public class ShortHotelRoomModel {
+	private Long id;
 	private Long hotel_id;
 	private Long type_id;
 	private String roomName;
@@ -10,26 +9,11 @@ public class HotelRoomModel extends AbstractModel<HotelRoomModel>{
 	private Long price;
 	private Long bed_quantity;
 	private String image;
-	private List<ShortHotelRoomModel> shortRooms;
-	
-	
-	public Long getPrice() {
-		return price;
+	public Long getId() {
+		return id;
 	}
-	public void setPrice(Long price) {
-		this.price = price;
-	}
-	public Long getBed_quantity() {
-		return bed_quantity;
-	}
-	public void setBed_quantity(Long bed_quantity) {
-		this.bed_quantity = bed_quantity;
-	}
-	public String getRoomName() {
-		return roomName;
-	}
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public Long getHotel_id() {
 		return hotel_id;
@@ -43,23 +27,35 @@ public class HotelRoomModel extends AbstractModel<HotelRoomModel>{
 	public void setType_id(Long type_id) {
 		this.type_id = type_id;
 	}
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Long getPrice() {
+		return price;
+	}
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+	public Long getBed_quantity() {
+		return bed_quantity;
+	}
+	public void setBed_quantity(Long bed_quantity) {
+		this.bed_quantity = bed_quantity;
+	}
 	public String getImage() {
 		return image;
 	}
 	public void setImage(String image) {
 		this.image = image;
-	}
-	public List<ShortHotelRoomModel> getShortRooms() {
-		return shortRooms;
-	}
-	public void setShortRooms(List<ShortHotelRoomModel> shortRooms) {
-		this.shortRooms = shortRooms;
 	}
 	
 }

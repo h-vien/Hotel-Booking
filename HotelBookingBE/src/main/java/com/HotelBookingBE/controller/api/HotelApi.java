@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.impl.HotelService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
 
 
@@ -34,13 +31,11 @@ public class HotelApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		ObjectMapper mapper = new ObjectMapper();
 //		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
+		
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-
-	
 		
 		Long provinceId = Long.parseLong(request.getParameter("province_id"));
 		Timestamp checkoutDate = new Timestamp(Date.valueOf(request.getParameter("checkout_date")).getTime());
@@ -57,7 +52,7 @@ public class HotelApi extends HttpServlet {
 		map.put("page", hotel.getPage());
 		map.put("maxPageItem", hotel.getMaxPageItem());
 		map.put("totalPage", hotel.getTotalPage());
-		map.put("hotels", hotel.getResults());
+		map.put("hotels", hotel.getShortModels());
 //		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
 		out.print(gson.toJson(map));
 	}

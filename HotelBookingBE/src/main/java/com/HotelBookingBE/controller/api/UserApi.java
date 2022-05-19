@@ -2,8 +2,6 @@ package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.HotelBookingBE.model.HotelModel;
-import com.HotelBookingBE.model.HotelRoomModel;
+import com.HotelBookingBE.model.ShortUserModel;
 import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.IUserService;
@@ -24,7 +22,6 @@ import com.HotelBookingBE.model.service.impl.UserService;
 import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
 
 
@@ -54,9 +51,7 @@ public class UserApi extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
@@ -65,30 +60,27 @@ public class UserApi extends HttpServlet {
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("login"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-			user = userService.findOne(user);
-			if(user == null)
+			ShortUserModel sUser = userService.findOneShortModel(user);
+			if(sUser == null)
 			{
 				response.setStatus(405);
 				out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
-//				mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Không tìm thấy user"));
 				//set status
 			} else 	
 			{
 				Map<String,Object> map = new HashMap<>();
-				map.put("user", user);
+				map.put("user", sUser);
 				HotelModel hotel = new HotelModel();
-				if(user.getRoleId() == 2L)
+				if(sUser.getRoleId() == 2L)
 				{
-					hotel = hotelService.findOne(user);
+					hotel = hotelService.findOne(sUser.getId());
 					map.put("hotel", hotel);
 					//rut gon thong tin response
 				} else
 				{
 					map.put("hotel", "");
 				}
-				out.print(gson.toJson(map));
-//				mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
-				
+				out.print(gson.toJson(map));			
 			}
 		} 
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
@@ -96,8 +88,6 @@ public class UserApi extends HttpServlet {
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
 			userService.saveUser(user);			
 			out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thành công")));
-//			mapper.writeValue(response.getOutputStream(), HttpUtil.toJsonObject("Đăng kí thành công"));
-			//set status
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
 		{
@@ -105,33 +95,30 @@ public class UserApi extends HttpServlet {
 			Long id = hotelService.save(hotel);
 			hotel = hotelService.findOne(id);
 			out.print(gson.toJson(hotel));
-			//	mapper.writeValue(response.getOutputStream(), hotel);
 		}
 	}
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("test");
-			ObjectMapper mapper = new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
 
-			response.setCharacterEncoding("UTF-8");
-		    response.setContentType("application/json");
-			request.setCharacterEncoding("UTF-8");		
-			PrintWriter out = response.getWriter();
-			Gson gson = new Gson();
-			UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
-		
-			u = userService.findOne(u.getId());
-			if(u == null)
-			{
-				response.setStatus(405);
-				out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
+		response.setCharacterEncoding("UTF-8");
+	    response.setContentType("application/json");
+		request.setCharacterEncoding("UTF-8");		
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
+		UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
+	
+		UserModel temp = userService.findOne(u.getId());
+		if(temp == null)
+		{
+			response.setStatus(405);
+			out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
 
-			} else 	
-			{
-				
-				userService.updateUser(u);
-				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhập thành công")));
-			}
+		} else 	
+		{	
+			userService.updateUser(u);
+			out.print(gson.toJson(userService.findOne(u.getId())));
+		}
 	}
 
 }

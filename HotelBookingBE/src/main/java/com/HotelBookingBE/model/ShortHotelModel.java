@@ -1,8 +1,7 @@
 package com.HotelBookingBE.model;
 
-import java.util.List;
-
-public class HotelModel extends AbstractModel<HotelModel> {
+public class ShortHotelModel {
+	private Long id;
 	private long user_id;
 	private long province_id;
 	private String hotelName;
@@ -12,14 +11,23 @@ public class HotelModel extends AbstractModel<HotelModel> {
 	private Long roomQuantity;
 	private String hotelEmail;
 	private String hotelPhone;
-	private List<ShortHotelModel> shortModels;
-	
-	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public long getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
+	}
+	public long getProvince_id() {
+		return province_id;
+	}
+	public void setProvince_id(long province_id) {
+		this.province_id = province_id;
 	}
 	public String getHotelName() {
 		return hotelName;
@@ -45,17 +53,11 @@ public class HotelModel extends AbstractModel<HotelModel> {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public long getProvince_id() {
-		return province_id;
+	public Long getRoomQuantity() {
+		return roomQuantity;
 	}
-	public void setProvince_id(long province_id) {
-		this.province_id = province_id;
-	}
-	public String getHotelPhone() {
-		return hotelPhone;
-	}
-	public void setHotelPhone(String hotelPhone) {
-		this.hotelPhone = hotelPhone;
+	public void setRoomQuantity(Long roomQuantity) {
+		this.roomQuantity = roomQuantity;
 	}
 	public String getHotelEmail() {
 		return hotelEmail;
@@ -63,17 +65,11 @@ public class HotelModel extends AbstractModel<HotelModel> {
 	public void setHotelEmail(String hotelEmail) {
 		this.hotelEmail = hotelEmail;
 	}
-	public Long getRoomQuantity() {
-		return roomQuantity;
+	public String getHotelPhone() {
+		return hotelPhone;
 	}
-	public void setRoomQuantity(Long roomQuantity) {
-		this.roomQuantity = roomQuantity;
+	public void setHotelPhone(String hotelPhone) {
+		this.hotelPhone = hotelPhone;
 	}
-	public List<ShortHotelModel> getShortModels() {
-		return shortModels;
-	}
-	public void setShortModels(List<ShortHotelModel> shortModels) {
-		this.shortModels = shortModels;
-	}
-
+	
 }

@@ -2,6 +2,7 @@ package com.HotelBookingBE.model.service.impl;
 
 import java.sql.Timestamp;
 
+import com.HotelBookingBE.mapper.HotelMapper;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.dao.IHotelDao;
@@ -33,7 +34,6 @@ public class HotelService implements IHotelService {
 	public HotelModel Search(Timestamp checkinDate, Timestamp checkoutDate, Long provinceId, Long typeroomId,
 			Long bedQuantity, int page) {
 		Integer startPage = 0;
-		Integer endPage = 0;
 		HotelModel hotel = new HotelModel();
 		hotel.setMaxPageItem(10);
 		hotel.setPage(page);
@@ -44,15 +44,14 @@ public class HotelService implements IHotelService {
 		if(page==1)
 		{
 			startPage = hotel.getPage()-1;
-			endPage =hotel.getMaxPageItem();
 		}else
 		{
 			startPage = (hotel.getPage() -1) * hotel.getMaxPageItem() ;
-			endPage = hotel.getMaxPageItem();
 		}
 		
-		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,endPage));
-		
+		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,hotel.getMaxPageItem()));
+		HotelMapper map = new HotelMapper();
+		hotel.setShortModels(map.ModeltoModelView(hotel.getResults()));
 		return hotel;
 	}
 	@Override
@@ -64,9 +63,10 @@ public class HotelService implements IHotelService {
 		hotel.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		hotelDao.updateHotel(hotel);
 	}
+
 	@Override
-	public HotelModel findOne(UserModel user) {
-		return hotelDao.findOne(user);
+	public HotelModel findOnebyUserId(Long user_id) {
+		return hotelDao.findOne(user_id);
 	}
 	
 	

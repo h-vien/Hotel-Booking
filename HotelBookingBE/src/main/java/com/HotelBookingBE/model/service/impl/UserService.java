@@ -3,6 +3,8 @@ package com.HotelBookingBE.model.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.HotelBookingBE.mapper.UserMapper;
+import com.HotelBookingBE.model.ShortUserModel;
 import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.dao.IUSerDao;
 import com.HotelBookingBE.model.dao.impl.UserDao;
@@ -33,11 +35,18 @@ public class UserService implements IUserService {
 	@Override
 	public void updateUser(UserModel u) {
 		u.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-		 userDao.updateUser(u);
+		userDao.updateUser(u);
 	}
 	@Override
 	public UserModel findOne(Long user_id) {
 		return userDao.findOne(user_id);
+	}
+	@Override
+	public ShortUserModel findOneShortModel(UserModel user) {
+		user = userDao.findOne(user);
+		if(user == null) return null;
+		UserMapper map = new UserMapper();
+		return map.ModeltoModelView(user);
 	}
 
 	

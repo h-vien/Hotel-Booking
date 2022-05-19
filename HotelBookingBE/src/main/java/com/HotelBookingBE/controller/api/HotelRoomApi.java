@@ -14,13 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.HotelBookingBE.model.HotelRoomModel;
-import com.HotelBookingBE.model.UserModel;
 import com.HotelBookingBE.model.service.IHotelRoomService;
 import com.HotelBookingBE.model.service.impl.HotelRoomService;
 import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
 
 @WebServlet(urlPatterns = {"/hotel/room","/hotel/room/search","/hotel/room/searchAll","/hotel/room/*"})
@@ -34,15 +31,10 @@ public class HotelRoomApi extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		ObjectMapper mapper = new ObjectMapper();
-//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		response.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 	    response.setContentType("application/json");
-		request.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
+	    PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-
-		
 		
 		Long hotelId = Long.parseLong(request.getParameter("hotel_id"));
 		int page =Integer.parseInt(request.getParameter("page"));
@@ -57,27 +49,22 @@ public class HotelRoomApi extends HttpServlet {
 			room= hotelroomService.Search(checkinDate, checkoutDate, hotelId, typeroomId, bedQuantity,page); 
 		}
 		else  if(HttpUtil.getPathURL(request.getRequestURI()).equals("searchAll")) {
-				room= hotelroomService.SearchAll(hotelId,page);
+			room= hotelroomService.SearchAll(hotelId,page);
 		}
-		
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("page", room.getPage());
 		map.put("maxPageItem", room.getMaxPageItem());
 		map.put("totalPage", room.getTotalPage());
-		map.put("rooms", room.getResults());
-//		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
-				
-
+		map.put("rooms", room.getShortRooms());
+		
 		out.print(gson.toJson(map));
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");		
 		HotelRoomModel room = mapper.readValue(HttpUtil.getjson(request.getReader()), HotelRoomModel.class);
 		hotelroomService.save(room);
@@ -85,26 +72,29 @@ public class HotelRoomApi extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-
 		response.setCharacterEncoding("UTF-8");
 	    response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");		
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 		HotelRoomModel room = mapper.readValue(HttpUtil.getjson(request.getReader()) , HotelRoomModel.class);
-		hotelroomService.Update(room);
+		HotelRoomModel temp = hotelroomService.findOnebyRoomId(room.getId());
+		if(temp == null)
+		{
+			response.setStatus(405);
+			out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy room")));
+		} else 
+		{
+			hotelroomService.Update(room);
+			out.print(gson.toJson(hotelroomService.findOnebyRoomId(room.getId())));
+		}
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	
-
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		Gson gson = new Gson();
-		Long room_id  =  Long.parseLong(HttpUtil.getPathURL(request.getRequestURI()));
+		request.setCharacterEncoding("UTF-8");
+		Long room_id = Long.parseLong(HttpUtil.getPathURL(request.getRequestURI()));
+		System.out.print(room_id);
 		hotelroomService.Delete(room_id);
-		out.print(gson.toJson(HttpUtil.toJsonObject("Xóa thành công")));
 	}
 	
 }
-

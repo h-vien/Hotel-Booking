@@ -2,6 +2,7 @@ package com.HotelBookingBE.model.service.impl;
 
 import java.sql.Timestamp;
 
+import com.HotelBookingBE.mapper.HotelroomMapper;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.dao.IBookingDao;
@@ -37,7 +38,6 @@ public class HotelRoomService implements IHotelRoomService {
 	public HotelRoomModel Search(Timestamp checkinDate, Timestamp checkoutDate, Long HotelId, Long typeroomId,
 			Long bedQuantity, int page) {
 		Integer startPage = 0;
-		Integer endPage = 0;
 		HotelRoomModel room = new HotelRoomModel();
 		room.setMaxPageItem(10);
 		room.setPage(page);
@@ -48,21 +48,19 @@ public class HotelRoomService implements IHotelRoomService {
 		if(page==1)
 		{
 			startPage = room.getPage()-1;
-			endPage = room.getMaxPageItem();
 		}else
 		{
 			startPage = (room.getPage() - 1) * room.getMaxPageItem() ;
-			endPage = room.getMaxPageItem();
 		}
 		
-		room.setResults(hotelroomDao.Search(checkinDate, checkoutDate, HotelId, typeroomId, bedQuantity, startPage,endPage));
-		
+		room.setResults(hotelroomDao.Search(checkinDate, checkoutDate, HotelId, typeroomId, bedQuantity, startPage,room.getMaxPageItem()));
+		HotelroomMapper map = new HotelroomMapper();
+		room.setShortRooms(map.ModeltoModelView(room.getResults()));
 		return room;
 	}
 	@Override
 	public HotelRoomModel SearchAll(Long HotelId, int page) {
 		Integer startPage = 0;
-		Integer endPage = 0;
 		HotelRoomModel room = new HotelRoomModel();
 		room.setMaxPageItem(10);
 		room.setPage(page);
@@ -72,14 +70,14 @@ public class HotelRoomService implements IHotelRoomService {
 		if(page==1)
 		{
 			startPage = room.getPage()-1;
-			endPage = room.getMaxPageItem();
 		}else
 		{
 			startPage = (room.getPage() - 1) * room.getMaxPageItem() ;
-			endPage = room.getMaxPageItem();
 		}
 		
-		room.setResults(hotelroomDao.SearchAll( HotelId, startPage,endPage));
+		room.setResults(hotelroomDao.SearchAll( HotelId, startPage,room.getMaxPageItem()));
+		HotelroomMapper map = new HotelroomMapper();
+		room.setShortRooms(map.ModeltoModelView(room.getResults()));
 		return room;		
 	}
 	@Override
@@ -93,9 +91,8 @@ public class HotelRoomService implements IHotelRoomService {
 		hotelroomDao.DeleteRoom(room_id);	
 	}
 	@Override
-	public HotelRoomModel findOne(Long id) {
-		return hotelroomDao.FindOne(id);
-		
+	public HotelRoomModel findOnebyRoomId(Long room_id) {
+		return hotelroomDao.findOnebyRoomId(room_id);
 	}
 	
 	

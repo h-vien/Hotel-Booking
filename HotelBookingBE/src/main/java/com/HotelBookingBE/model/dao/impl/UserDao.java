@@ -1,7 +1,5 @@
 package com.HotelBookingBE.model.dao.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +23,8 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 	public UserModel findOne(UserModel user) {
 		String sql = "SELECT * FROM user WHERE email = ? and password = ?";
 		List<UserModel> data = new ArrayList<>();
-		data = query(sql,new UserMapper(), user.getEmail(),user.getPassword());
-		if(data.isEmpty())
-		{
-			return null;
-		}
-		else {
-			return data.get(0);
-		}
+		data = query(sql,new UserMapper(),user.getEmail(),user.getPassword());
+		return data.isEmpty() ? null : data.get(0);
 		
 	}
 	@Override
@@ -40,7 +32,6 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		String sql = "UPDATE user SET roleid = ? where id = ?";
 		update(sql,u.getRoleId(),u.getId());
 	}
-
 	@Override
 	public UserModel findOne(Long user_id) {
 		String sql = "SELECT * FROM user WHERE id=?";
@@ -51,9 +42,9 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 	@Override
 	public void updateUser(UserModel u) {
 		
-	String sql = "update user set username = ?, firstname = ?, lastname = ? , birthday = ? , image = ?, gender=?,phonenumber =? " +
+		String sql = "update user set username = ?, firstname = ?, lastname = ? , birthday = ? , image = ?, gender=?,phonenumber =? " +
 			" where id = ?";
-	update(sql,u.getUsername(), u.getFirstName(),u.getLastName(),u.getBirthday(),u.getImage(), u.isGender(),u.getPhoneNumber(), u.getId());
+		update(sql,u.getUsername(), u.getFirstName(),u.getLastName(),u.getBirthday(),u.getImage(), u.isGender(),u.getPhoneNumber(), u.getId());
 		
 	}
 	

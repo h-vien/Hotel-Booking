@@ -2,8 +2,11 @@ package com.HotelBookingBE.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.HotelBookingBE.model.HotelModel;
+import com.HotelBookingBE.model.ShortHotelModel;
 
 public class HotelMapper implements IRowMapper<HotelModel> {
 
@@ -25,10 +28,29 @@ public class HotelMapper implements IRowMapper<HotelModel> {
 			hotel.setModifiedDate(rs.getTimestamp("modifieddate"));
 			return hotel;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public List<ShortHotelModel> ModeltoModelView(List<HotelModel> hotel) {
+		List<ShortHotelModel> sHotels = new ArrayList<>();
+		for(HotelModel e : hotel)
+		{
+			ShortHotelModel sHotel = new ShortHotelModel();
+			sHotel.setId(e.getId());
+			sHotel.setUser_id(e.getUser_id());
+			sHotel.setProvince_id(e.getProvince_id());
+			sHotel.setHotelName(e.getHotelName());
+			sHotel.setHotelDescription(e.getHotelDescription());
+			sHotel.setHotelAddress(e.getHotelAddress());
+			sHotel.setRoomQuantity(e.getRoomQuantity());
+			sHotel.setImage(e.getImage());
+			sHotel.setHotelEmail(e.getHotelEmail());
+			sHotel.setHotelPhone(e.getHotelPhone());
+			sHotels.add(sHotel);
+		}
+		return sHotels;
 	}
 
 }

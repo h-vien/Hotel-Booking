@@ -26,21 +26,17 @@ public class BookingApi extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-
-response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
+		ObjectMapper mapper = new ObjectMapper();
 		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-
-response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
+		ObjectMapper mapper = new ObjectMapper();
 		BookingModel book = mapper.readValue(HttpUtil.getjson(request.getReader()), BookingModel.class);
 		Long id = bookingService.save(book);
 		if(id == null)

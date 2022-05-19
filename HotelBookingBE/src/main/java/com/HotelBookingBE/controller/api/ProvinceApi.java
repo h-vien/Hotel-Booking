@@ -30,9 +30,7 @@ public class ProvinceApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<ProvinceModel> data = provinceSer.findAll();
-
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("application/json");
+		response.setContentType("application/json");
 		request.setCharacterEncoding("UTF-8");
 		mapper.writeValue(response.getOutputStream(), data);
 	}
