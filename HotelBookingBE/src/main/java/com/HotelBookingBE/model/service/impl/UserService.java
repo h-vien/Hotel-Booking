@@ -23,10 +23,15 @@ public class UserService implements IUserService {
 		return result;
 	}
 	@Override
-	public void saveUser(UserModel u) {
-		u.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		u.setRoleId(1L);
-		Long id = userDao.save(u);
+	public Long saveUser(UserModel u) {
+		Long id = null;
+		if(userDao.checkEmail(u.getEmail()))
+		{
+			u.setRoleId(1L);
+			u.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+			id = userDao.save(u);
+		}
+		return id;
 	}
 	@Override
 	public UserModel findOne(UserModel user) {

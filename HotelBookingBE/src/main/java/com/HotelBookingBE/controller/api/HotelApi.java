@@ -29,10 +29,8 @@ public class HotelApi extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		ObjectMapper mapper = new ObjectMapper();
-//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		response.setContentType("application/json; charset=UTF-8");
-		
+
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
@@ -52,8 +50,7 @@ public class HotelApi extends HttpServlet {
 		map.put("page", hotel.getPage());
 		map.put("maxPageItem", hotel.getMaxPageItem());
 		map.put("totalPage", hotel.getTotalPage());
-		map.put("hotels", hotel.getShortModels());
-//		mapper.writeValue(response.getOutputStream(), new JSONPObject(mapper.writeValueAsString(map), 1));
+		map.put("hotels", hotel.getResults());
 		out.print(gson.toJson(map));
 	}
 

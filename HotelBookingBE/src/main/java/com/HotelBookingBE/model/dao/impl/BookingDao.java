@@ -1,5 +1,8 @@
 package com.HotelBookingBE.model.dao.impl;
 
+import java.util.List;
+
+import com.HotelBookingBE.mapper.BookingMapper;
 import com.HotelBookingBE.model.BookingModel;
 import com.HotelBookingBE.model.dao.IBookingDao;
 
@@ -18,6 +21,18 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		String sql = "delete from booking where room_id = ?";
 		update(sql,room_id);
 		
+	}
+
+	@Override
+	public Integer countMaxItem(Long user_id) {
+		String sql = "select count(distinct booking.id) from booking where user_id = ? ";
+		return count(sql,user_id);
+	}
+
+	@Override
+	public List<BookingModel> SearchByUserId(Long user_id, int startPage,int endPage) {
+		String sql = "select * from booking where user_id = ? limit ?,? ";
+		return query(sql,new BookingMapper(),user_id,startPage,endPage);
 	}
 
 	

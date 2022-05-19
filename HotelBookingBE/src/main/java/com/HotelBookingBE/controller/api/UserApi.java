@@ -86,8 +86,14 @@ public class UserApi extends HttpServlet {
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("register"))
 		{
 			UserModel user = mapper.readValue(HttpUtil.getjson(request.getReader()), UserModel.class);
-			userService.saveUser(user);			
-			out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thành công")));
+			Long id = userService.saveUser(user);
+			if (id == null)
+			{
+				out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thất bại")));
+			}else
+			{				
+				out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thành công")));
+			}
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
 		{

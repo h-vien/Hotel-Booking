@@ -7,7 +7,7 @@ import com.HotelBookingBE.model.UserModel;
 
 public interface IUserService {
 	List<UserModel> findAllUser();
-	void saveUser(UserModel u);
+	Long saveUser(UserModel u);
 	UserModel findOne(UserModel user);
 	UserModel findOne(Long user_id);
 	ShortUserModel findOneShortModel(UserModel user);

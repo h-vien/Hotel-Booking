@@ -1,9 +1,9 @@
 package com.HotelBookingBE.model;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-public class BookingModel extends AbstractModel<BookingModel>{
+public class ShortBookingModel {
+	private Long id;
 	private Long room_id;
 	private Long user_id;
 	private Long hotel_id;
@@ -15,8 +15,31 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
 	private Timestamp deadlineDate;
-	private List<ShortBookingModel> shortBookings;
-	
+	private Timestamp createdDate;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getRoom_id() {
+		return room_id;
+	}
+	public void setRoom_id(Long room_id) {
+		this.room_id = room_id;
+	}
+	public Long getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+	public Long getHotel_id() {
+		return hotel_id;
+	}
+	public void setHotel_id(Long hotel_id) {
+		this.hotel_id = hotel_id;
+	}
 	public String getFullName() {
 		return fullName;
 	}
@@ -47,24 +70,6 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	public void setBirthday(Timestamp birthday) {
 		this.birthday = birthday;
 	}
-	public Long getRoom_id() {
-		return room_id;
-	}
-	public void setRoom_id(Long room_id) {
-		this.room_id = room_id;
-	}
-	public Long getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
-	}
-	public Long getHotel_id() {
-		return hotel_id;
-	}
-	public void setHotel_id(Long hotel_id) {
-		this.hotel_id = hotel_id;
-	}
 	public Timestamp getCheckinDate() {
 		return checkinDate;
 	}
@@ -83,11 +88,11 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	public void setDeadlineDate(Timestamp deadlineDate) {
 		this.deadlineDate = deadlineDate;
 	}
-	public List<ShortBookingModel> getShortBookings() {
-		return shortBookings;
+	public Timestamp getCreatedDate() {
+		return createdDate;
 	}
-	public void setShortBookings(List<ShortBookingModel> shortBookings) {
-		this.shortBookings = shortBookings;
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
 	}
 	
 }

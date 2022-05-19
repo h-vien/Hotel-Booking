@@ -25,7 +25,6 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		List<UserModel> data = new ArrayList<>();
 		data = query(sql,new UserMapper(),user.getEmail(),user.getPassword());
 		return data.isEmpty() ? null : data.get(0);
-		
 	}
 	@Override
 	public void UpdateRoleId(UserModel u) {
@@ -41,11 +40,16 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 	}
 	@Override
 	public void updateUser(UserModel u) {
-		
 		String sql = "update user set username = ?, firstname = ?, lastname = ? , birthday = ? , image = ?, gender=?,phonenumber =? " +
 			" where id = ?";
 		update(sql,u.getUsername(), u.getFirstName(),u.getLastName(),u.getBirthday(),u.getImage(), u.isGender(),u.getPhoneNumber(), u.getId());
 		
+	}
+	@Override
+	public Boolean checkEmail(String email) {
+		String sql = "select * from user where email = ?";
+		List<UserModel> data = query(sql,new UserMapper(),email);
+		return data.isEmpty()?true:false;
 	}
 	
 }

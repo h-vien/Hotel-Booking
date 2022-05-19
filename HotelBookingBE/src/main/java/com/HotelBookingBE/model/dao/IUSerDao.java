@@ -11,4 +11,5 @@ public interface IUSerDao extends genericDao<UserModel>  {
 	UserModel findOne(Long user_id);
 	void UpdateRoleId(UserModel u);
 	void updateUser(UserModel user);
+	Boolean checkEmail(String email);
 }
