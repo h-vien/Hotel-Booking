@@ -178,3 +178,43 @@ a {
 .ant-input-number {
   width: 100%;
 }
+.ant-radio-checked::after,
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+  border-color: $--color-secondary;
+}
+.ant-radio-inner::after {
+  background-color: $--color-secondary;
+}
+.ant-radio-input:focus + .ant-radio-inner {
+  box-shadow: 0 0 0 3px #ffede1;
+}
+
+.profile-menu .ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: none !important;
+}
+.ant-menu-light .ant-menu-item:hover,
+.ant-menu-light .ant-menu-item-active,
+.ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-light .ant-menu-submenu-active,
+.ant-menu-light .ant-menu-submenu-title:hover {
+  color: $--color-secondary;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #fde0e0;
+}
+.ant-menu-item-selected,
+.ant-menu-item a:hover,
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover {
+  color: $--color-secondary;
+}
+.profile-menu .ant-menu-item {
+  display: flex;
+  align-items: center;
+}

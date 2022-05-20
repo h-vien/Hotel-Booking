@@ -19,15 +19,19 @@ export const registerMember = createAsyncThunk(
   "auth/registerMember",
   payloadCreator(authApi.registerMember)
 );
-// export const updateMe = createAsyncThunk(
-//   "auth/updateMe",
-//   payloadCreator(userApi.updateMe)
-// );
+export const updateMe = createAsyncThunk(
+  "auth/updateProfile",
+  payloadCreator(authApi.updateProfile)
+);
 const handleAuthFulfilled = (state, action) => {
   const _data = action.payload.data;
   state.profile = _data;
   localStorage.setItem(LocalStorage.user, JSON.stringify(_data.user));
   localStorage.setItem(LocalStorage.hotel, JSON.stringify(_data.hotel));
+};
+const handleRegisterFulfilled = (state, action) => {
+  state.profile = action.payload.data;
+  localStorage.setItem(LocalStorage.user, JSON.stringify(action.payload.data));
 };
 const handleUnauth = (state) => {
   state.profile = {};
@@ -49,7 +53,7 @@ const auth = createSlice({
     unauthorize: handleUnauth,
   },
   extraReducers: {
-    [register.fulfilled]: handleAuthFulfilled,
+    [register.fulfilled]: handleRegisterFulfilled,
     [login.fulfilled]: handleAuthFulfilled,
     [logout.fulfilled]: handleUnauth,
     [registerMember.fulfilled]: (state, action) => {
@@ -63,6 +67,13 @@ const auth = createSlice({
       localStorage.setItem(
         LocalStorage.hotel,
         JSON.stringify(state.profile.hotel)
+      );
+    },
+    [updateMe.fulfilled]: (state, action) => {
+      state.profile.user = action.payload.data;
+      localStorage.setItem(
+        LocalStorage.user,
+        JSON.stringify(state.profile.user)
       );
     },
   },

@@ -35,7 +35,7 @@ const UploadImage = ({ onChange, setProgress, progress }) => {
       }}
     >
       <Button icon={<UploadOutlined />}>
-        {progress === 100 ? "Tải lên hoàn tất" : "Tải lên"}
+        {progress === 100 ? "Hoàn tất" : "Tải lên"}
       </Button>
     </Upload>
   );

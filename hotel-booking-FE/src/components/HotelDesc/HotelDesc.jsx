@@ -1,7 +1,6 @@
 import { Button, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import HotelDetail from "../../Pages/HotelDetail";
 
 const HotelDesc = ({ hotelInfo }) => {
   return (

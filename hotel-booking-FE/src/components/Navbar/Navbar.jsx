@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Logo from "../../assets/Logo.png";
 import { role } from "../../constant/common";
+import { path } from "../../constant/path";
 import { useAuthenticated } from "../../core/hooks/useAuthenticated";
 import { logout } from "../../slices/auth.slice";
 import styles from "./style.module.scss";
@@ -25,15 +26,15 @@ const DropDownList = ({ roleId }) => {
   return (
     <Menu>
       <Menu.Item key="0">
-        <Link to="/profile">Trang cá nhân</Link>
+        <Link to={path.user}>Trang cá nhân</Link>
       </Menu.Item>
       {roleId === 2 ? (
         <Menu.Item key="2">
-          <Link to="/create-room">Tạo phòng</Link>
+          <Link to={path.createRoom}>Tạo phòng</Link>
         </Menu.Item>
       ) : null}
       <Menu.Item key="1">
-        <Link to="/login" onClick={handleLogout}>
+        <Link to={path.login} onClick={handleLogout}>
           Đăng xuất
         </Link>
       </Menu.Item>
@@ -42,6 +43,7 @@ const DropDownList = ({ roleId }) => {
 };
 const Navbar = () => {
   const profile = useSelector((state) => state.auth.profile);
+  console.log(profile);
   const roleId = profile?.user?.roleId;
   const authenticated = useAuthenticated();
   return (
@@ -62,7 +64,7 @@ const Navbar = () => {
         {authenticated && (
           <>
             {profile.user.roleId !== 2 ? (
-              <Link to="/register-member">
+              <Link to={path.register}>
                 <Button
                   type="primary"
                   className="mr-2 flex items-center py-2 px-3"
@@ -76,10 +78,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Dropdown overlay={DropDownList({ roleId })} trigger={["click"]}>
                 <a href="/" className="flex items-center ml-4">
-                  <Avatar
-                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880"
-                    icon={<UserOutlined />}
-                  />
+                  <Avatar src={profile.user?.image} icon={<UserOutlined />} />
                   <div className="flex flex-col px-4">
                     <Typography.Text className="text-lg inline-block nav-title">
                       {profile.user.username || profile.user.lastName}
@@ -97,10 +96,10 @@ const Navbar = () => {
         {!authenticated && (
           <div className="flex items-center">
             <Button type="primary" className=" flex items-center ">
-              <Link to="/login">Đăng nhập</Link>
+              <Link to={path.login}>Đăng nhập</Link>
             </Button>
             <Button type="outlined" className=" flex items-center ml-4">
-              <Link to="/register">Đăng ký</Link>
+              <Link to={path.register}>Đăng ký</Link>
             </Button>
           </div>
         )}

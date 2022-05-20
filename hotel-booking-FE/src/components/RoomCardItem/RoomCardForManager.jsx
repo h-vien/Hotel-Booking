@@ -1,14 +1,15 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Space, Tag, Typography } from "antd";
+import { Button, Tag, Typography } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 import { typeOfRoom } from "../../constant/common";
 import { deleteRoomById } from "../../slices/room.slice";
+import { formatMoney } from "../../utils/helper";
 
 const RoomCardForManager = ({ room }) => {
+  console.log(room);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleDelete = async (id) => {
@@ -42,13 +43,13 @@ const RoomCardForManager = ({ room }) => {
                 quaerat illum! Numquam, sed omnis?
               </Typography.Text>
             </div>
-            <div className="w-2/4">
+            <div className="w-3/4">
               <Typography.Text className="flex font-medium items-center">
                 {room.bed_quantity} giường
               </Typography.Text>
               <Typography.Text className="block text-xl">
                 <span className="font-bold text-orange-300">
-                  {room.price} VNĐ
+                  {formatMoney(room.price)} VNĐ
                 </span>
               </Typography.Text>
             </div>

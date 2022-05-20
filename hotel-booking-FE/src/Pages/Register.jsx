@@ -25,7 +25,7 @@ const Register = () => {
           autoClose: 3000,
         }
       );
-      history.push("/login");
+      history.push("/");
     } catch (error) {
       console.log(error);
     }

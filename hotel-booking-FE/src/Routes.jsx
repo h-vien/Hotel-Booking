@@ -11,29 +11,32 @@ import CreateRoom from "./Pages/CreateRoom";
 import HomePage from "./Pages/HomePage";
 import HotelDetail from "./Pages/HotelDetail";
 import Login from "./Pages/Login";
-import Profile from "./Pages/Profile";
+import Profile from "./Pages/User/Profile";
 import Register from "./Pages/Register";
 import RegisterMember from "./Pages/RegisterMember";
 import RoomDetail from "./Pages/Booking";
 import SearchPage from "./Pages/SearchPage";
 import Booking from "./Pages/Booking";
+import { path } from "./constant/path";
+import ChangePass from "./Pages/User/ChangePass";
+import Purchase from "./Pages/User/Purchase";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact>
+      <Route path={path.home} exact>
         <HomePage />
       </Route>
-      <Route path="/hotel/search">
+      <Route path={path.searchHotel}>
         <SearchPage />
       </Route>
-      <Route path="/hotel/:id">
+      <Route path={path.hotelDetail}>
         <HotelDetail />
       </Route>
-      <Route path="/booking/:id">
+      <Route path={path.bookingDetail}>
         <Booking />
       </Route>
-      <Route path="/login">
+      <Route path={path.login}>
         <UnAuth>
           <Login heading="Chào mừng trở lại" role={1} />
         </UnAuth>
@@ -48,10 +51,10 @@ const Routes = () => {
           <Admin />
         </AdminGuard>
       </Route>
-      <Route path="/register-member">
+      <Route path={path.registerMember}>
         <RegisterMember />
       </Route>
-      <Route path="/create-room">
+      <Route path={path.createRoom}>
         <CreateRoom />
       </Route>
       <Route path="/admin">
@@ -60,17 +63,27 @@ const Routes = () => {
         </AdminGuard>
       </Route>
 
-      <Route path="/register">
+      <Route path={path.register}>
         <UnAuth>
           <Register />
         </UnAuth>
       </Route>
-      <Route path="/profile">
+      <Route path={path.user}>
         <AuthenticatedGuard>
           <Profile />
         </AuthenticatedGuard>
       </Route>
-      <Route path="*">
+      <Route path={path.changePass}>
+        <AuthenticatedGuard>
+          <ChangePass />
+        </AuthenticatedGuard>
+      </Route>
+      <Route path={path.purchase}>
+        <AuthenticatedGuard>
+          <Purchase />
+        </AuthenticatedGuard>
+      </Route>
+      <Route path={path.notFound}>
         <NotFound />
       </Route>
     </Switch>

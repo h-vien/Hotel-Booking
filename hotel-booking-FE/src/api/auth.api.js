@@ -10,6 +10,9 @@ const authApi = {
   registerMember(data) {
     return http.post("user/manager", data);
   },
+  updateProfile(data) {
+    return http.put("user", data);
+  },
   logout() {
     return;
   },
