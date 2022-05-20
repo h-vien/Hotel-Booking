@@ -89,10 +89,13 @@ public class UserApi extends HttpServlet {
 			Long id = userService.saveUser(user);
 			if (id == null)
 			{
+				response.setStatus(405);
 				out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thất bại")));
 			}else
 			{				
-				out.print(gson.toJson(HttpUtil.toJsonObject("Đăng kí thành công")));
+				ShortUserModel sUser = userService.findOneShortModel(user);
+				
+				out.print(gson.toJson(sUser));
 			}
 		}
 		else if(HttpUtil.getPathURL(request.getRequestURI()).equals("manager"))
