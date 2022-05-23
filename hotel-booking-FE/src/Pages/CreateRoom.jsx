@@ -136,7 +136,7 @@ const CreateRoom = () => {
                 { required: true, message: "Trường này không được bỏ trống" },
               ]}
             >
-              <Input />
+              <Input.TextArea />
             </Form.Item>
 
             <Form.Item>

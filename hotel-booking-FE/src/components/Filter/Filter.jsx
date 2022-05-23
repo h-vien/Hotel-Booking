@@ -35,10 +35,7 @@ export default function Filter({ filters }) {
     console.log("Failed:", errorInfo);
     toast.error("Vui lòng nhập thông tin");
   };
-  const [form] = Form.useForm();
-  useEffect(() => {
-    form.setFieldsValue(filters);
-  }, [form, filters]);
+
   return (
     <div className={styles.filterWrapper}>
       <div className="py-3 flex items-center justify-between text-lg">
@@ -49,17 +46,11 @@ export default function Filter({ filters }) {
         <Col span={24} className="m-auto items-center flex flex-col">
           <Form
             name="basic"
-            form={form}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
-            initialValues={filters}
           >
-            <Form.Item
-              name="province_id"
-              label="Thành phố"
-              initialValue={filters?.province_id}
-            >
+            <Form.Item name="province_id" label="Thành phố">
               <Select placeholder="Chọn tỉnh" style={{ width: "100%" }}>
                 {province.map((province) => (
                   <Option value={province.id} key={province.id}>

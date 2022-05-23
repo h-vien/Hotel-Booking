@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const isEmail = () =>
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -12,3 +14,6 @@ export const payloadCreator = (asyncFunc) => async (arg, thunkAPI) => {
 
 export const formatMoney = (value, character = ".") =>
   String(value).replace(/\B(?=(\d{3})+(?!\d))/g, character);
+
+export const formatDate = (date) =>
+  moment(date).format("YYYY-MM-DD").toString();

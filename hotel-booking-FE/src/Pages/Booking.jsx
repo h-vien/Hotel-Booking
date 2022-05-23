@@ -17,9 +17,8 @@ import styles from "../styles/pages/login.module.scss";
 
 const Booking = () => {
   const { id } = useParams();
-  const { user, hotel } = useSelector((state) => state.auth.profile);
+  const { user } = useSelector((state) => state.auth.profile);
   const user_id = user.id;
-  const hotel_id = hotel.id;
   const { checkin_date, checkout_date } = JSON.parse(
     localStorage.getItem(LocalStorage.filters)
   );
@@ -33,7 +32,6 @@ const Booking = () => {
       birthday: birthday.format("YYYY-MM-DD"),
       checkinDate: checkin_date,
       checkoutDate: checkout_date,
-      hotel_id,
       user_id,
       room_id: Number(id),
     };
@@ -60,7 +58,7 @@ const Booking = () => {
             <div className="bg-white">
               <div className={`${styles.formRegisterMemberContainer} flex-col`}>
                 <h1 className="text-3xl font-bold mt-12">
-                  Hoàn tất thông tin để đặt vé
+                  Hoàn tất thông tin để đặt phòng
                 </h1>
                 <Form
                   className={styles.formRegisterMember}

@@ -2,6 +2,7 @@ import { Button, Tag, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import { typeOfRoom } from "../../constant/common";
+import { formatMoney } from "../../utils/helper";
 const RoomCardItem = ({ room }) => {
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4">
@@ -29,10 +30,10 @@ const RoomCardItem = ({ room }) => {
           <div className="flex justify-end">
             <div className="flex-col items-center ">
               <span className="block text-right line-through">
-                {room.price} vnd
+                {formatMoney(room.price)} vnd
               </span>
               <span className="block text-right font-bold text-2xl py-1 text-red-400">
-                {room.price} vnd
+                {formatMoney(room.price)} vnd
               </span>
 
               <Link to={`/booking/${room.id}`} className="text-right block">

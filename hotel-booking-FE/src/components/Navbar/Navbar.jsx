@@ -43,7 +43,6 @@ const DropDownList = ({ roleId }) => {
 };
 const Navbar = () => {
   const profile = useSelector((state) => state.auth.profile);
-  console.log(profile);
   const roleId = profile?.user?.roleId;
   const authenticated = useAuthenticated();
   return (
@@ -64,7 +63,7 @@ const Navbar = () => {
         {authenticated && (
           <>
             {profile.user.roleId !== 2 ? (
-              <Link to={path.register}>
+              <Link to={path.registerMember}>
                 <Button
                   type="primary"
                   className="mr-2 flex items-center py-2 px-3"

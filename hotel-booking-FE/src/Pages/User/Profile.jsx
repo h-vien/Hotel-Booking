@@ -12,13 +12,13 @@ import {
   Row,
   Typography,
 } from "antd";
-import { Content } from "antd/lib/layout/layout";
+import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImage from "../../common/UploadImage";
 import { rules } from "../../constant/rules";
-import HomeLayout from "../../core/layout/HomeLayout";
 import { updateMe } from "../../slices/auth.slice";
+import { formatDate } from "../../utils/helper";
 import User from "./User";
 
 const Profile = () => {
@@ -26,14 +26,14 @@ const Profile = () => {
 
   const [banner, setBanner] = useState("");
   const [progress, setProgress] = useState(0);
-  console.log(user);
+
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     const birthday = values["birthday"].format("YYYY-MM-DD");
     const _data = {
       ...values,
       birthday: birthday,
-      image: banner.url,
+      image: banner.url || user.image,
       id: user.id,
     };
     console.log("Success:", _data);
@@ -48,7 +48,6 @@ const Profile = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
   return (
     <User>
       <div className="px-8 bg-white h-screen rounded">
@@ -129,7 +128,6 @@ const Profile = () => {
                       <Form.Item
                         label="Ngày sinh"
                         name="birthday"
-                        initialValue={user?.birthday}
                         rules={[
                           {
                             required: true,
@@ -137,7 +135,13 @@ const Profile = () => {
                           },
                         ]}
                       >
-                        <DatePicker format="YYYY-MM-DD" />
+                        <DatePicker
+                          defaultValue={
+                            user.birthday &&
+                            moment(formatDate(user.birthday, "YYYY-MM-DD"))
+                          }
+                          format="YYYY-MM-DD"
+                        />
                       </Form.Item>
                     </Col>
                     <Col sm={12}>
@@ -160,12 +164,12 @@ const Profile = () => {
             </Col>
             <Col sm={6}>
               <Avatar
-                className="ml-12 mt-5"
+                className="ml-8 mt-6 border border-orange-400"
                 src={user?.image}
                 size={{ lg: 130, xl: 160, xxl: 180 }}
                 icon={<UserOutlined />}
               />
-              <Form.Item className="ml-20 mt-8">
+              <Form.Item className="ml-16 mt-6">
                 <UploadImage
                   onChange={setBanner}
                   setProgress={setProgress}
@@ -177,15 +181,9 @@ const Profile = () => {
 
           <div className="flex justify-center my-10">
             <Form.Item>
-              {progress === 100 ? (
-                <Button type="primary" htmlType="submit">
-                  Cập nhập thông tin
-                </Button>
-              ) : (
-                <Button type="primary" htmlType="submit" disabled>
-                  Cập nhập thông tin
-                </Button>
-              )}
+              <Button type="primary" htmlType="submit">
+                Cập nhập thông tin
+              </Button>
             </Form.Item>
           </div>
         </Form>

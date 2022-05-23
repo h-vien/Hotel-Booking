@@ -28,8 +28,8 @@ const RoomCardForManager = ({ room }) => {
           <img className="rounded mr-4 inline-block" src={room.image} alt="" />
         </div>
         <div className="flex items-center flex-1 justify-between">
-          <div className="flex justify-between items-center">
-            <div className="">
+          <div className="flex justify-between items-center w-full ">
+            <div className=" w-3/4">
               <Typography.Title>{room.roomName}</Typography.Title>
               <Tag color={typeOfRoom[room.type_id].color}>
                 {typeOfRoom[room.type_id].label}
@@ -37,13 +37,9 @@ const RoomCardForManager = ({ room }) => {
 
               <Typography.Text className="my-2 pr-4 block">
                 {room.description}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates, vel, blanditiis laboriosam quae quasi nihil enim,
-                veritatis distinctio illo soluta nam assumenda vero quidem nobis
-                quaerat illum! Numquam, sed omnis?
               </Typography.Text>
             </div>
-            <div className="w-3/4">
+            <div className="w-1/4">
               <Typography.Text className="flex font-medium items-center">
                 {room.bed_quantity} giường
               </Typography.Text>

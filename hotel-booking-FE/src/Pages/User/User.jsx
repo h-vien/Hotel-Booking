@@ -1,23 +1,11 @@
-import {
-  HistoryOutlined,
-  KeyOutlined,
-  PauseCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { HistoryOutlined, KeyOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Col, Menu, Row, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
-import React, { Children } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import {
-  Link,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { path } from "../../constant/path";
 import HomeLayout from "../../core/layout/HomeLayout";
-import ChangePass from "./ChangePass";
-import Profile from "./Profile";
 
 const User = ({ children }) => {
   const { user } = useSelector((state) => state.auth.profile);
@@ -27,7 +15,7 @@ const User = ({ children }) => {
         <Row gutter={[16, 16]}>
           <Col sm={6} className="bg-white py-5 h-screen">
             <Avatar
-              className="border border-orange-500"
+              className="border border-orange-500 ml-4"
               src={user.image}
               size={{ xl: 80 }}
             />

@@ -54,6 +54,7 @@ const Hero = () => {
           autoComplete="off"
         >
           <Form.Item
+            className="mr-1"
             name="province_id"
             label="Thành phố"
             rules={[
@@ -71,6 +72,7 @@ const Hero = () => {
             </Select>
           </Form.Item>
           <Form.Item
+            className="mr-1"
             rules={[
               {
                 required: true,
@@ -82,6 +84,7 @@ const Hero = () => {
             <DatePicker.RangePicker format="YYYY-MM-DD" />
           </Form.Item>
           <Form.Item
+            className="mr-1"
             rules={[
               {
                 required: true,
@@ -98,6 +101,7 @@ const Hero = () => {
             </Select>
           </Form.Item>
           <Form.Item
+            className="mr-1"
             rules={[
               {
                 required: true,

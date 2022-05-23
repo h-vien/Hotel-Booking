@@ -30,7 +30,7 @@ const handleAuthFulfilled = (state, action) => {
   localStorage.setItem(LocalStorage.hotel, JSON.stringify(_data.hotel));
 };
 const handleRegisterFulfilled = (state, action) => {
-  state.profile = action.payload.data;
+  state.profile.user = action.payload.data;
   localStorage.setItem(LocalStorage.user, JSON.stringify(action.payload.data));
 };
 const handleUnauth = (state) => {
