@@ -45,7 +45,7 @@ public class BookingApi extends HttpServlet {
 		map.put("page", book.getPage());
 		map.put("maxPageItem", book.getMaxPageItem());
 		map.put("totalPage", book.getTotalPage());
-		map.put("books", book.getResults());
+		map.put("books", book.getShortBookings());
 		out.print(gson.toJson(map));
 	}
 

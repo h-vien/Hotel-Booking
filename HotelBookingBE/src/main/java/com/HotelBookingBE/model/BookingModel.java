@@ -12,6 +12,7 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	private String cccd;
 	private String email;
 	private Timestamp birthday;
+	private Integer status;
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
 	private Timestamp deadlineDate;
@@ -88,6 +89,12 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	}
 	public void setShortBookings(List<ShortBookingModel> shortBookings) {
 		this.shortBookings = shortBookings;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

@@ -25,6 +25,7 @@ public class BookingMapper implements IRowMapper<BookingModel> {
 			book.setCccd(rs.getString("cccd"));
 			book.setEmail(rs.getString("email"));
 			book.setBirthday(rs.getTimestamp("birthday"));
+			book.setStatus(rs.getInt("status"));
 			book.setCheckinDate(rs.getTimestamp("checkin_date"));
 			book.setCheckoutDate(rs.getTimestamp("checkout_date"));
 			book.setDeadlineDate(rs.getTimestamp("deadline_date"));
@@ -42,14 +43,15 @@ public class BookingMapper implements IRowMapper<BookingModel> {
 		{
 			ShortBookingModel sBooking = new ShortBookingModel();
 			sBooking.setId(e.getId());
-			sBooking.setRoom_id(e.getRoom_id());
+			sBooking.getRoom().setId(e.getRoom_id());
 			sBooking.setUser_id(e.getUser_id());
-			sBooking.setHotel_id(e.getHotel_id());
+			sBooking.getHotel().setId(e.getHotel_id());
 			sBooking.setFullName(e.getFullName());
 			sBooking.setPhonenumber(e.getPhonenumber());
 			sBooking.setCccd(e.getCccd());
 			sBooking.setEmail(e.getEmail());
 			sBooking.setBirthday(e.getBirthday());
+			sBooking.setStatus(e.getStatus());
 			sBooking.setCheckinDate(e.getCheckinDate());
 			sBooking.setCheckoutDate(e.getCheckoutDate());
 			sBooking.setDeadlineDate(e.getDeadlineDate());
