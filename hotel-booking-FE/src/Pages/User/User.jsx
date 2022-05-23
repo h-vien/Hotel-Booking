@@ -13,7 +13,7 @@ const User = ({ children }) => {
     <HomeLayout>
       <Content className="max-w-6xl min-h-screen mx-auto mt-5">
         <Row gutter={[16, 16]}>
-          <Col sm={6} className="bg-white py-5 h-screen">
+          <Col sm={4} className="bg-white py-5 h-screen">
             <Avatar
               className="border border-orange-500 ml-4"
               src={user.image}
@@ -24,7 +24,7 @@ const User = ({ children }) => {
             </Typography.Text>
             <Menu className="profile-menu mt-8">
               <Menu.Item key={1} icon={<UserOutlined />}>
-                <Link to={path.user}>Chỉnh sửa trang cá nhân</Link>
+                <Link to={path.user}>Trang cá nhân</Link>
               </Menu.Item>
               <Menu.Item key={2} icon={<HistoryOutlined />}>
                 <Link to={path.purchase}>Vé đã đặt</Link>
@@ -34,7 +34,7 @@ const User = ({ children }) => {
               </Menu.Item>
             </Menu>
           </Col>
-          <Col sm={18}>{children}</Col>
+          <Col sm={20}>{children}</Col>
         </Row>
       </Content>
     </HomeLayout>
