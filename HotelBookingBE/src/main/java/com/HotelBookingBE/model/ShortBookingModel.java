@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 
 public class ShortBookingModel {
 	private Long id;
-	private Long room_id;
+	private HotelRoomModel room = new HotelRoomModel();
 	private Long user_id;
-	private Long hotel_id;
+	private HotelModel hotel = new HotelModel();
 	private String fullName;
 	private String phonenumber;
 	private String cccd;
 	private String email;
+	private Integer status;
 	private Timestamp birthday;
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
@@ -21,24 +22,6 @@ public class ShortBookingModel {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Long getRoom_id() {
-		return room_id;
-	}
-	public void setRoom_id(Long room_id) {
-		this.room_id = room_id;
-	}
-	public Long getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
-	}
-	public Long getHotel_id() {
-		return hotel_id;
-	}
-	public void setHotel_id(Long hotel_id) {
-		this.hotel_id = hotel_id;
 	}
 	public String getFullName() {
 		return fullName;
@@ -94,5 +77,30 @@ public class ShortBookingModel {
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
+	public HotelRoomModel getRoom() {
+		return room;
+	}
+	public void setRoom(HotelRoomModel room) {
+		this.room = room;
+	}
+	public HotelModel getHotel() {
+		return hotel;
+	}
+	public void setHotel(HotelModel hotel) {
+		this.hotel = hotel;
+	}
+	public Long getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
 	
 }

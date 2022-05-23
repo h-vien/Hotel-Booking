@@ -5,8 +5,10 @@ import java.sql.Timestamp;
 import com.HotelBookingBE.mapper.HotelMapper;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.UserModel;
+import com.HotelBookingBE.model.dao.IBookingDao;
 import com.HotelBookingBE.model.dao.IHotelDao;
 import com.HotelBookingBE.model.dao.IUSerDao;
+import com.HotelBookingBE.model.dao.impl.BookingDao;
 import com.HotelBookingBE.model.dao.impl.HotelDao;
 import com.HotelBookingBE.model.dao.impl.UserDao;
 import com.HotelBookingBE.model.service.IHotelService;
@@ -15,8 +17,10 @@ import com.HotelBookingBE.model.service.IHotelService;
 public class HotelService implements IHotelService {
 	private IHotelDao hotelDao;
 	private IUSerDao userDao;
+	private IBookingDao bookingDao;
 	public HotelService()
 	{
+		bookingDao = new BookingDao();
 		hotelDao = new HotelDao();
 		userDao = new UserDao();
 	}
@@ -30,6 +34,7 @@ public class HotelService implements IHotelService {
 		userDao.UpdateRoleId(u);
 		return id;
 	}
+	
 	@Override
 	public HotelModel Search(Timestamp checkinDate, Timestamp checkoutDate, Long provinceId, Long typeroomId,
 			Long bedQuantity, int page) {
@@ -52,6 +57,7 @@ public class HotelService implements IHotelService {
 		hotel.setResults(hotelDao.Search(checkinDate, checkoutDate, provinceId, typeroomId, bedQuantity, startPage,hotel.getMaxPageItem()));
 		HotelMapper map = new HotelMapper();
 		hotel.setShortModels(map.ModeltoModelView(hotel.getResults()));
+		bookingDao.updateOutOfDateStatus(new Timestamp(System.currentTimeMillis()));
 		return hotel;
 	}
 	@Override

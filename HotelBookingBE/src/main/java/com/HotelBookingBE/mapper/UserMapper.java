@@ -19,6 +19,7 @@ public class UserMapper implements IRowMapper<UserModel>{
 			user.setLastName(rs.getString("lastname"));
 			user.setGender(rs.getBoolean("gender"));
 			user.setPhoneNumber(rs.getString("phonenumber"));
+			user.setBirthday(rs.getTimestamp("birthday"));
 			user.setEmail(rs.getString("email"));
 			user.setRoleId(rs.getLong("roleid"));
 			user.setImage(rs.getString("image"));
