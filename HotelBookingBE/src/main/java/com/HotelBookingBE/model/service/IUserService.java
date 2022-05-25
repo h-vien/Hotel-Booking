@@ -12,4 +12,5 @@ public interface IUserService {
 	UserModel findOne(Long user_id);
 	ShortUserModel findOneShortModel(UserModel user);
 	void updateUser(UserModel u);
+	Boolean updadtePassword(Long user_id,String old_password,String new_password);
 }

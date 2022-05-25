@@ -53,6 +53,22 @@ public class UserService implements IUserService {
 		UserMapper map = new UserMapper();
 		return map.ModeltoModelView(user);
 	}
+	@Override
+	public Boolean updadtePassword(Long user_id, String old_password, String new_password) {
+		Boolean check = false;
+		UserModel user = findOne(user_id);
+		if (user != null)
+		{
+			if(user.getPassword().equals(old_password))
+			{
+				check = true;
+				user.setPassword(new_password);
+				user.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+				userDao.updatePassword(user_id, new_password);
+			}
+		}
+		return check;
+	}
 
 	
 }

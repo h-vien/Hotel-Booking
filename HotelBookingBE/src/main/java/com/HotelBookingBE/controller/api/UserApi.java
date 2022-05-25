@@ -109,13 +109,21 @@ public class UserApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");		
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
 		if(HttpUtil.getPathURL(request.getRequestURI()).equals("pass"))
 		{
+			Map<String,String> map = gson.fromJson(request.getReader(), Map.class);
+			if(userService.updadtePassword(Long.parseLong(map.get("id")), map.get("old_password"), map.get("new_password")))
+			{
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thành công")));
+			} else
+			{
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thất bại")));
+			}
 			
 		}
 		else 
 		{
+			UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
 			UserModel temp = userService.findOne(u.getId());
 			if(temp == null)
 			{
