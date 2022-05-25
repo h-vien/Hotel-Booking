@@ -13,4 +13,8 @@ export const roomApi = {
     console.log(id);
     return http.delete(`/hotel/room/${id}`);
   },
+  updateRoomById(data) {
+    console.log(data);
+    return http.put(`/hotel/room`, data);
+  },
 };

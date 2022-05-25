@@ -1,15 +1,25 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Tag, Typography } from "antd";
-import React from "react";
-import { useDispatch } from "react-redux";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+  Tag,
+  Typography,
+} from "antd";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
+import UploadImage from "../../common/UploadImage";
 import { typeOfRoom } from "../../constant/common";
-import { deleteRoomById } from "../../slices/room.slice";
+import { rules } from "../../constant/rules";
+import { deleteRoomById, updateRoomById } from "../../slices/room.slice";
 import { formatMoney } from "../../utils/helper";
 
 const RoomCardForManager = ({ room }) => {
-  console.log(room);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleDelete = async (id) => {
@@ -21,6 +31,46 @@ const RoomCardForManager = ({ room }) => {
       history.go(0);
     } catch (error) {}
   };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const profile = useSelector((state) => state.auth.profile);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const onFinish = async (values) => {
+    const _data = {
+      ...values,
+      image:
+        room.image ||
+        "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg",
+      hotel_id: profile.hotel.id,
+      id: room.id,
+    };
+    console.log("SUCCESS: ", _data);
+    try {
+      try {
+        const res = dispatch(updateRoomById(_data));
+        unwrapResult(res);
+        toast.success("Cập nhập thành công");
+        history.go(0);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {}
+    handleCancel();
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  console.log(room);
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4 z-0">
       <div className="flex justify-between ">
@@ -58,12 +108,102 @@ const RoomCardForManager = ({ room }) => {
                 </Button>
               </div>
               <div className="my-4">
-                <Button type="primary">Sửa phòng</Button>
+                <Button onClick={showModal} type="primary">
+                  Sửa phòng
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Modal
+        title="Sửa phòng"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        destroyOnClose={true}
+        footer={[null]}
+      >
+        <Form
+          name="update-room"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          initialValues={room}
+        >
+          <Form.Item label="Tên phòng" name="roomName" rules={rules.name}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Mô tả phòng"
+            name="description"
+            rules={[
+              { required: true, message: "Trường này không được bỏ trống" },
+            ]}
+          >
+            <Input.TextArea />
+          </Form.Item>
+
+          <Form.Item>
+            <div>
+              <Form.Item
+                label="Loại phòng"
+                name="type_id"
+                rules={[
+                  {
+                    required: true,
+                    message: "Trường này không được bỏ trống",
+                  },
+                ]}
+              >
+                <Select placeholder="Loại phòng">
+                  <Select.Option value="1">Phòng VIP</Select.Option>
+                  <Select.Option value="2">Phòng thường</Select.Option>
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                label="Số giường"
+                name="bed_quantity"
+                rules={[
+                  {
+                    required: true,
+                    message: "Trường này không được bỏ trống",
+                  },
+                ]}
+              >
+                <Select placeholder="Số giường">
+                  <Select.Option value="1">1 Giường</Select.Option>
+                  <Select.Option value="2">2 Giường</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                label="Giá"
+                name="price"
+                rules={[
+                  {
+                    required: true,
+                    message: "Trường này không được bỏ trống",
+                  },
+                  {
+                    type: "number",
+                    min: 0,
+                    message: "Giá tiền phải lớn hơn 0",
+                  },
+                ]}
+              >
+                <InputNumber prefix="VNĐ" className="w-full" />
+              </Form.Item>
+            </div>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Sửa phòng
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

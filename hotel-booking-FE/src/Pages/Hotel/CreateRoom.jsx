@@ -13,11 +13,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
-import UploadImage from "../common/UploadImage";
-import RoomCardForManager from "../components/RoomCardItem/RoomCardForManager";
-import { rules } from "../constant/rules";
-import HomeLayout from "../core/layout/HomeLayout";
-import { createRoom, getRoomByHotelId } from "../slices/room.slice";
+import UploadImage from "../../common/UploadImage";
+import RoomCardForManager from "../../components/RoomCardItem/RoomCardForManager";
+import { rules } from "../../constant/rules";
+import HomeLayout from "../../core/layout/HomeLayout";
+import { createRoom, getRoomByHotelId } from "../../slices/room.slice";
 
 const CreateRoom = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

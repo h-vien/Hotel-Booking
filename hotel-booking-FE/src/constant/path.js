@@ -7,10 +7,12 @@ class Path {
     this.hotelDetail = "/hotel/:id";
     this.bookingDetail = "/booking/:id";
     this.registerMember = "/register-member";
-    this.createRoom = "/create-room";
     this.user = "/user";
     this.changePass = "/password";
     this.purchase = "/purchase";
+    this.createRoom = "/create-room";
+    this.overview = "/overview";
+    this.bookingManagement = "/booking-management";
 
     this.notFound = "*";
   }

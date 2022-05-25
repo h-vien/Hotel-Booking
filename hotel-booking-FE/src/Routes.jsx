@@ -1,25 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Route } from "react-router-dom";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import { path } from "./constant/path";
 import AdminGuard from "./core/guards/AdminGuard";
 import AuthenticatedGuard from "./core/guards/AuthenticatedGuard";
 import UnAuth from "./core/guards/UnAuth";
 import NotFound from "./core/layout/NotFound";
 import Admin from "./Pages/Admin";
-import CreateRoom from "./Pages/CreateRoom";
+import Booking from "./Pages/Booking";
+import CreateRoom from "./Pages/Hotel/CreateRoom";
 import HomePage from "./Pages/HomePage";
 import HotelDetail from "./Pages/HotelDetail";
 import Login from "./Pages/Login";
-import Profile from "./Pages/User/Profile";
 import Register from "./Pages/Register";
 import RegisterMember from "./Pages/RegisterMember";
-import RoomDetail from "./Pages/Booking";
 import SearchPage from "./Pages/SearchPage";
-import Booking from "./Pages/Booking";
-import { path } from "./constant/path";
 import ChangePass from "./Pages/User/ChangePass";
+import Profile from "./Pages/User/Profile";
 import Purchase from "./Pages/User/Purchase";
+import HotelManagerGuard from "./core/guards/HotelManagerGuard";
+import Overview from "./Pages/Hotel/Overview";
+import BookingManagement from "./Pages/Hotel/BookingManagement";
 
 const Routes = () => {
   return (
@@ -52,10 +52,9 @@ const Routes = () => {
         </AdminGuard>
       </Route>
       <Route path={path.registerMember}>
-        <RegisterMember />
-      </Route>
-      <Route path={path.createRoom}>
-        <CreateRoom />
+        <AuthenticatedGuard>
+          <RegisterMember />
+        </AuthenticatedGuard>
       </Route>
       <Route path="/admin">
         <AdminGuard>
@@ -79,9 +78,24 @@ const Routes = () => {
         </AuthenticatedGuard>
       </Route>
       <Route path={path.purchase}>
-        <AuthenticatedGuard>
+        <HotelManagerGuard>
           <Purchase />
-        </AuthenticatedGuard>
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.createRoom}>
+        <HotelManagerGuard>
+          <CreateRoom />
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.overview}>
+        <HotelManagerGuard>
+          <Overview />
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.bookingManagement}>
+        <HotelManagerGuard>
+          <BookingManagement />
+        </HotelManagerGuard>
       </Route>
       <Route path={path.notFound}>
         <NotFound />

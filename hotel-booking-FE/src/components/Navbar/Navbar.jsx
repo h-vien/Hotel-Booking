@@ -29,9 +29,17 @@ const DropDownList = ({ roleId }) => {
         <Link to={path.user}>Trang cá nhân</Link>
       </Menu.Item>
       {roleId === 2 ? (
-        <Menu.Item key="2">
-          <Link to={path.createRoom}>Tạo phòng</Link>
-        </Menu.Item>
+        <>
+          <Menu.Item key="2">
+            <Link to={path.bookingManagement}>Quản lý đặt phòng</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to={path.createRoom}>Tạo phòng</Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Link to={path.overview}>Tổng quan</Link>
+          </Menu.Item>
+        </>
       ) : null}
       <Menu.Item key="1">
         <Link to={path.login} onClick={handleLogout}>
