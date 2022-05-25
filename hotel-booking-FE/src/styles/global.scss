@@ -218,3 +218,17 @@ a {
   display: flex;
   align-items: center;
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+.ant-tabs-tab:hover {
+  color: $--color-secondary;
+}
+.ant-tabs-ink-bar {
+  background: $--color-secondary;
+}
+
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list,
+.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
+  width: 100%;
+  justify-content: space-between;
+}

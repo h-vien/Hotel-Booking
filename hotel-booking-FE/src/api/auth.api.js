@@ -13,6 +13,9 @@ const authApi = {
   updateProfile(data) {
     return http.put("user", data);
   },
+  changePass(data) {
+    return http.put("user/pass", data);
+  },
   logout() {
     return;
   },

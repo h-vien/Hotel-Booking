@@ -23,6 +23,10 @@ export const updateMe = createAsyncThunk(
   "auth/updateProfile",
   payloadCreator(authApi.updateProfile)
 );
+export const changePassword = createAsyncThunk(
+  "auth/changePass",
+  payloadCreator(authApi.changePass)
+);
 const handleAuthFulfilled = (state, action) => {
   const _data = action.payload.data;
   state.profile = _data;
