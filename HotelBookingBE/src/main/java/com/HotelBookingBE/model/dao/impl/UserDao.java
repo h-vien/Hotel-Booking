@@ -51,5 +51,10 @@ public class UserDao extends AbstractDao<UserModel> implements IUSerDao {
 		List<UserModel> data = query(sql,new UserMapper(),email);
 		return data.isEmpty()?true:false;
 	}
+	@Override
+	public void updatePassword(Long user_id, String new_password) {
+		String sql = "update user set password = ? where id = ?";
+		update(sql,new_password,user_id);
+	}
 	
 }

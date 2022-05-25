@@ -60,17 +60,10 @@ CREATE TABLE booking(
     email varchar(100) null,
     birthday timestamp null,
     status int null,
+    totalprice bigint NULL,
     checkin_date TIMESTAMP NULL,
     checkout_date TIMESTAMP NULL,
 	deadline_date TIMESTAMP NULL,
-    createddate TIMESTAMP NULL,
-    modifieddate TIMESTAMP NULL
-);
-CREATE TABLE receipt(
-	id bigint NOT NULL PRIMARY KEY auto_increment,
-    booking_id  bigint NOT NULL,
-    user_id bigint NOT NULL,
-    totalprice bigint NOT NULL,
     createddate TIMESTAMP NULL,
     modifieddate TIMESTAMP NULL
 );
@@ -96,8 +89,7 @@ ALTER TABLE booking ADD CONSTRAINT fk_booking_hotel FOREIGN KEY (hotel_id) REFER
 
 
 
-ALTER TABLE receipt ADD CONSTRAINT fk_receipt_booking FOREIGN KEY (booking_id) REFERENCES booking(id);
-ALTER TABLE receipt ADD CONSTRAINT fk_receipt_user FOREIGN KEY (user_id) REFERENCES user(id);
+
 
 
 

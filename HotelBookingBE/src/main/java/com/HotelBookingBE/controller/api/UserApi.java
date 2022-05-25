@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 
 
-@WebServlet(urlPatterns = {"/user","/user/login","/user/register","/user/manager"})
+@WebServlet(urlPatterns = {"/user","/user/pass","/user/login","/user/register","/user/manager"})
 public class UserApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,12 +38,7 @@ public class UserApi extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		ObjectMapper mapper = new ObjectMapper();
-//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//		response.setContentType("application/json");
-//		request.setCharacterEncoding("UTF-8");
-//		// lay thong tin user khong can session
-//		//		mapper.writeValue(response.getOutputStream(), session.getAttribute("user"));
+
 	}
 
 
@@ -114,19 +109,35 @@ public class UserApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");		
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
-	
-		UserModel temp = userService.findOne(u.getId());
-		if(temp == null)
+		if(HttpUtil.getPathURL(request.getRequestURI()).equals("pass"))
 		{
-			response.setStatus(405);
-			out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
-
-		} else 	
-		{	
-			userService.updateUser(u);
-			out.print(gson.toJson(userService.findOne(u.getId())));
+			Map<String,String> map = gson.fromJson(request.getReader(), Map.class);
+			if(userService.updadtePassword(Long.parseLong(map.get("id")), map.get("old_password"), map.get("new_password")))
+			{
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thành công")));
+			} else
+			{
+				response.setStatus(405);
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thất bại")));
+			}
+			
 		}
+		else 
+		{
+			UserModel u= mapper.readValue(HttpUtil.getjson(request.getReader()) , UserModel.class);	
+			UserModel temp = userService.findOne(u.getId());
+			if(temp == null)
+			{
+				response.setStatus(405);
+				out.print(gson.toJson(HttpUtil.toJsonObject("Không tìm thấy user")));
+
+			} else 	
+			{	
+				userService.updateUser(u);
+				out.print(gson.toJson(userService.findOne(u.getId())));
+			}
+		}
+		
 	}
 
 }

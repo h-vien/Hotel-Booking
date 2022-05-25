@@ -12,6 +12,7 @@ public class ShortBookingModel {
 	private String cccd;
 	private String email;
 	private Integer status;
+	private Long totalPrice;
 	private Timestamp birthday;
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
@@ -100,6 +101,12 @@ public class ShortBookingModel {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 	
