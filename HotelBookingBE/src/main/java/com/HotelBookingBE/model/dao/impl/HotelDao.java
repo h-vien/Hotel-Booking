@@ -52,7 +52,8 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 	@Override
 	public HotelModel findOne(Long id) {
 		String sql = "select * from hotel where id = ?";
-		return query(sql,new HotelMapper(),id).get(0);
+		List<HotelModel> data = query(sql,new HotelMapper(),id);
+		return data.isEmpty() ? null : data.get(0);
 	}
 
 	@Override
@@ -76,13 +77,15 @@ public class HotelDao extends AbstractDao<HotelModel> implements IHotelDao{
 				" from hotel" + 
 				" inner join hotelroom on hotel.id = hotelroom.hotel_id" + 
 				" where hotelroom.id = ?";
-		return query(sql,new HotelMapper(),room_id).get(0);
+		List<HotelModel> data = query(sql,new HotelMapper(),room_id);
+		return data.isEmpty() ? null : data.get(0);
 	}
 
 	@Override
 	public HotelModel findOneByUserId(Long user_id) {
 		String sql = "select * from hotel where user_id = ?";
-		return query(sql,new HotelMapper(),user_id).get(0);
+		List<HotelModel> data = query(sql,new HotelMapper(),user_id);
+		return data.isEmpty() ? null : data.get(0);
 	}
 
 

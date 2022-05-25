@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.HotelBookingBE.model.BookingModel;
 import com.HotelBookingBE.model.service.IBookingService;
+import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.impl.BookingService;
+import com.HotelBookingBE.model.service.impl.HotelService;
 import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -24,8 +26,10 @@ public class BookingApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private IBookingService bookingService;
+	private IHotelService hotelSerivce;
     public BookingApi() {
     	bookingService = new BookingService();
+    	hotelSerivce = new HotelService();
     }
 
 
@@ -52,14 +56,32 @@ public class BookingApi extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		ObjectMapper mapper = new ObjectMapper();
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 		BookingModel book = mapper.readValue(HttpUtil.getjson(request.getReader()), BookingModel.class);
-		Long id = bookingService.save(book);
-		if(id == null)
+		if(HttpUtil.getPathURL(request.getRequestURI()).equals("booking"))
 		{
-			response.setStatus(405);
-		} 
+			Long id = bookingService.save(book);
+			if(id == null)
+			{
+				response.setStatus(405);
+			} 
+		} else if (HttpUtil.getPathURL(request.getRequestURI()).equals("user"))
+		{
+			Long bookingId = Long.parseLong(request.getParameter("id"));
+			if(hotelSerivce.findOne(book.getHotel_id()) != null)
+			{
+				bookingService.UpdateValidStatus(bookingId);
+			} else 
+			{
+				response.setStatus(405);
+				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật trạng thái không thành công")));
+			}
+		}
+		
 	}
 
 }

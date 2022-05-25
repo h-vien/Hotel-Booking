@@ -65,6 +65,11 @@ public class BookingService implements IBookingService {
 		}
 		return book;
 	}
+	@Override
+	public void UpdateValidStatus(Long bookingId) {
+		bookingDao.updateValidStatus(bookingId);
+		
+	}
 	
 	
 	
