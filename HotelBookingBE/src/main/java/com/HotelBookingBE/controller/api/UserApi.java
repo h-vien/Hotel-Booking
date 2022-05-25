@@ -117,6 +117,7 @@ public class UserApi extends HttpServlet {
 				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thành công")));
 			} else
 			{
+				response.setStatus(405);
 				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật thất bại")));
 			}
 			
