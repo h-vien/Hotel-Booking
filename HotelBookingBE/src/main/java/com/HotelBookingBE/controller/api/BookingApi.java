@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 
-@WebServlet(urlPatterns = {"/booking","/booking/user"})
+@WebServlet(urlPatterns = {"/booking","/booking/user","/booking/hotel"})
 public class BookingApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,17 +39,24 @@ public class BookingApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		
+		BookingModel book= new BookingModel() ;
 		int page = Integer.parseInt(request.getParameter("page"));
-		Long user_id = Long.parseLong(request.getParameter("user_id"));
-		
-		BookingModel book = bookingService.SearchByUserId(user_id, page);
-		
 		Map<String,Object> map = new HashMap<String,Object>();
+		if(HttpUtil.getPathURL(request.getRequestURI()).equals("user"))
+		{			
+			Long user_id = Long.parseLong(request.getParameter("user_id"));
+			book = bookingService.SearchByUserId(user_id, page);
+			map.put("books", book.getShortBookings());
+		} else 
+		{
+			Long hotel_id = Long.parseLong(request.getParameter("hotel_id"));
+			book = bookingService.SearchByHotelId(hotel_id, page);
+			map.put("books", book.getResults());
+		}
+		
 		map.put("page", book.getPage());
 		map.put("maxPageItem", book.getMaxPageItem());
 		map.put("totalPage", book.getTotalPage());
-		map.put("books", book.getShortBookings());
 		out.print(gson.toJson(map));
 	}
 

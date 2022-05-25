@@ -16,6 +16,7 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	private Timestamp checkinDate;
 	private Timestamp checkoutDate;
 	private Timestamp deadlineDate;
+	private Long totalPrice;
 	private List<ShortBookingModel> shortBookings;
 	
 	public String getFullName() {
@@ -95,6 +96,12 @@ public class BookingModel extends AbstractModel<BookingModel>{
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 }

@@ -3,7 +3,10 @@ package com.HotelBookingBE.model.service.impl;
 import java.sql.Timestamp;
 
 import com.HotelBookingBE.mapper.BookingMapper;
+import com.HotelBookingBE.mapper.HotelMapper;
+import com.HotelBookingBE.mapper.UserMapper;
 import com.HotelBookingBE.model.BookingModel;
+import com.HotelBookingBE.model.HotelRoomModel;
 import com.HotelBookingBE.model.ShortBookingModel;
 import com.HotelBookingBE.model.dao.IBookingDao;
 import com.HotelBookingBE.model.dao.IHotelDao;
@@ -21,12 +24,18 @@ public class BookingService implements IBookingService {
 	IHotelDao hotelDao;
 	IUSerDao userDao;
 	IHotelRoomDao roomDao;
+	BookingMapper bookMap;
+	UserMapper userMap;
+	HotelMapper hotelMap;
 	public BookingService()
 	{
 		hotelDao = new HotelDao();
 		bookingDao = new BookingDao();
 		userDao = new UserDao();
 		roomDao = new HotelRoomDao();
+		bookMap = new BookingMapper();
+		userMap = new UserMapper();
+		hotelMap = new HotelMapper();
 	}
 	@Override
 	public Long save(BookingModel book) {
@@ -34,7 +43,11 @@ public class BookingService implements IBookingService {
 		book.setDeadlineDate(new Timestamp(book.getCheckinDate().getTime()+(1000*60*60*24)));
 		book.setStatus(0);
 		book.setHotel_id(hotelDao.findOneByRoomId(book.getRoom_id()).getId());
-		
+		HotelRoomModel room = roomDao.findOnebyRoomId(book.getRoom_id());
+		Integer countDate = ((int)(book.getCheckoutDate().getTime()-book.getCheckinDate().getTime()))
+							/
+							(1000*60*60*24);
+		book.setTotalPrice(room.getPrice()*countDate);
 		return bookingDao.save(book);
 	}
 	@Override
@@ -43,7 +56,7 @@ public class BookingService implements IBookingService {
 		BookingModel book = new BookingModel();
 		book.setMaxPageItem(10);
 		book.setPage(page);
-		Integer maxItem = bookingDao.countMaxItem(user_id);
+		Integer maxItem = bookingDao.countMaxItemByUser(user_id);
 
 		book.setTotalPage((int)Math.ceil((double)maxItem/(double)book.getMaxPageItem()));
 		
@@ -56,8 +69,8 @@ public class BookingService implements IBookingService {
 		}
 		
 		book.setResults(bookingDao.SearchByUserId(user_id, startPage, book.getMaxPageItem()));
-		BookingMapper map = new BookingMapper();
-		book.setShortBookings(map.ModeltoModelView(book.getResults()));
+		book.setShortBookings(bookMap.ModeltoModelView(book.getResults()));
+		
 		for(ShortBookingModel i : book.getShortBookings())
 		{
 			i.setRoom(roomDao.findOnebyRoomId(i.getRoom().getId()));
@@ -69,6 +82,28 @@ public class BookingService implements IBookingService {
 	public void UpdateValidStatus(Long bookingId) {
 		bookingDao.updateValidStatus(bookingId);
 		
+	}
+	@Override
+	public BookingModel SearchByHotelId(Long hotel_id, int page) {
+		Integer startPage = 0;
+		BookingModel book = new BookingModel();
+		book.setMaxPageItem(10);
+		book.setPage(page);
+		Integer maxItem = bookingDao.countMaxItemByHotel(hotel_id);
+
+		book.setTotalPage((int)Math.ceil((double)maxItem/(double)book.getMaxPageItem()));
+		
+		if(page==1)
+		{
+			startPage = book.getPage()-1;
+		}else
+		{
+			startPage = (book.getPage() - 1) * book.getMaxPageItem() ;
+		}
+		
+		book.setResults(bookingDao.SearchByHotelId(hotel_id, startPage, book.getMaxPageItem()));
+		book.setShortBookings(bookMap.ModeltoModelView(book.getResults()));
+		return book;
 	}
 	
 	
