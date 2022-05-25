@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//database/insert_db.sql=UTF-8
+encoding//src/main/java/com/HotelBookingBE/controller/api/BookingApi.java=UTF-8
 encoding//src/main/java/com/HotelBookingBE/controller/api/HotelRoomApi.java=UTF-8
 encoding//src/main/java/com/HotelBookingBE/controller/api/UserApi.java=UTF-8

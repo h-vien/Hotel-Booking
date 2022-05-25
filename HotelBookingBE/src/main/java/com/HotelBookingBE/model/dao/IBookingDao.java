@@ -11,4 +11,5 @@ public interface IBookingDao extends genericDao<BookingModel> {
 	Integer countMaxItem(Long user_id);
 	List<BookingModel> SearchByUserId(Long user_id, int startPage,int endPage);
 	void updateOutOfDateStatus(Timestamp currentTime);
+	void updateValidStatus(Long bookingId);
 }

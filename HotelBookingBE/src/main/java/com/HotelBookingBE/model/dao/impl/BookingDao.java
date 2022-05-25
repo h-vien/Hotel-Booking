@@ -43,6 +43,13 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		
 	}
 
+	@Override
+	public void updateValidStatus(Long bookingId) {
+		String sql = "update booking set status = 1 where id=?";
+		update(sql,bookingId);
+		
+	}
+
 	
 	
 }
