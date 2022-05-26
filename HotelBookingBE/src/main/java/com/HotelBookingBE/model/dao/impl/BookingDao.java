@@ -45,22 +45,22 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 	}
 
 	@Override
-	public void updateValidStatus(Long bookingId) {
-		String sql = "update booking set status = 1 where id=?";
-		update(sql,bookingId);
+	public void updateValidStatus(Long bookingId,int status) {
+		String sql = "update booking set status = ? where id=?";
+		update(sql,status,bookingId);
 		
 	}
 
 	@Override
-	public Integer countMaxItemByHotel(Long hotel_id) {
-		String sql = "select count(distinct booking.id) from booking where hotel_id = ? ";
-		return count(sql,hotel_id);
+	public Integer countMaxItemByHotel(Long hotel_id,int status) {
+		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and status = ? ";
+		return count(sql,hotel_id,status);
 	}
 
 	@Override
-	public List<BookingModel> SearchByHotelId(Long hotel_id, int startPage, int endPage) {
-		String sql = "select * from booking where hotel_id = ? limit ?,? ";
-		return query(sql,new BookingMapper(),hotel_id,startPage,endPage);
+	public List<BookingModel> SearchByHotelId(Long hotel_id,int status, int startPage, int endPage) {
+		String sql = "select * from booking where hotel_id = ? and status = ? limit ?,? ";
+		return query(sql,new BookingMapper(),hotel_id,status,startPage,endPage);
 	}
 
 	
