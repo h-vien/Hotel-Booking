@@ -6,4 +6,7 @@ export const bookingApi = {
   getPurchase(config) {
     return http.get("/booking/user", config);
   },
+  getPurchaseByStatus(config) {
+    return http.get("/booking/hotel", config);
+  },
 };

@@ -31,21 +31,21 @@ const Purchase = () => {
           Đơn đã đặt
         </Typography.Title>
         <Row gutter={[24, 24]} className="bg-orange-200 p-4">
-          <Col sm={6}>
+          <Col sm={4}>
             <Typography.Text className="font-bold">Khách sạn</Typography.Text>
           </Col>
           <Col sm={6}>
             <Typography.Text className="font-bold">Địa chỉ</Typography.Text>
           </Col>
-          <Col sm={3}>
+          <Col sm={6}>
             <Typography.Text className="font-bold">Phòng</Typography.Text>
           </Col>
-          <Col sm={3}>
-            <Typography.Text className="font-bold">Ngày đến</Typography.Text>
+          <Col sm={5}>
+            <Typography.Text className="font-bold">
+              Ngày đến - Ngày đi
+            </Typography.Text>
           </Col>
-          <Col sm={3}>
-            <Typography.Text className="font-bold">Ngày đi</Typography.Text>
-          </Col>
+
           <Col sm={3}>
             <Typography.Text className="font-bold">Giá (VNĐ)</Typography.Text>
           </Col>

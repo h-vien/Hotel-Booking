@@ -12,7 +12,7 @@ class Path {
     this.purchase = "/purchase";
     this.createRoom = "/create-room";
     this.overview = "/overview";
-    this.bookingManagement = "/booking-management";
+    this.bookingManagement = "/booking-management/hotel";
 
     this.notFound = "*";
   }

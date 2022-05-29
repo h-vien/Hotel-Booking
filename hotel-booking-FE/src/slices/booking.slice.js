@@ -10,3 +10,7 @@ export const getPurchase = createAsyncThunk(
   "booking/purchase",
   payloadCreator(bookingApi.getPurchase)
 );
+export const getPurchaseByStatus = createAsyncThunk(
+  "booking/purchaseByStatus",
+  payloadCreator(bookingApi.getPurchaseByStatus)
+);

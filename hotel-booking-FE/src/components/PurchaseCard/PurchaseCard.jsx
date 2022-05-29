@@ -9,21 +9,22 @@ const PurchaseCard = ({ purchase }) => {
   return (
     <>
       <Row gutter={[24, 24]} className="px-5 py-10 rounded bg-gray-100 mt-4">
-        <Col sm={6}>
+        <Col sm={4}>
           <Typography.Text>{purchase.hotel.hotelName}</Typography.Text>
         </Col>
         <Col sm={6}>
           <Typography.Text>{purchase.hotel.hotelAddress}</Typography.Text>
         </Col>
-        <Col sm={3}>
+        <Col sm={6}>
           <Typography.Text>{purchase.room.roomName}</Typography.Text>
         </Col>
-        <Col sm={3}>
-          <Typography.Text>{formatDate(purchase.checkinDate)}</Typography.Text>
+        <Col sm={5}>
+          <Typography.Text>
+            {formatDate(purchase.checkinDate)} /
+            {formatDate(purchase.checkoutDate)}
+          </Typography.Text>
         </Col>
-        <Col sm={3}>
-          <Typography.Text>{formatDate(purchase.checkoutDate)}</Typography.Text>
-        </Col>
+
         <Col sm={3}>
           <Typography.Text>{formatMoney(price)}</Typography.Text>
         </Col>
