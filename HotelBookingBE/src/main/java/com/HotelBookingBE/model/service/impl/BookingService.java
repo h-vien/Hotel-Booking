@@ -79,17 +79,17 @@ public class BookingService implements IBookingService {
 		return book;
 	}
 	@Override
-	public void UpdateValidStatus(Long bookingId) {
-		bookingDao.updateValidStatus(bookingId);
+	public void UpdateValidStatus(Long bookingId,int status) {
+		bookingDao.updateValidStatus(bookingId,status);
 		
 	}
 	@Override
-	public BookingModel SearchByHotelId(Long hotel_id, int page) {
+	public BookingModel SearchByHotelId(Long hotel_id,int status, int page) {
 		Integer startPage = 0;
 		BookingModel book = new BookingModel();
 		book.setMaxPageItem(10);
 		book.setPage(page);
-		Integer maxItem = bookingDao.countMaxItemByHotel(hotel_id);
+		Integer maxItem = bookingDao.countMaxItemByHotel(hotel_id,status);
 
 		book.setTotalPage((int)Math.ceil((double)maxItem/(double)book.getMaxPageItem()));
 		
@@ -101,7 +101,7 @@ public class BookingService implements IBookingService {
 			startPage = (book.getPage() - 1) * book.getMaxPageItem() ;
 		}
 		
-		book.setResults(bookingDao.SearchByHotelId(hotel_id, startPage, book.getMaxPageItem()));
+		book.setResults(bookingDao.SearchByHotelId(hotel_id,status, startPage, book.getMaxPageItem()));
 		book.setShortBookings(bookMap.ModeltoModelView(book.getResults()));
 		return book;
 	}

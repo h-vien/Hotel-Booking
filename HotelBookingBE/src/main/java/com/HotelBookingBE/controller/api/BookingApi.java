@@ -20,75 +20,77 @@ import com.HotelBookingBE.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-
-@WebServlet(urlPatterns = {"/booking","/booking/user","/booking/hotel"})
+@WebServlet(urlPatterns = { "/booking", "/booking/user", "/booking/hotel" })
 public class BookingApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private IBookingService bookingService;
 	private IHotelService hotelSerivce;
-    public BookingApi() {
-    	bookingService = new BookingService();
-    	hotelSerivce = new HotelService();
-    }
 
+	public BookingApi() {
+		bookingService = new BookingService();
+		hotelSerivce = new HotelService();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		BookingModel book= new BookingModel() ;
+		BookingModel book = new BookingModel();
 		int page = Integer.parseInt(request.getParameter("page"));
-		Map<String,Object> map = new HashMap<String,Object>();
-		if(HttpUtil.getPathURL(request.getRequestURI()).equals("user"))
-		{			
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (HttpUtil.getPathURL(request.getRequestURI()).equals("user")) {
 			Long user_id = Long.parseLong(request.getParameter("user_id"));
 			book = bookingService.SearchByUserId(user_id, page);
 			map.put("books", book.getShortBookings());
-		} else 
-		{
+		} else {
 			Long hotel_id = Long.parseLong(request.getParameter("hotel_id"));
-			book = bookingService.SearchByHotelId(hotel_id, page);
+			Integer status = Integer.parseInt(request.getParameter("status"));
+			book = bookingService.SearchByHotelId(hotel_id, status, page);
 			map.put("books", book.getResults());
 		}
-		
+
 		map.put("page", book.getPage());
 		map.put("maxPageItem", book.getMaxPageItem());
 		map.put("totalPage", book.getTotalPage());
 		out.print(gson.toJson(map));
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		ObjectMapper mapper = new ObjectMapper();
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		BookingModel book = mapper.readValue(HttpUtil.getjson(request.getReader()), BookingModel.class);
-		if(HttpUtil.getPathURL(request.getRequestURI()).equals("booking"))
-		{
+		BookingModel book = gson.fromJson(HttpUtil.getjson(request.getReader()), BookingModel.class);
 			Long id = bookingService.save(book);
-			if(id == null)
-			{
+			if (id == null) {
 				response.setStatus(405);
-			} 
-		} else if (HttpUtil.getPathURL(request.getRequestURI()).equals("user"))
-		{
-			Long bookingId = Long.parseLong(request.getParameter("id"));
-			if(hotelSerivce.findOne(book.getHotel_id()) != null)
-			{
-				bookingService.UpdateValidStatus(bookingId);
-			} else 
-			{
-				response.setStatus(405);
-				out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật trạng thái không thành công")));
 			}
-		}
+
+	}
+
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 		
+		BookingModel book = gson.fromJson(HttpUtil.getjson(request.getReader()), BookingModel.class);
+		Long bookingId = Long.parseLong(request.getParameter("id"));
+		int status = Integer.parseInt(request.getParameter("status"));
+		if (hotelSerivce.findOne(book.getHotel_id()) != null) {
+			bookingService.UpdateValidStatus(bookingId,status);
+		} else {
+			response.setStatus(405);
+			out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật trạng thái không thành công")));
+		}
 	}
 
 }
