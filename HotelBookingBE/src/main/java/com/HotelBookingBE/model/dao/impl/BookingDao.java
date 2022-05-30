@@ -56,6 +56,11 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and status = ? ";
 		return count(sql,hotel_id,status);
 	}
+	@Override
+	public Integer countMaxItemByHotel(Long hotel_id, int status, int month) {
+		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and status = ? and month(checkin_date)=? ";
+		return count(sql,hotel_id,status,month);
+	}
 
 	@Override
 	public List<BookingModel> SearchByHotelId(Long hotel_id,int status, int startPage, int endPage) {
@@ -68,6 +73,7 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		String sql = "select sum(totalprice) from booking where hotel_id=? and checkin_date = ? and status = 3";
 		return count(sql,hotel_id,date);
 	}
+
 
 	
 	

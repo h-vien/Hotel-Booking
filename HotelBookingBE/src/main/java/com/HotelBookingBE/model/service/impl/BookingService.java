@@ -113,6 +113,8 @@ public class BookingService implements IBookingService {
 	@Override
 	public Map<String, Object> getRevenueByMonth(Long hotel_id, int month) {
 		Map<String,Object> result = new HashMap<>();
+		
+		// handle revenue 
 		Integer totalPrice = 0;
 		Integer year = (new Timestamp(System.currentTimeMillis())).getYear() + 1900;
 		Integer countDay = countDay(month, year);
@@ -125,12 +127,24 @@ public class BookingService implements IBookingService {
 			day.put("price",bookingDao.getTotalPriceByDate(hotel_id, (new Timestamp(Date.valueOf(date).getTime()))));
 			Days.add(day);
 		}
+		
+		//handle total price
 		for(Map<String,Object> i : Days)
 		{
 			totalPrice += (int)i.get("price");
 		}
+		
+		//handle paid/unpaid
+		Integer paid = bookingDao.countMaxItemByHotel(hotel_id, 3, month);
+		Integer unPaid = bookingDao.countMaxItemByHotel(hotel_id, 4, month);
+		//handle tickets
+		Integer tickets = bookingDao.countMaxItemByHotel(hotel_id, 0, month);
+		
 		result.put("Days", Days);
 		result.put("totalprice", totalPrice);
+		result.put("tickets", tickets);
+		result.put("paid", paid);
+		result.put("unpaid", unPaid);
 		return result;
 	}
 	@Override
