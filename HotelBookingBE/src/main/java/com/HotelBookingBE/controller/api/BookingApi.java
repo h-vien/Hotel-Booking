@@ -2,6 +2,7 @@ package com.HotelBookingBE.controller.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,10 +18,9 @@ import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.impl.BookingService;
 import com.HotelBookingBE.model.service.impl.HotelService;
 import com.HotelBookingBE.utils.HttpUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-@WebServlet(urlPatterns = { "/booking", "/booking/user", "/booking/hotel" })
+@WebServlet(urlPatterns = { "/booking", "/booking/user", "/booking/hotel","/booking/hotel/revenue"})
 public class BookingApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,24 +39,36 @@ public class BookingApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-		BookingModel book = new BookingModel();
-		int page = Integer.parseInt(request.getParameter("page"));
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (HttpUtil.getPathURL(request.getRequestURI()).equals("user")) {
-			Long user_id = Long.parseLong(request.getParameter("user_id"));
-			book = bookingService.SearchByUserId(user_id, page);
-			map.put("books", book.getShortBookings());
-		} else {
+		
+		if(HttpUtil.getPathURL(request.getRequestURI()).equals("revenue"))
+		{
+			Integer month = Integer.parseInt(request.getParameter("month"));
 			Long hotel_id = Long.parseLong(request.getParameter("hotel_id"));
-			Integer status = Integer.parseInt(request.getParameter("status"));
-			book = bookingService.SearchByHotelId(hotel_id, status, page);
-			map.put("books", book.getResults());
+			out.print(gson.toJson(bookingService.getRevenueByMonth(hotel_id, month)));
+			
 		}
+		else
+		{
+			BookingModel book = new BookingModel();
+			int page = Integer.parseInt(request.getParameter("page"));
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (HttpUtil.getPathURL(request.getRequestURI()).equals("user")) {
+				Long user_id = Long.parseLong(request.getParameter("user_id"));
+				book = bookingService.SearchByUserId(user_id, page);
+				map.put("books", book.getShortBookings());
+			} else {
+				Long hotel_id = Long.parseLong(request.getParameter("hotel_id"));
+				Integer status = Integer.parseInt(request.getParameter("status"));
+				book = bookingService.SearchByHotelId(hotel_id, status, page);
+				map.put("books", book.getResults());
+			}
 
-		map.put("page", book.getPage());
-		map.put("maxPageItem", book.getMaxPageItem());
-		map.put("totalPage", book.getTotalPage());
-		out.print(gson.toJson(map));
+			map.put("page", book.getPage());
+			map.put("maxPageItem", book.getMaxPageItem());
+			map.put("totalPage", book.getTotalPage());
+			out.print(gson.toJson(map));
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -9,4 +9,5 @@ public interface genericDao<T> {
 	Long insert(String sql,Object... Parameters);
 	void update(String sql,Object... Parameters);
 	Integer count(String sql,Object... Parameters);
+	
 }
