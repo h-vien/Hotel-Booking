@@ -39,15 +39,15 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 
 	@Override
 	public void updateOutOfDateStatus(Timestamp currentTime) {
-		String sql = "update booking set status = 2 where deadline_date < ?";
+		String sql = "update booking set status = 4 where deadline_date < ?";
 		update(sql,currentTime);
 		
 	}
 
 	@Override
-	public void updateValidStatus(Long bookingId,int status) {
-		String sql = "update booking set status = ? where id=?";
-		update(sql,status,bookingId);
+	public void updateValidStatus(Long bookingId,int status,Timestamp modifiedDate) {
+		String sql = "update booking set status = ?,modifiedDate = ? where id=?";
+		update(sql,status,modifiedDate,bookingId);
 		
 	}
 
@@ -56,12 +56,24 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and status = ? ";
 		return count(sql,hotel_id,status);
 	}
+	@Override
+	public Integer countMaxItemByHotel(Long hotel_id, int status, int month) {
+		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and status = ? and month(checkin_date)=? ";
+		return count(sql,hotel_id,status,month);
+	}
 
 	@Override
 	public List<BookingModel> SearchByHotelId(Long hotel_id,int status, int startPage, int endPage) {
 		String sql = "select * from booking where hotel_id = ? and status = ? limit ?,? ";
 		return query(sql,new BookingMapper(),hotel_id,status,startPage,endPage);
 	}
+
+	@Override
+	public Integer getTotalPriceByDate(Long hotel_id, Timestamp date) {
+		String sql = "select sum(totalprice) from booking where hotel_id=? and checkin_date = ? and status = 3";
+		return count(sql,hotel_id,date);
+	}
+
 
 	
 	

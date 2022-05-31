@@ -19,7 +19,7 @@ public class AbstractDao<T> implements genericDao<T> {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/hotelbookingdb";
 			String user = "root";
-			String password = "";
+			String password = "Quang123";
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;
@@ -175,6 +175,7 @@ public class AbstractDao<T> implements genericDao<T> {
 			return count;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.err.print(e.toString());
 			e.printStackTrace();
 			return count;
 		} finally {
@@ -186,6 +187,7 @@ public class AbstractDao<T> implements genericDao<T> {
 				if (rs != null)
 					rs.close();
 			} catch (SQLException e) {
+				
 				e.printStackTrace();
 			}
 

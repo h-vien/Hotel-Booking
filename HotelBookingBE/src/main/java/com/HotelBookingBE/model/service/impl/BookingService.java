@@ -1,6 +1,11 @@
 package com.HotelBookingBE.model.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.HotelBookingBE.mapper.BookingMapper;
 import com.HotelBookingBE.mapper.HotelMapper;
@@ -62,7 +67,7 @@ public class BookingService implements IBookingService {
 		
 		if(page==1)
 		{
-			startPage = book.getPage()-1;
+			startPage = book.getPage() - 1;
 		}else
 		{
 			startPage = (book.getPage() - 1) * book.getMaxPageItem() ;
@@ -80,7 +85,7 @@ public class BookingService implements IBookingService {
 	}
 	@Override
 	public void UpdateValidStatus(Long bookingId,int status) {
-		bookingDao.updateValidStatus(bookingId,status);
+		bookingDao.updateValidStatus(bookingId,status,new Timestamp(System.currentTimeMillis()));
 		
 	}
 	@Override
@@ -95,7 +100,7 @@ public class BookingService implements IBookingService {
 		
 		if(page==1)
 		{
-			startPage = book.getPage()-1;
+			startPage = book.getPage() - 1;
 		}else
 		{
 			startPage = (book.getPage() - 1) * book.getMaxPageItem() ;
@@ -104,6 +109,63 @@ public class BookingService implements IBookingService {
 		book.setResults(bookingDao.SearchByHotelId(hotel_id,status, startPage, book.getMaxPageItem()));
 		book.setShortBookings(bookMap.ModeltoModelView(book.getResults()));
 		return book;
+	}
+	@Override
+	public Map<String, Object> getRevenueByMonth(Long hotel_id, int month) {
+		Map<String,Object> result = new HashMap<>();
+		
+		// handle revenue 
+		Integer totalPrice = 0;
+		Integer year = (new Timestamp(System.currentTimeMillis())).getYear() + 1900;
+		Integer countDay = countDay(month, year);
+		List<Map<String, Object>> Days = new ArrayList<>();
+		for(int i=1;i<=countDay ;i++)
+		{
+			Map<String,Object> day = new HashMap<>();
+			String date = year + "-" + month + "-" + i;
+			day.put("date", date);
+			day.put("price",bookingDao.getTotalPriceByDate(hotel_id, (new Timestamp(Date.valueOf(date).getTime()))));
+			Days.add(day);
+		}
+		
+		//handle total price
+		for(Map<String,Object> i : Days)
+		{
+			totalPrice += (int)i.get("price");
+		}
+		
+		//handle paid/unpaid
+		Integer paid = bookingDao.countMaxItemByHotel(hotel_id, 3, month);
+		Integer unPaid = bookingDao.countMaxItemByHotel(hotel_id, 4, month);
+		//handle tickets
+		Integer tickets = bookingDao.countMaxItemByHotel(hotel_id, 0, month);
+		
+		result.put("Days", Days);
+		result.put("totalprice", totalPrice);
+		result.put("tickets", tickets);
+		result.put("paid", paid);
+		result.put("unpaid", unPaid);
+		return result;
+	}
+	@Override
+	public Integer countDay(int month,int year) {
+		switch(month)
+		{
+			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+				return 31;
+			case 4: case 6: case 9: case 11:
+				return 30;
+			case 2:
+				if(year%400==0 || (year % 4 == 0 && year%100 !=0))
+				{
+					return 29;
+				}else
+				{
+					return 28;
+				}
+			default:
+				return null;
+		}
 	}
 	
 	
