@@ -42,7 +42,7 @@ const Purchase = () => {
           </Col>
           <Col sm={5}>
             <Typography.Text className="font-bold">
-              Ngày đến - Ngày đi
+              Ngày nhận/trả phòng
             </Typography.Text>
           </Col>
 

@@ -69,12 +69,7 @@ const Profile = () => {
                 label="Tên tài khoản"
                 name="username"
                 initialValue={user?.username}
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này không được bỏ trống",
-                  },
-                ]}
+                rules={rules.userName}
               >
                 <Input />
               </Form.Item>

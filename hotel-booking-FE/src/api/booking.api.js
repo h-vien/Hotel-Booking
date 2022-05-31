@@ -9,4 +9,7 @@ export const bookingApi = {
   getPurchaseByStatus(config) {
     return http.get("/booking/hotel", config);
   },
+  updateStatus(data) {
+    return http.put("/booking/hotel", data);
+  },
 };

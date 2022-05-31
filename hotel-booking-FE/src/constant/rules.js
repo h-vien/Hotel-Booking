@@ -11,6 +11,16 @@ export const rules = {
       message: "Tên có độ dài tối đa 120 kí tự",
     },
   ],
+  userName: [
+    {
+      required: true,
+      message: "Trường này không được bỏ trống",
+    },
+    {
+      max: 8,
+      message: "Username tối đa 8 kí tự",
+    },
+  ],
   email: [
     { required: true, message: "Vui lòng nhập Email" },
     { pattern: isEmail(), message: "Vui lòng nhập đúng định dạng Email" },
