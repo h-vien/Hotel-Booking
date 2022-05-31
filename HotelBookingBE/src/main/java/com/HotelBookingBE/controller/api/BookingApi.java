@@ -95,10 +95,9 @@ public class BookingApi extends HttpServlet {
 		Gson gson = new Gson();
 		
 		BookingModel book = gson.fromJson(HttpUtil.getjson(request.getReader()), BookingModel.class);
-		Long bookingId = Long.parseLong(request.getParameter("id"));
-		int status = Integer.parseInt(request.getParameter("status"));
 		if (hotelSerivce.findOne(book.getHotel_id()) != null) {
-			bookingService.UpdateValidStatus(bookingId,status);
+			bookingService.UpdateValidStatus(book.getId(),book.getStatus());
+			out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật trạng thái thành công")));
 		} else {
 			response.setStatus(405);
 			out.print(gson.toJson(HttpUtil.toJsonObject("Cập nhật trạng thái không thành công")));
