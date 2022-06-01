@@ -68,7 +68,7 @@ const Routes = () => {
           <Register />
         </UnAuth>
       </Route>
-      <Route path={path.user}>
+      <Route path={path.user} exact>
         <AuthenticatedGuard>
           <Profile />
         </AuthenticatedGuard>
@@ -92,6 +92,11 @@ const Routes = () => {
       <Route path={path.bookingManagement}>
         <HotelManagerGuard>
           <BookingManagement />
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.overview}>
+        <HotelManagerGuard>
+          <Overview />
         </HotelManagerGuard>
       </Route>
       <Route path={path.dashboard}>

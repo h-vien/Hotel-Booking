@@ -97,6 +97,9 @@ img {
     margin-top: -2px;
   }
 }
+.text-color-secondary {
+  color: $--color-secondary !important;
+}
 .ant-btn-danger {
   background-color: #ff4d4f !important;
   color: #fff !important;

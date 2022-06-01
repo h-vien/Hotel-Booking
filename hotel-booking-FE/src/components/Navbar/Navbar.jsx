@@ -31,7 +31,7 @@ const DropDownList = ({ roleId }) => {
       {roleId === 2 ? (
         <>
           <Menu.Item key="2">
-            <Link to={path.dashboard}>Dashboard</Link>
+            <Link to={`${path.dashboard}/overview`}>Dashboard</Link>
           </Menu.Item>
         </>
       ) : null}

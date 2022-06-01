@@ -1,10 +1,11 @@
 import { Col, Menu, Row } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import { path } from "../../constant/path";
 const DashboardLayout = ({ children }) => {
+  const location = useLocation();
   const { hotel } = useSelector((state) => state.auth.profile);
   return (
     <Row gutter={[16, 16]}>
@@ -20,16 +21,19 @@ const DashboardLayout = ({ children }) => {
               </span>
             </div>
           </Link>
-          <Menu className="mt-5">
-            <Menu.Item key="2">
+          <Menu className="mt-5" defaultSelectedKeys={location.pathname}>
+            <Menu.Item key={path.overview}>
+              <Link to={path.overview}>Tổng quan</Link>
+            </Menu.Item>
+            <Menu.Item key={path.bookingManagement}>
               <Link
                 to={`/dashboard/booking-management/hotel?hotel_id=${hotel.id}&page=1&status=0`}
               >
                 Quản lý đặt phòng
               </Link>
             </Menu.Item>
-            <Menu.Item key="3">
-              <Link to={path.createRoom}>Tạo phòng</Link>
+            <Menu.Item key={path.createRoom}>
+              <Link to={path.createRoom}>Quản lý phòng</Link>
             </Menu.Item>
           </Menu>
         </div>

@@ -12,4 +12,7 @@ export const bookingApi = {
   updateStatus(data) {
     return http.put("/booking/hotel", data);
   },
+  getRevenue(config) {
+    return http.get("/booking/hotel/revenue", config);
+  },
 };

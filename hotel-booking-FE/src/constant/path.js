@@ -8,10 +8,11 @@ class Path {
     this.bookingDetail = "/booking/:id";
     this.registerMember = "/register-member";
     this.user = "/user";
-    this.changePass = "/password";
+    this.changePass = this.user + "/password";
     this.dashboard = "/dashboard";
-    this.purchase = "/purchase";
+    this.purchase = this.user + "/purchase";
     this.createRoom = this.dashboard + "/create-room";
+    this.overview = this.dashboard + "/overview";
     this.bookingManagement = this.dashboard + "/booking-management/hotel";
     this.notFound = "*";
   }

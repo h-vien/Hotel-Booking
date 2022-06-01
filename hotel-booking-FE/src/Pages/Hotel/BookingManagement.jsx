@@ -17,7 +17,9 @@ const BookingManagement = () => {
       hotel_id: hotel.id,
       status: e,
     };
-    history.push(`/booking-management/hotel?${qs.stringify(_filters)}`);
+    history.push(
+      `/dashboard/booking-management/hotel?${qs.stringify(_filters)}`
+    );
   };
   const query = useQuery();
   return (
