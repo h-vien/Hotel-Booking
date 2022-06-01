@@ -36,10 +36,8 @@ const Profile = () => {
       image: banner.url || user.image,
       id: user.id,
     };
-    console.log("Success:", _data);
     const res = await dispatch(updateMe(_data));
     unwrapResult(res);
-    console.log(res);
     try {
     } catch (error) {
       console.log(error);

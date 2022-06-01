@@ -2,7 +2,6 @@ import { Col, Row, Typography } from "antd";
 import { formatDate, formatMoney } from "../../utils/helper";
 
 const PurchaseCard = ({ purchase }) => {
-  console.log(purchase);
   const checkin = formatDate(purchase.checkinDate).slice(-2);
   const checkout = formatDate(purchase.checkoutDate).slice(-2);
   const price = (checkout - checkin) * purchase.room.price;

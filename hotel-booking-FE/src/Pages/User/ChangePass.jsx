@@ -13,16 +13,13 @@ const ChangePass = () => {
   const [error, setError] = useState("");
   const { user } = useSelector((state) => state.auth.profile);
   const onFinish = async (values) => {
-    console.log("Success:", values);
     delete values.confirm;
     const _data = {
       ...values,
       id: String(user.id),
     };
-    console.log(_data);
     try {
       const res = await dispatch(changePassword(_data));
-      console.log(res);
       unwrapResult(res);
       toast.success("Cập nhập mật khẩu thành công");
       history.push("/");

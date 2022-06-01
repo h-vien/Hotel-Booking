@@ -22,7 +22,7 @@ const DropDownList = ({ roleId }) => {
       console.log(error);
     }
   };
-  const { hotel } = useSelector((state) => state.auth.profile);
+
   return (
     <Menu>
       <Menu.Item key="0">
@@ -31,17 +31,7 @@ const DropDownList = ({ roleId }) => {
       {roleId === 2 ? (
         <>
           <Menu.Item key="2">
-            <Link
-              to={`/booking-management/hotel?hotel_id=${hotel.id}&page=1&status=0`}
-            >
-              Quản lý đặt phòng
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link to={path.createRoom}>Tạo phòng</Link>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Link to={path.overview}>Tổng quan</Link>
+            <Link to={path.dashboard}>Dashboard</Link>
           </Menu.Item>
         </>
       ) : null}

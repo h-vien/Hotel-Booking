@@ -18,7 +18,6 @@ const Hero = () => {
         rangeValue[1].format("YYYY-MM-DD"),
       ],
     };
-    console.log(_val);
     const _filters = {
       checkin_date: _val.date[0],
       checkout_date: _val.date[1],
@@ -31,7 +30,6 @@ const Hero = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
     toast.error("Vui lòng nhập thông tin");
   };
   return (

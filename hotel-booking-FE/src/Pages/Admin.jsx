@@ -88,7 +88,6 @@ export default function Admin() {
     []
   );
 
-  console.log(stats);
   const data = {
     labels: UserData.map((item) => item.year),
     datasets: [

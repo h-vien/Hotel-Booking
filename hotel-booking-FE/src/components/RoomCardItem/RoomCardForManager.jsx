@@ -53,7 +53,6 @@ const RoomCardForManager = ({ room }) => {
       hotel_id: profile.hotel.id,
       id: room.id,
     };
-    console.log("SUCCESS: ", _data);
     try {
       try {
         const res = dispatch(updateRoomById(_data));
@@ -70,7 +69,6 @@ const RoomCardForManager = ({ room }) => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(room);
   return (
     <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4 z-0">
       <div className="flex justify-between ">

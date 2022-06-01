@@ -1,17 +1,14 @@
-import { Button, Checkbox, Typography } from "antd";
-import React from "react";
-import { formatDate, formatMoney } from "../../utils/helper";
-import { useDispatch } from "react-redux";
-import { updatePurchaseStatus } from "../../slices/booking.slice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { Button, Checkbox, Typography } from "antd";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { updatePurchaseStatus } from "../../slices/booking.slice";
+import { formatDate, formatMoney } from "../../utils/helper";
 const PurchaseManagementCard = ({ purchase }) => {
-  console.log(purchase);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleUpdate = (id) => {
-    console.log(`checked = ${id}`);
     try {
       if (purchase.status >= 3) {
         toast.error("Không thể cập nhập vé");
@@ -21,6 +18,7 @@ const PurchaseManagementCard = ({ purchase }) => {
           hotel_id: purchase.hotel_id,
           status: purchase.status + 1,
         };
+
         const res = dispatch(updatePurchaseStatus(_data));
         unwrapResult(res);
         history.go(0);

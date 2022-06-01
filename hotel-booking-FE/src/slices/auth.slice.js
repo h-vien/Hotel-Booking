@@ -61,7 +61,6 @@ const auth = createSlice({
     [login.fulfilled]: handleAuthFulfilled,
     [logout.fulfilled]: handleUnauth,
     [registerMember.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.profile.hotel = action.payload.data;
       state.profile.user.roleId = 2;
       localStorage.setItem(

@@ -20,6 +20,7 @@ import Purchase from "./Pages/User/Purchase";
 import HotelManagerGuard from "./core/guards/HotelManagerGuard";
 import Overview from "./Pages/Hotel/Overview";
 import BookingManagement from "./Pages/Hotel/BookingManagement";
+import Dashboard from "./core/layout/Dashboard";
 
 const Routes = () => {
   return (
@@ -87,14 +88,15 @@ const Routes = () => {
           <CreateRoom />
         </HotelManagerGuard>
       </Route>
-      <Route path={path.overview}>
-        <HotelManagerGuard>
-          <Overview />
-        </HotelManagerGuard>
-      </Route>
+
       <Route path={path.bookingManagement}>
         <HotelManagerGuard>
           <BookingManagement />
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.dashboard}>
+        <HotelManagerGuard>
+          <Dashboard />
         </HotelManagerGuard>
       </Route>
       <Route path={path.notFound}>

@@ -10,11 +10,9 @@ export const roomApi = {
     return http.get("/hotel/room/search", config);
   },
   deleteRoomById(id) {
-    console.log(id);
     return http.delete(`/hotel/room/${id}`);
   },
   updateRoomById(data) {
-    console.log(data);
     return http.put(`/hotel/room`, data);
   },
 };

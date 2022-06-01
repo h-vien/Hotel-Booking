@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import UploadImage from "../../common/UploadImage";
 import RoomCardForManager from "../../components/RoomCardItem/RoomCardForManager";
 import { rules } from "../../constant/rules";
+import DashboardLayout from "../../core/layout/Dashboard";
 import HomeLayout from "../../core/layout/HomeLayout";
 import { createRoom, getRoomByHotelId } from "../../slices/room.slice";
 
@@ -40,9 +41,6 @@ const CreateRoom = () => {
     setIsModalVisible(false);
   };
   const onFinish = async (values) => {
-    console.log(values);
-    console.log(banner);
-
     const _data = {
       ...values,
       image:
@@ -65,7 +63,6 @@ const CreateRoom = () => {
     handleCancel();
   };
   useEffect(() => {
-    console.log("render");
     const params = {
       hotel_id: profile.hotel.id,
       page: currPage,
@@ -82,12 +79,11 @@ const CreateRoom = () => {
     console.log("Failed:", errorInfo);
   };
   const onShowSizeChange = (curr, pgSize) => {
-    console.log(pgSize, curr);
     setCurrPage(curr);
   };
 
   return (
-    <HomeLayout>
+    <DashboardLayout>
       <Content className="max-w-6xl h-screen mx-auto mt-5">
         <div className="flex justify-between mb-5">
           <Button type="secondary" onClick={showModal}>
@@ -214,7 +210,7 @@ const CreateRoom = () => {
           </Form>
         </Modal>
       </Content>
-    </HomeLayout>
+    </DashboardLayout>
   );
 };
 

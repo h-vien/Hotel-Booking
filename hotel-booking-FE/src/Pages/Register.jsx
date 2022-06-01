@@ -11,8 +11,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onFinish = async (values) => {
-    console.log("Success:", values);
-
     const { firstName, lastName, email, password } = values;
     const data = { firstName, lastName, email, password };
     try {

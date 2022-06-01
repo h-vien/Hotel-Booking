@@ -25,7 +25,6 @@ const Booking = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
-    console.log("Success:", values);
     const birthday = values["birthday"];
     const _val = {
       ...values,

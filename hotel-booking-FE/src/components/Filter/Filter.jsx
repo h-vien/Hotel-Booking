@@ -32,7 +32,6 @@ export default function Filter({ filters }) {
     history.push(`/hotel/search?${qs.stringify(_filters)}`);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
     toast.error("Vui lòng nhập thông tin");
   };
 

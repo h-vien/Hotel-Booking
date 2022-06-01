@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import TabContent from "../../components/PurchaseStatus/TabContent";
-import HomeLayout from "../../core/layout/HomeLayout";
-
+import useQuery from "../../core/hooks/useQuery";
+import DashboardLayout from "../../core/layout/Dashboard";
 const BookingManagement = () => {
   const [page, setPage] = useState(0);
   const { hotel } = useSelector((state) => state.auth.profile);
@@ -19,11 +19,15 @@ const BookingManagement = () => {
     };
     history.push(`/booking-management/hotel?${qs.stringify(_filters)}`);
   };
-
+  const query = useQuery();
   return (
-    <HomeLayout>
+    <DashboardLayout>
       <Content className="max-w-6xl h-screen mx-auto mt-5">
-        <Tabs defaultActiveKey="0" onChange={handleClick} className="mt-14">
+        <Tabs
+          defaultActiveKey={query.status || 0}
+          onChange={handleClick}
+          className="mt-14"
+        >
           <Tabs.TabPane tab="Chờ xác nhận" key="0">
             <TabContent />
           </Tabs.TabPane>
@@ -41,7 +45,7 @@ const BookingManagement = () => {
           </Tabs.TabPane>
         </Tabs>
       </Content>
-    </HomeLayout>
+    </DashboardLayout>
   );
 };
 

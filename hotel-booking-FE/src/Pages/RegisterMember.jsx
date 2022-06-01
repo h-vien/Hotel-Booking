@@ -19,7 +19,6 @@ const RegisterMember = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onFinish = async (values) => {
-    console.log(values);
     const province = values["province_id"];
     const _data = {
       ...values,
@@ -27,7 +26,6 @@ const RegisterMember = () => {
       user_id: String(userId),
       image: banner?.url || banner,
     };
-    console.log(_data);
     const _registerMember = async () => {
       try {
         const res = await dispatch(registerMember(_data));
@@ -46,15 +44,12 @@ const RegisterMember = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  const [image, setImage] = "";
   const handleDefaultBanner = () => {
     setBanner(
       "https://res.cloudinary.com/dnykxuaax/image/upload/v1652715094/ibp9pfvutk5uhxmtgeyy.jpg"
     );
     setProgress(100);
   };
-  console.log(banner, "banner");
-  console.log(progress);
   return (
     <HomeLayout>
       <Content className="max-w-6xl mx-auto mt-5">

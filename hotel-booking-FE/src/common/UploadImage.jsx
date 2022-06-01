@@ -24,7 +24,6 @@ const UploadImage = ({ onChange, setProgress, progress }) => {
       console.log("err");
     }
   };
-  console.log(progress);
   return (
     <Upload
       accept="image/*"

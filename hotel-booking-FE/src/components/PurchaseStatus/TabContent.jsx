@@ -5,11 +5,11 @@ import { useDispatch } from "react-redux";
 import { getPurchaseByStatus } from "../../slices/booking.slice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Typography } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 const TabContent = () => {
   const query = useQuery();
   const [purchases, setPurchases] = useState([]);
   const dispatch = useDispatch();
-  console.log(query);
   useEffect(() => {
     const _getPurchaseByStatus = async () => {
       const params = {
@@ -23,7 +23,6 @@ const TabContent = () => {
     };
     _getPurchaseByStatus();
   }, [dispatch, query]);
-  console.log(purchases);
   return (
     <>
       {purchases.books?.[0] ? (
@@ -31,9 +30,14 @@ const TabContent = () => {
           <PurchaseManagementCard key={purchase.id} purchase={purchase} />
         ))
       ) : (
-        <Typography.Title className="text-center mt-20">
-          Chưa có dữ liệu
-        </Typography.Title>
+        <>
+          <p className=" mt-20 text-9xl text-gray-400">
+            <InboxOutlined />
+          </p>
+          <Typography.Title className="text-center">
+            Chưa có dữ liệu
+          </Typography.Title>
+        </>
       )}
     </>
   );

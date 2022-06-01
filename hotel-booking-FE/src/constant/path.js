@@ -9,11 +9,10 @@ class Path {
     this.registerMember = "/register-member";
     this.user = "/user";
     this.changePass = "/password";
+    this.dashboard = "/dashboard";
     this.purchase = "/purchase";
-    this.createRoom = "/create-room";
-    this.overview = "/overview";
-    this.bookingManagement = "/booking-management/hotel";
-
+    this.createRoom = this.dashboard + "/create-room";
+    this.bookingManagement = this.dashboard + "/booking-management/hotel";
     this.notFound = "*";
   }
 }
