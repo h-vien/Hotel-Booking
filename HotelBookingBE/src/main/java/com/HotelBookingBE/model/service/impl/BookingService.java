@@ -138,7 +138,7 @@ public class BookingService implements IBookingService {
 		Integer paid = bookingDao.countMaxItemByHotel(hotel_id, 3, month);
 		Integer unPaid = bookingDao.countMaxItemByHotel(hotel_id, 4, month);
 		//handle tickets
-		Integer tickets = bookingDao.countMaxItemByHotel(hotel_id, 0, month);
+		Integer tickets = bookingDao.countItemByMonth(hotel_id, month);
 		
 		result.put("Days", Days);
 		result.put("totalprice", totalPrice);

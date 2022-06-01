@@ -74,6 +74,12 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 		return count(sql,hotel_id,date);
 	}
 
+	@Override
+	public Integer countItemByMonth(Long hotel_id, int month) {
+		String sql = "select count(distinct booking.id) from booking where hotel_id = ? and month(checkin_date)=? ";
+		return count(sql,hotel_id,month);
+	}
+
 
 	
 	
