@@ -24,7 +24,7 @@ const BookingManagement = () => {
   const query = useQuery();
   return (
     <DashboardLayout>
-      <Content className="max-w-6xl h-screen mx-auto mt-5">
+      <Content className="max-w-6xl min-h-screen mx-auto mt-5">
         <Tabs
           defaultActiveKey={query.status || 0}
           onChange={handleClick}

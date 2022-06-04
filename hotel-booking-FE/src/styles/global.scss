@@ -143,6 +143,17 @@ img {
   border-radius: 40px;
   background-color: #f3f3f3;
 }
+.ant-pagination-item a {
+  margin: 0 !important;
+}
+.ant-pagination-item-active a,
+.ant-pagination-item:hover a {
+  color: $--color-secondary;
+}
+.ant-pagination-item:hover,
+.ant-pagination-item-active {
+  border-color: $--color-secondary;
+}
 .ant-select-selector {
   display: flex !important;
   align-items: center;

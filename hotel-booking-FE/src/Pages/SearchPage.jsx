@@ -9,10 +9,11 @@ import LocalStorage from "../constant/localStorage";
 import useQuery from "../core/hooks/useQuery";
 import HomeLayout from "../core/layout/HomeLayout";
 import { getHotels } from "../slices/hotel.slice";
-
+import { Pagination } from "antd";
 const SearchPage = () => {
   const hotelSearch = useSelector((state) => state.hotel.hotels);
   const [hotelList, setHotelList] = useState({});
+  const [currPage, setCurrPage] = useState(1);
 
   const query = useQuery();
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const SearchPage = () => {
   useEffect(() => {
     const _filters = {
       ...query,
-      page: query.page || 1,
+      page: query.page || currPage,
     };
 
     const params = {
@@ -29,7 +30,7 @@ const SearchPage = () => {
       province_id: _filters.province_id,
       type_room_id: _filters.type_room_id,
       bed_quantity: _filters.bed_quantity,
-      page: _filters.page,
+      page: currPage,
     };
     setFilters(params);
     const _getHotels = async () => {
@@ -38,12 +39,16 @@ const SearchPage = () => {
       setHotelList(res.data);
     };
     _getHotels();
-  }, [query, dispatch]);
+  }, [query, dispatch, currPage]);
   localStorage.setItem(LocalStorage.filters, JSON.stringify(filters));
-
+  console.log(hotelList);
+  const onShowSizeChange = (curr) => {
+    setCurrPage(curr);
+  };
+  console.log(currPage);
   return (
     <HomeLayout>
-      <Content className="max-w-6xl mx-auto mt-5">
+      <Content className="max-w-6xl min-h-screen mx-auto mt-5">
         <Row gutter={[16, 16]}>
           <Col span={6}>
             <Filter filters={filters} />
@@ -61,6 +66,19 @@ const SearchPage = () => {
                   Không tìm thấy khách sạn nào phù hợp
                 </h1>
               )}
+            </Row>
+            <Row>
+              <div className="flex w-full mt-8 items-center justify-center">
+                <Pagination
+                  defaultCurrent={currPage}
+                  total={
+                    hotelList.totalPage * hotelList.maxPageItem !== 0
+                      ? hotelList.totalPage * hotelList.maxPageItem
+                      : 1
+                  }
+                  onChange={onShowSizeChange}
+                />
+              </div>
             </Row>
           </Col>
         </Row>

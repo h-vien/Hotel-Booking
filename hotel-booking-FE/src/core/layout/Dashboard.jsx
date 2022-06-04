@@ -10,7 +10,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <Row gutter={[16, 16]}>
       <Col md={4}>
-        <div className="bg-white h-screen py-8 ">
+        <div className="bg-white min-h-screen py-8 ">
           <Link to="/">
             <div className="flex items-center px-4">
               <div className="w-12 h-12 rounded-lg">
@@ -38,7 +38,7 @@ const DashboardLayout = ({ children }) => {
           </Menu>
         </div>
       </Col>
-      <Col md={20} className="bg-gray-100">
+      <Col md={20} className="min-h-screen bg-gray-100">
         {children}
       </Col>
     </Row>
