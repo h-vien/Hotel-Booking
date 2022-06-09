@@ -65,6 +65,7 @@ public class HotelApi extends HttpServlet {
 		
 		HotelModel hotel = gson.fromJson(HttpUtil.getjson(request.getReader()), HotelModel.class);
 		HotelModel temp = hotelService.findOne(hotel.getId());
+		hotel.setRoomQuantity(temp.getRoomQuantity());
 		if(temp != null)
 		{
 			hotelService.saveChange(hotel);
