@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.HotelBookingBE.model.HotelModel;
 import com.HotelBookingBE.model.service.IHotelService;
 import com.HotelBookingBE.model.service.impl.HotelService;
+import com.HotelBookingBE.utils.HttpUtil;
 import com.google.gson.Gson;
 
 
-@WebServlet(urlPatterns = {"/hotel/search"})
+@WebServlet(urlPatterns = {"/hotel/search","/hotel"})
 public class HotelApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private IHotelService hotelService;
@@ -55,8 +56,24 @@ public class HotelApi extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json; charset=UTF-8");
 
+		request.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
+		
+		HotelModel hotel = gson.fromJson(HttpUtil.getjson(request.getReader()), HotelModel.class);
+		HotelModel temp = hotelService.findOne(hotel.getId());
+		if(temp != null)
+		{
+			hotelService.saveChange(hotel);
+			out.print(gson.toJson(temp));
+		}else
+		{
+			response.setStatus(405);
+			out.print(HttpUtil.toJsonObject("Cập Nhật Thất Bại"));
+		}
 
 	}
 
