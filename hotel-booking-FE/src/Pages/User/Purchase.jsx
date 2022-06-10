@@ -26,7 +26,7 @@ const Purchase = () => {
   console.log(purchaseList);
   return (
     <User>
-      <div className="px-8 bg-white h-screen rounded">
+      <div className="px-8 bg-white min-h-screen rounded py-12">
         <Typography.Title level={3} className="pt-5">
           Đơn đã đặt
         </Typography.Title>

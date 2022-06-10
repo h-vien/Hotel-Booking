@@ -13,6 +13,7 @@ class Path {
     this.purchase = this.user + "/purchase";
     this.createRoom = this.dashboard + "/create-room";
     this.overview = this.dashboard + "/overview";
+    this.hotelProfile = this.dashboard + "/hotel-profile";
     this.bookingManagement = this.dashboard + "/booking-management/hotel";
     this.notFound = "*";
   }

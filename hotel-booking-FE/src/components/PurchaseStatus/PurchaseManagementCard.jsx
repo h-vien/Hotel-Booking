@@ -40,14 +40,14 @@ const PurchaseManagementCard = ({ purchase }) => {
   return (
     <>
       {purchase && (
-        <div className="w-full bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4 z-0">
+        <div className="w-full  bg-white rounded-lg cursor-default hover:shadow-md p-4 mb-4 z-0">
           <div className="flex justify-between items-center">
             <div className="mr-12">
               {purchase.status < 3 ? (
                 <Checkbox onChange={() => handleUpdate(purchase.id)}></Checkbox>
               ) : null}
             </div>
-            <div className="flex-1 justify-between flex">
+            <div className="flex-1 justify-between items-center flex">
               <div className="flex-col w-2/3">
                 <Typography.Text className="block text-base">
                   <span className="inline-block w-1/4">Người đặt</span>:{" "}
@@ -76,11 +76,16 @@ const PurchaseManagementCard = ({ purchase }) => {
                       {formatMoney(purchase.totalPrice)}
                     </span>
                   </Typography.Text>
-                  {purchase.status < 3 ? (
-                    <Button onClick={() => handleCancel(purchase.id)}>
-                      Hủy đặt
-                    </Button>
-                  ) : null}
+                  <div className="flex justify-end mt-2">
+                    {purchase.status < 3 ? (
+                      <Button
+                        onClick={() => handleCancel(purchase.id)}
+                        className="px-12"
+                      >
+                        Hủy đặt
+                      </Button>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>

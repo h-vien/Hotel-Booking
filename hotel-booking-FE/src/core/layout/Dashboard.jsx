@@ -35,6 +35,9 @@ const DashboardLayout = ({ children }) => {
             <Menu.Item key={path.createRoom}>
               <Link to={path.createRoom}>Quản lý phòng</Link>
             </Menu.Item>
+            <Menu.Item key={path.hotelProfile}>
+              <Link to={path.hotelProfile}>Thông tin khách sạn</Link>
+            </Menu.Item>
           </Menu>
         </div>
       </Col>

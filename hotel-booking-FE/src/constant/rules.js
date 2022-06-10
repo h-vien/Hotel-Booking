@@ -11,6 +11,16 @@ export const rules = {
       message: "Tên có độ dài tối đa 120 kí tự",
     },
   ],
+  textarea: [
+    {
+      required: true,
+      message: "Trường này không được bỏ trống",
+    },
+    {
+      max: 1000,
+      message: "Tên có độ dài tối đa 1000 kí tự",
+    },
+  ],
   userName: [
     {
       required: true,

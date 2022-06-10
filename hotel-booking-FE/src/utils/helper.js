@@ -17,3 +17,5 @@ export const formatMoney = (value, character = ".") =>
 
 export const formatDate = (date) =>
   moment(date).format("YYYY-MM-DD").toString();
+
+export const getDayOfBooking = (date) => moment(date).format("DD").toString();

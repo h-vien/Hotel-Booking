@@ -1,19 +1,18 @@
 import { Tabs } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import qs from "query-string";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import TabContent from "../../components/PurchaseStatus/TabContent";
 import useQuery from "../../core/hooks/useQuery";
 import DashboardLayout from "../../core/layout/Dashboard";
 const BookingManagement = () => {
-  const [page, setPage] = useState(0);
   const { hotel } = useSelector((state) => state.auth.profile);
   const history = useHistory();
   const handleClick = async (e) => {
     const _filters = {
-      page: page || 1,
+      page: 1,
       hotel_id: hotel.id,
       status: e,
     };

@@ -1,14 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { path } from "./constant/path";
-import AdminGuard from "./core/guards/AdminGuard";
 import AuthenticatedGuard from "./core/guards/AuthenticatedGuard";
+import HotelManagerGuard from "./core/guards/HotelManagerGuard";
 import UnAuth from "./core/guards/UnAuth";
+import Dashboard from "./core/layout/Dashboard";
 import NotFound from "./core/layout/NotFound";
-import Admin from "./Pages/Admin";
 import Booking from "./Pages/Booking";
-import CreateRoom from "./Pages/Hotel/CreateRoom";
 import HomePage from "./Pages/HomePage";
+import BookingManagement from "./Pages/Hotel/BookingManagement";
+import CreateRoom from "./Pages/Hotel/CreateRoom";
+import Overview from "./Pages/Hotel/Overview";
 import HotelDetail from "./Pages/HotelDetail";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -16,11 +18,8 @@ import RegisterMember from "./Pages/RegisterMember";
 import SearchPage from "./Pages/SearchPage";
 import ChangePass from "./Pages/User/ChangePass";
 import Profile from "./Pages/User/Profile";
+import ProfileHotel from "./Pages/Hotel/Profile";
 import Purchase from "./Pages/User/Purchase";
-import HotelManagerGuard from "./core/guards/HotelManagerGuard";
-import Overview from "./Pages/Hotel/Overview";
-import BookingManagement from "./Pages/Hotel/BookingManagement";
-import Dashboard from "./core/layout/Dashboard";
 
 const Routes = () => {
   return (
@@ -47,20 +46,11 @@ const Routes = () => {
           <Login heading="Hello admin" role={2} />
         </UnAuth>
       </Route>
-      <Route path="/admin">
-        <AdminGuard>
-          <Admin />
-        </AdminGuard>
-      </Route>
+
       <Route path={path.registerMember}>
         <AuthenticatedGuard>
           <RegisterMember />
         </AuthenticatedGuard>
-      </Route>
-      <Route path="/admin">
-        <AdminGuard>
-          <Admin />
-        </AdminGuard>
       </Route>
 
       <Route path={path.register}>
@@ -92,6 +82,11 @@ const Routes = () => {
       <Route path={path.bookingManagement}>
         <HotelManagerGuard>
           <BookingManagement />
+        </HotelManagerGuard>
+      </Route>
+      <Route path={path.hotelProfile}>
+        <HotelManagerGuard>
+          <ProfileHotel />
         </HotelManagerGuard>
       </Route>
       <Route path={path.overview}>

@@ -6,6 +6,10 @@ export const getHotels = createAsyncThunk(
   "hotel/search",
   payloadCreator(hotelApi.searchHotel)
 );
+export const updateProfileHotel = createAsyncThunk(
+  "hotel/update",
+  payloadCreator(hotelApi.updateProfileHotel)
+);
 
 const hotel = createSlice({
   name: "hotel",

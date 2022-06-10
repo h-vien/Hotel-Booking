@@ -1,5 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";
+import ImgCrop from "antd-img-crop";
 import React, { useState } from "react";
 import { getImageUpload } from "../utils/cloudinary";
 
@@ -25,18 +26,20 @@ const UploadImage = ({ onChange, setProgress, progress }) => {
     }
   };
   return (
-    <Upload
-      accept="image/*"
-      customRequest={handleUpload}
-      showUploadList={false}
-      progress={{
-        strokeWidth: 4,
-      }}
-    >
-      <Button icon={<UploadOutlined />}>
-        {progress === 100 ? "Hoàn tất" : "Tải lên"}
-      </Button>
-    </Upload>
+    <ImgCrop rotate>
+      <Upload
+        accept="image/*"
+        customRequest={handleUpload}
+        showUploadList={false}
+        progress={{
+          strokeWidth: 4,
+        }}
+      >
+        <Button icon={<UploadOutlined />}>
+          {progress === 100 ? "Hoàn tất" : "Tải lên"}
+        </Button>
+      </Upload>
+    </ImgCrop>
   );
 };
 

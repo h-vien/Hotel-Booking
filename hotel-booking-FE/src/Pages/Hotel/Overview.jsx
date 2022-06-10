@@ -1,5 +1,5 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Col, Progress, Row, Typography } from "antd";
+import { Col, Progress, Row, Select, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,14 +7,16 @@ import OverviewCard from "../../components/OverviewCard/OverviewCard";
 import DashboardLayout from "../../core/layout/Dashboard";
 import { getStats } from "../../slices/booking.slice";
 import { formatMoney } from "../../utils/helper";
+import ChartView from "../ChartView";
 const Overview = () => {
   const dispatch = useDispatch();
   const { hotel } = useSelector((state) => state.auth.profile);
   const [stats, setStats] = useState([]);
+  const [month, setMonth] = useState(1);
   useEffect(() => {
     const _getStats = async () => {
       const params = {
-        month: 5,
+        month: month,
         hotel_id: hotel.id,
       };
       try {
@@ -24,12 +26,26 @@ const Overview = () => {
       } catch (error) {}
     };
     _getStats();
-  }, []);
+  }, [month]);
   console.log(stats);
-  const percentOfTicket = stats.paid / (stats.paid + stats.unpaid);
+  const handleMonthChange = (e) => {
+    setMonth(e);
+  };
+  const percentOfTicket = stats.paid / stats.tickets;
   return (
     <DashboardLayout>
-      <Content className="max-w-6xl h-screen mx-auto mt-5">
+      <Content className="max-w-6xl min-h-screen mx-auto mt-5">
+        <Select
+          onChange={handleMonthChange}
+          placeholder={`Tháng ${month}`}
+          style={{ width: "180px", marginBottom: "24px" }}
+        >
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
+            <Select.Option value={month} key={month}>
+              Tháng {month}
+            </Select.Option>
+          ))}
+        </Select>
         <Row gutter={[16, 16]}>
           <Col span={8}>
             <OverviewCard label="Vé được đặt" number={stats.tickets} />
@@ -58,6 +74,7 @@ const Overview = () => {
             </div>
           </Col>
         </Row>
+        <ChartView stats={stats} month={month} />
       </Content>
     </DashboardLayout>
   );

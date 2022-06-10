@@ -14,7 +14,7 @@ const User = ({ children }) => {
     <HomeLayout>
       <Content className="max-w-6xl min-h-screen mx-auto mt-5">
         <Row gutter={[16, 16]}>
-          <Col sm={4} className="bg-white py-5 h-screen">
+          <Col sm={4} className="bg-white py-5 min-h-screen">
             <Avatar
               className="border border-orange-500 ml-4"
               src={user.image}
