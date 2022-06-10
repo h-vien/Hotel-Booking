@@ -89,7 +89,7 @@ public class BookingService implements IBookingService {
 		
 	}
 	@Override
-	public BookingModel SearchByHotelId(Long hotel_id,int status, int page) {
+	public BookingModel SearchByHotelId(Long hotel_id,int status, int page,String sort, String direction) {
 		Integer startPage = 0;
 		BookingModel book = new BookingModel();
 		book.setMaxPageItem(10);
@@ -105,9 +105,11 @@ public class BookingService implements IBookingService {
 		{
 			startPage = (book.getPage() - 1) * book.getMaxPageItem() ;
 		}
-		
-		book.setResults(bookingDao.SearchByHotelId(hotel_id,status, startPage, book.getMaxPageItem()));
-		book.setShortBookings(bookMap.ModeltoModelView(book.getResults()));
+		if(direction == null)
+		{
+			direction = "asc";
+		}
+		book.setResults(bookingDao.SearchByHotelId(hotel_id,status, startPage, book.getMaxPageItem(),sort,direction));
 		return book;
 	}
 	@Override

@@ -69,6 +69,7 @@ public class HotelApi extends HttpServlet {
 		if(temp != null)
 		{
 			hotelService.saveChange(hotel);
+			temp = hotelService.findOne(hotel.getId());
 			out.print(gson.toJson(temp));
 		}else
 		{

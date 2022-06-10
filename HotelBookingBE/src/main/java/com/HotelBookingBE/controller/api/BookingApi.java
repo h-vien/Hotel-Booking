@@ -51,6 +51,10 @@ public class BookingApi extends HttpServlet {
 		{
 			BookingModel book = new BookingModel();
 			int page = Integer.parseInt(request.getParameter("page"));
+			String sort = request.getParameter("sort");
+			String direction = request.getParameter("direction");
+
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (HttpUtil.getPathURL(request.getRequestURI()).equals("user")) {
 				Long user_id = Long.parseLong(request.getParameter("user_id"));
@@ -59,7 +63,7 @@ public class BookingApi extends HttpServlet {
 			} else {
 				Long hotel_id = Long.parseLong(request.getParameter("hotel_id"));
 				Integer status = Integer.parseInt(request.getParameter("status"));
-				book = bookingService.SearchByHotelId(hotel_id, status, page);
+				book = bookingService.SearchByHotelId(hotel_id, status, page,sort,direction);
 				map.put("books", book.getResults());
 			}
 

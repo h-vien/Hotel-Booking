@@ -63,9 +63,15 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 	}
 
 	@Override
-	public List<BookingModel> SearchByHotelId(Long hotel_id,int status, int startPage, int endPage) {
-		String sql = "select * from booking where hotel_id = ? and status = ? limit ?,? ";
+	public List<BookingModel> SearchByHotelId(Long hotel_id,int status, int startPage, int endPage,String sort,String direction) {
+		String sql = "select * from booking where hotel_id = ? and status = ?";
+		if(sort != null)
+		{
+			sql += " ORDER BY " + sort + " " + direction;
+		}			
+			sql += " limit ?,? ";
 		return query(sql,new BookingMapper(),hotel_id,status,startPage,endPage);
+		
 	}
 
 	@Override
