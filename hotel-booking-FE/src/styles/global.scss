@@ -256,3 +256,8 @@ a {
   border-color: $--color-secondary;
   box-shadow: #fde0e0;
 }
+
+.ant-segmented-item-label {
+  padding: 0 30px;
+  text-overflow: initial;
+}

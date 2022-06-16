@@ -8,7 +8,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-    "antd": "^4.19.3",
+    "antd": "^4.21.2",
     "antd-img-crop": "^4.2.3",
     "axios": "^0.26.1",
     "chart.js": "^3.7.1",
