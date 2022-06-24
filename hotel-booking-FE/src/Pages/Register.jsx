@@ -5,11 +5,13 @@ import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { rules } from "../constant/rules";
 import { register } from "../slices/auth.slice";
+import { useState } from "react";
 import styles from "../styles/pages/login.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [error, setError] = useState("");
   const onFinish = async (values) => {
     const { firstName, lastName, email, password } = values;
     const data = { firstName, lastName, email, password };
@@ -26,6 +28,9 @@ const Register = () => {
       history.push("/");
     } catch (error) {
       console.log(error);
+      if (error.status === 405) {
+        setError(error.data.message);
+      }
     }
   };
 
@@ -70,7 +75,8 @@ const Register = () => {
               </div>
             </Form.Item>
 
-            <Form.Item label="Email" name="email" rules={rules.email}>
+            <Form.Item label="Email" name="email" rules={rules.email} validateStatus="error"
+                  help={error || null}>
               <Input />
             </Form.Item>
             <Form.Item label="Mật khẩu" name="password" rules={rules.password}>

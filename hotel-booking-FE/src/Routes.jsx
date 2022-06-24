@@ -69,9 +69,9 @@ const Routes = () => {
         </AuthenticatedGuard>
       </Route>
       <Route path={path.purchase}>
-        <HotelManagerGuard>
+        
           <Purchase />
-        </HotelManagerGuard>
+        
       </Route>
       <Route path={path.createRoom}>
         <HotelManagerGuard>

@@ -9,6 +9,7 @@ import HomeLayout from "../../core/layout/HomeLayout";
 
 const User = ({ children }) => {
   const { user } = useSelector((state) => state.auth.profile);
+  console.log(user);
   const location = useLocation();
   return (
     <HomeLayout>
@@ -21,7 +22,7 @@ const User = ({ children }) => {
               size={{ xl: 80 }}
             />
             <Typography.Text className="inline-block ml-4 font-semibold">
-              {user.username}
+              {user.lastName}
             </Typography.Text>
             <Menu
               className="profile-menu mt-8"
