@@ -13,6 +13,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 import UploadImage from "../../common/UploadImage";
 import { rules } from "../../constant/rules";
@@ -20,11 +21,11 @@ import DashboardLayout from "../../core/layout/Dashboard";
 import { updateProfileHotel } from "../../slices/hotel.slice";
 
 const Profile = () => {
-  const { hotel, user } = useSelector((state) => state.auth.profile);
+  const { user, hotel } = useSelector((state) => state.auth.profile);
   console.log(hotel);
   const [banner, setBanner] = useState("");
   const [progress, setProgress] = useState(0);
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     const _data = {
@@ -34,10 +35,11 @@ const Profile = () => {
       user_id: user.id,
       province_id: hotel.province_id,
     };
-    console.log(_data);
     const res = await dispatch(updateProfileHotel(_data));
     unwrapResult(res);
     toast.success("Cập nhập thông tin thành công");
+    history.go(0);
+
     try {
     } catch (error) {
       console.log(error);
@@ -48,7 +50,7 @@ const Profile = () => {
   };
   return (
     <DashboardLayout>
-      <div className="px-8 bg-white h-screen rounded">
+      <div className="px-8 bg-white min-h-4/5 rounded">
         <Typography.Text className="inline-block font-bold text-3xl mt-6 mb-16">
           Chỉnh sửa trang thông tin khách sạn
         </Typography.Text>

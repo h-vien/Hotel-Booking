@@ -13,7 +13,7 @@ import {
   Typography,
 } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImage from "../../common/UploadImage";
 import { rules } from "../../constant/rules";

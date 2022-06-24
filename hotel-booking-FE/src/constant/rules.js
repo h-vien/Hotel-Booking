@@ -27,8 +27,8 @@ export const rules = {
       message: "Trường này không được bỏ trống",
     },
     {
-      max: 8,
-      message: "Username tối đa 8 kí tự",
+      max: 12,
+      message: "Username tối đa 12 kí tự",
     },
   ],
   email: [
