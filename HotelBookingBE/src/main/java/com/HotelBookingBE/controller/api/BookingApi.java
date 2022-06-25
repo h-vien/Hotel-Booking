@@ -83,7 +83,7 @@ public class BookingApi extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
 		BookingModel book = gson.fromJson(HttpUtil.getjson(request.getReader()), BookingModel.class);
-			Long id = bookingService.save(book);
+		Long id = bookingService.save(book);
 			if (id == null) {
 				response.setStatus(405);
 			}
