@@ -34,7 +34,9 @@ const Routes = () => {
         <HotelDetail />
       </Route>
       <Route path={path.bookingDetail}>
-        <Booking />
+        <AuthenticatedGuard>
+          <Booking />
+        </AuthenticatedGuard>
       </Route>
       <Route path={path.login}>
         <UnAuth>
@@ -69,9 +71,7 @@ const Routes = () => {
         </AuthenticatedGuard>
       </Route>
       <Route path={path.purchase}>
-        
-          <Purchase />
-        
+        <Purchase />
       </Route>
       <Route path={path.createRoom}>
         <HotelManagerGuard>

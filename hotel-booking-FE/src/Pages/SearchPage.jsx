@@ -11,10 +11,9 @@ import HomeLayout from "../core/layout/HomeLayout";
 import { getHotels } from "../slices/hotel.slice";
 import { Pagination } from "antd";
 const SearchPage = () => {
-  const hotelSearch = useSelector((state) => state.hotel.hotels);
+  const hotelSearch = useSelector((state) => state.hotel.hotelData);
   const [hotelList, setHotelList] = useState({});
   const [currPage, setCurrPage] = useState(1);
-
   const query = useQuery();
   const dispatch = useDispatch();
   const [filters, setFilters] = useState();
@@ -71,6 +70,7 @@ const SearchPage = () => {
               <div className="flex w-full mt-8 items-center justify-center">
                 <Pagination
                   defaultCurrent={currPage}
+                  current={currPage}
                   total={
                     hotelList.totalPage * hotelList.maxPageItem !== 0
                       ? hotelList.totalPage * hotelList.maxPageItem

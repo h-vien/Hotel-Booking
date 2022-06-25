@@ -17,7 +17,7 @@ const Login = ({ heading, role }) => {
       unwrapResult(res);
 
       if (res.payload.data.roleId === 0) history.push("/admin");
-      else history.push("/");
+      else history.goBack();
     } catch (error) {
       if (error.status === 405) {
         setError(error.data.message);
