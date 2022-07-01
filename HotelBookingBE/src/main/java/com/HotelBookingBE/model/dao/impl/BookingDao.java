@@ -39,7 +39,7 @@ public class BookingDao extends AbstractDao<BookingModel> implements IBookingDao
 
 	@Override
 	public void updateOutOfDateStatus(Timestamp currentTime) {
-		String sql = "update booking set status = 4 where deadline_date < ?";
+		String sql = "update booking set status = 4 where deadline_date < ? and status <> 3";
 		update(sql,currentTime);
 		
 	}
